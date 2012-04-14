@@ -1,0 +1,1673 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+# kate: space-indent on; indent-width 4; mixedindent off; indent-mode python;
+
+import sys
+import os
+import getopt
+import string
+from textwrap import TextWrapper
+import subprocess
+import re
+import shutil
+
+all_distributions = ['hardy', 'intrepid', 'jaunty', 'lucid', 'karmic', 'maverick', 'natty', 'oneiric', 'precise']
+default_distributions = ['lucid', 'natty', 'oneiric']
+source_package_name = 'arsoft-meta-packages'
+package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
+package_homepage = 'http://www.arsoft-online.com'
+package_debhelper = 5
+
+source_pkg = "\
+Source: " + source_package_name + "\n\
+Section: misc\n\
+Priority: optional\n\
+Maintainer: " + package_maintainer + "\n\
+Homepage: " + package_homepage + "\n\
+Build-Depends: debhelper (>= " + str(package_debhelper) + ")\n\
+Standards-Version: 3.9.1\n\
+"
+
+rules_file = "\
+#!/usr/bin/make -f\n\
+# debian/rules for " + source_package_name + ". GNU copyright 2010-2012 by " + package_maintainer + ".\n\
+\n\
+#export DH_VERBOSE=1\n\
+\n\
+build:\n\
+\n\
+clean:\n\
+\tdh_testdir\n\
+\tdh_testroot\n\
+\tdh_clean\n\
+\n\
+install: build\n\
+\tdh_testdir\n\
+\tdh_testroot\n\
+\tdh_clean -k\n\
+\n\
+binary-indep: install\n\
+\tdh_testdir\n\
+\tdh_testroot\n\
+\tdh_install\n\
+\tdh_installdocs\n\
+\tdh_installchangelogs\n\
+\tdh_compress\n\
+\tdh_fixperms\n\
+\tdh_installdeb\n\
+\tdh_gencontrol\n\
+\tdh_md5sums\n\
+\tdh_builddeb\n\
+\n\
+binary-arch: install\n\
+\n\
+binary: binary-indep binary-arch\n\
+.PHONY: build clean binary-indep binary-arch binary install\n\
+"
+
+readme_debian_file = "\
+README for Debian\n\
+"
+
+copyright_file = "\
+Copyright 2010-2012 by " + package_maintainer + "\n\
+\n\
+The files in this package are free software; you can redistribute them\n\
+and/or modify them under the terms of the GNU General Public License\n\
+as published by the Free Software Foundation; either version 2, or (at\n\
+your option) any later version.\n\
+\n\
+The files in this package are distributed in the hope that they will\n\
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty\n\
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n\
+General Public License for more details.\n\
+\n\
+You should have received a copy of the GNU General Public License\n\
+with your Debian GNU/Linux system, in /usr/share/common-licenses/GPL,\n\
+or with the Debian GNU/Linux bash source package as the file COPYING.\n\
+If not, write to the Free Software Foundation, Inc., 51 Franklin St,\n\
+Fifth Floor, Boston, MA 02110-1301, USA.\n\
+"
+
+package_changelog = [
+
+    {
+        'version':'0.65', 'urgency':'low',
+        'items':['add virtuoso packages as depends for KDE'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 07 Apr 2012 10:53:31 +0200'
+    },                                   
+    {
+        'version':'0.64', 'urgency':'low',
+        'items':['add some more arsoft-scripts packages as depends'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 01 Apr 2012 12:40:24 +0200'
+    },                                   
+    {
+        'version':'0.63', 'urgency':'low',
+        'items':['prepare for mythtv 0.25 release'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 01 Apr 2012 10:53:02 +0200'
+    },                                   
+    {
+        'version':'0.62', 'urgency':'low',
+        'items':['KDE and GNOME now remove scim and ibus packages', 'add v86d to nvidia and ati drivers'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 01 Apr 2012 09:58:22 +0200'
+    },                                   
+    {
+        'version':'0.61', 'urgency':'low',
+        'items':['fixed KDE developer packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 17 Feb 2012 19:10:20 +0100'
+    },                                   
+    {
+        'version':'0.60', 'urgency':'low',
+        'items':['add augeas-tools packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 08 Feb 2012 18:49:27 +0100'
+    },                                   
+    {
+        'version':'0.59', 'urgency':'low',
+        'items':['add cyrus-imapd packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 04 Feb 2012 16:00:51 +0100'
+    },                                   
+    {
+        'version':'0.58', 'urgency':'low',
+        'items':['remove cnetworkmanager package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 04 Feb 2012 15:01:24 +0100'
+    },                                   
+    {
+        'version':'0.57', 'urgency':'low',
+        'items':['remove problematic KDE packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 21 Jan 2012 17:22:22 +0100'
+    },                                   
+    {
+        'version':'0.56', 'urgency':'low',
+        'items':['add sed and gawk to base packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 29 Dec 2011 19:09:17 +0100'
+    },                                   
+    {
+        'version':'0.55', 'urgency':'low',
+        'items':['install/uninstall firefox and thunderbird locale packages', 'remove more gnome packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 30 Nov 2011 07:10:24 +0100'
+    },                                   
+    {
+        'version':'0.54', 'urgency':'low',
+        'items':['install mythtv-themes with frontend'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 07 Nov 2011 06:30:08 +0100'
+    },                                   
+    {
+        'version':'0.53', 'urgency':'low',
+        'items':['fixed KDE depends issues'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 18 Oct 2011 12:06:44 +0200'
+    },                                   
+    {
+        'version':'0.52', 'urgency':'low',
+        'items':['add more KDE packages to remove more during uninstall'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 16 Oct 2011 18:59:23 +0200'
+    },                                   
+    {
+        'version':'0.51', 'urgency':'low',
+        'items':['do not output conflicts line when no conflicts are given'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 15 Oct 2011 19:24:10 +0200'
+    },                                   
+    {
+        'version':'0.50', 'urgency':'low',
+        'items':['add base package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 15 Oct 2011 18:47:15 +0200'
+    },                                   
+    {
+        'version':'0.49', 'urgency':'low',
+        'items':['remove maverick packages', 'add network-manager packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 15 Oct 2011 17:29:33 +0200'
+    },                                   
+    {
+        'version':'0.48', 'urgency':'low',
+        'items':['fixed typo of oneiric'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 13 Oct 2011 20:41:35 +0200'
+    },                                   
+    {
+        'version':'0.47', 'urgency':'low',
+        'items':['first build for oneiric'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 13 Oct 2011 16:25:21 +0200'
+    },                                   
+    {
+        'version':'0.46', 'urgency':'low',
+        'items':['fixed problems with pulseaudio and gnome'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 22 Sep 2011 13:59:03 +0200'
+    },                                   
+    {
+        'version':'0.45', 'urgency':'low',
+        'items':['added kdesvn pkgs'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 30 Aug 2011 11:29:23 +0200'
+    },                                   
+    {
+        'version':'0.44', 'urgency':'low',
+        'items':['fixed typo'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 29 Aug 2011 20:23:22 +0200'
+    },                                   
+    {
+        'version':'0.43', 'urgency':'low',
+        'items':['fixed gstreamer dependancy issues'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 29 Aug 2011 08:19:46 +0200'
+    },                                   
+    {
+        'version':'0.42', 'urgency':'low',
+        'items':['add phonon gstreamer backend', 'install more KDE packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 29 Aug 2011 06:36:53 +0200'
+    },                                   
+    {
+        'version':'0.41', 'urgency':'low',
+        'items':['sort out dependencies issues', 'tablet and netbook package now install plasma-netbook'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 25 Aug 2011 07:39:06 +0200'
+    },                                   
+    {
+        'version':'0.40', 'urgency':'low',
+        'items':['add arsoft-kde-tablet'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 24 Aug 2011 19:50:29 +0200'
+    },                                   
+    {
+        'version':'0.39', 'urgency':'low',
+        'items':['add rekonq'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 23 Aug 2011 11:19:51 +0200'
+    },                                   
+    {
+        'version':'0.38', 'urgency':'low',
+        'items':['policykit enhancements'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 15 Aug 2011 07:59:41 +0200'
+    },                                   
+    {
+        'version':'0.37', 'urgency':'low',
+        'items':['kedit does not exist'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 01 Aug 2011 11:46:41 +0200'
+    },                                   
+    {
+        'version':'0.36', 'urgency':'low',
+        'items':['fixed depend issues caused by granatier'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 01 Aug 2011 11:21:14 +0200'
+    },                                   
+    {
+        'version':'0.35', 'urgency':'low',
+        'items':['fixed depend issues raised by KDE 4.7'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 01 Aug 2011 10:50:03 +0200'
+    },                                   
+    {
+        'version':'0.34', 'urgency':'low',
+        'items':['add akonadi-kde-resource-googledata to KDE'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 27 Jul 2011 20:09:35 +0200'
+    },                                   
+    {
+        'version':'0.33', 'urgency':'low',
+        'items':['removed vmmouse driver from graphicsdrivers'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 19 Jul 2011 20:33:03 +0200'
+    },                                   
+    {
+        'version':'0.32', 'urgency':'low',
+        'items':['added soprano for KDE'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 15 Jul 2011 07:01:02 +0200'
+    },                                   
+    {
+        'version':'0.31', 'urgency':'low',
+        'items':['added git-svn'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 13 Jul 2011 07:46:58 +0200'
+    },                                   
+    {
+        'version':'0.30', 'urgency':'low',
+        'items':['fixed thunderbird packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 09 Jul 2011 12:51:23 +0200'
+    },                                   
+    {
+        'version':'0.29', 'urgency':'low',
+        'items':['added soundKonverter to KDE packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 26 Jun 2011 09:38:11 +0200'
+    },                                   
+    {
+        'version':'0.28', 'urgency':'low',
+        'items':['added KDE devloper packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 22 Jun 2011 08:20:22 +0200'
+    },                                   
+    {
+        'version':'0.27', 'urgency':'low',
+        'items':['sort out package conflicts'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 19 Jun 2011 12:51:31 +0200'
+    },                                   
+    {
+        'version':'0.26', 'urgency':'low',
+        'items':['resort mythtv packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 19 Jun 2011 11:25:03 +0200'
+    },                                   
+    {
+        'version':'0.25', 'urgency':'low',
+        'items':['pimp firefox packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 18 Jun 2011 10:39:42 +0200'
+    },                                   
+    {
+        'version':'0.24', 'urgency':'low',
+        'items':['add phonon vlc backend'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 09 May 2011 12:01:46 +0200'
+    },                                   
+    {
+        'version':'0.23', 'urgency':'low',
+        'items':['no conflict for subversion pkg'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 21 Apr 2011 20:27:24 +0200'
+    },                                   
+    {
+        'version':'0.22', 'urgency':'low',
+        'items':['fixed wrong versions'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 14 Apr 2011 14:31:05 +0200'
+    },                                   
+    {
+        'version':'0.21', 'urgency':'low',
+        'items':['build for all distros at once'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 14 Apr 2011 10:09:31 +0200'
+    },                                   
+    {
+        'version':'0.20', 'urgency':'low',
+        'items':['remove flashplugin from firefox packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 12 Apr 2011 15:34:48 +0200'
+    },                                   
+    {                                                                                                                                                                                             
+        'version':'0.19', 'urgency':'low',
+        'items':['more plymouth themes', 'add cdbs'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 12 Apr 2011 15:04:23 +0200'
+    },                                   
+    {
+        'version':'0.18', 'urgency':'low',                                                                                                                                         
+        'items':['libreoffice cleanup'],                                                                                                                                                          
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 06 Apr 2011 19:16:20 +0200'                                                                                               
+    },                                   
+    {
+        'version':'0.17.2', 'urgency':'low', 
+        'items':['mythweb no conflict'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 04 Apr 2011 19:49:47 +0200'
+    },
+    {
+        'version':'0.17.1', 'urgency':'low', 
+        'items':['try to build for maverick'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 28 Mar 2011 06:27:37 +0200'
+    },
+    {
+        'version':'0.16ubuntu6', 'urgency':'low', 
+        'items':['rebuild for lucid'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 28 Mar 2011 06:27:37 +0200'
+    },
+    {
+        'version':'0.16ubuntu5', 'urgency':'low', 
+        'items':['solved conflicts between developer-none and gfx-nvidia'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 28 Mar 2011 06:27:37 +0200'
+    },
+    {
+        'version':'0.16ubuntu4', 'urgency':'low', 
+        'items':['fixes gnome vs kde depends'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 27 Mar 2011 14:57:26 +0200'
+    },
+    {
+        'version':'0.16ubuntu3', 'urgency':'low', 
+        'items':['rebuild for lucid'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 25 Mar 2011 13:01:12 +0100'
+    },
+    {
+        'version':'0.16ubuntu2', 'urgency':'low', 
+        'items':['fixed version depends'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 25 Mar 2011 13:01:12 +0100'
+    },
+    {
+        'version':'0.16ubuntu1', 'urgency':'low', 
+        'items':['explicit specify version of depending packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 25 Mar 2011 12:35:57 +0100'
+    },
+    {
+        'version':'0.15ubuntu5', 'urgency':'low', 
+        'items':['add explicit data package dependencies'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 11 Mar 2011 21:36:46 +0100'
+    },
+    {
+        'version':'0.15ubuntu4', 'urgency':'low', 
+        'items':['add konversation'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 07 Mar 2011 18:59:11 +0100'
+    },
+    {
+        'version':'0.15ubuntu3', 'urgency':'low', 
+        'items':['fixed conflicts between KDE and GNOME'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 14 Feb 2011 11:31:48 +0100'
+    },
+    {
+        'version':'0.15ubuntu2', 'urgency':'low', 
+        'items':['fixed typo'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 11 Feb 2011 21:20:28 +0100'
+    },
+    {
+        'version':'0.15ubuntu1', 'urgency':'low', 
+        'items':['add plymouth packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 11 Feb 2011 20:56:29 +0100'
+    },
+    {
+        'version':'0.14ubuntu1', 'urgency':'low', 
+        'items':['add KDE package for small computers'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 10 Feb 2011 07:25:40 +0100'
+    },
+    {
+        'version':'0.13ubuntu4', 'urgency':'low', 
+        'items':['remove gdm packages from gnome packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 05 Feb 2011 11:14:29 +0100'
+    },
+    {
+        'version':'0.13ubuntu3', 'urgency':'low', 
+        'items':['fixed libreoffice'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 04 Feb 2011 09:28:50 +0100'
+    },
+    {
+        'version':'0.13ubuntu2', 'urgency':'low', 
+        'items':['fixed mozilla gnome conflicts'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 04 Feb 2011 07:46:05 +0100'
+    },
+    {
+        'version':'0.13ubuntu1', 'urgency':'low', 
+        'items':['add abiword packages', 'fixed libreoffice packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 04 Feb 2011 07:36:35 +0100'
+    },
+    {
+        'version':'0.12ubuntu4', 'urgency':'low', 
+        'items':['fixed arsoft-gfx-nvidia dependancy issues'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 03 Feb 2011 20:47:12 +0100'
+    },
+    {
+        'version':'0.12ubuntu3', 'urgency':'low', 
+        'items':['remove nvidia-common from arsoft-gfx-nvidia'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 03 Feb 2011 20:15:55 +0100'
+    },
+    {
+        'version':'0.12ubuntu2', 'urgency':'low', 
+        'items':['add kwalletcli for KDE', 'add language-selector for gnome'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 03 Feb 2011 19:42:25 +0100'
+    },
+    {
+        'version':'0.12ubuntu1', 'urgency':'low', 
+        'items':['removed arsoft-kde-developer; use arsoft-developer-kde instead', 'add more kde packages', 'clean up kde packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 03 Feb 2011 19:34:42 +0100'
+    },
+    {
+        'version':'0.11ubuntu1', 'urgency':'low', 
+        'items':['add libreoffice packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 01 Feb 2011 18:55:55 +0100'
+    },
+    {
+        'version':'0.10ubuntu4', 'urgency':'low', 
+        'items':['add packagekit', 'add inicator-sound'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 16 Jan 2011 16:22:11 +0100'
+    },
+    {
+        'version':'0.10ubuntu3', 'urgency':'low', 
+        'items':['fixed thunderbird and firefox dependencies'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 09 Jan 2011 12:37:49 +0100'
+    },
+    {
+        'version':'0.10ubuntu2', 'urgency':'low', 
+        'items':['fixed GNOME language packages', 'fixed KDE language packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 09 Jan 2011 11:09:56 +0100'
+    },
+    {
+        'version':'0.9ubuntu1', 'urgency':'low', 
+        'items':['more gnome packages/applications', 'add developer packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 07 Jan 2011 17:24:29 +0100'
+    },
+    {
+        'version':'0.8ubuntu6', 'urgency':'low', 
+        'items':['add ffmpeg gstreamer plugin'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 05 Jan 2011 12:23:23 +0100'
+    },
+    {
+        'version':'0.8ubuntu5', 'urgency':'low', 
+        'items':['more gnome apps'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 05 Jan 2011 11:53:21 +0100'
+    },
+    {
+        'version':'0.8ubuntu4', 'urgency':'low', 
+        'items':['fixed gnome type'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 05 Jan 2011 10:02:10 +0100'
+    },
+    {
+        'version':'0.8ubuntu3', 'urgency':'low', 
+        'items':['fixed apturl package issues'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 05 Jan 2011 09:41:00 +0100'
+    },
+    {
+        'version':'0.8ubuntu2', 'urgency':'low', 
+        'items':['install firefox-kde-support for KDE firefox'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 30 Dec 2010 16:38:41 +0100'
+    },
+    {
+        'version':'0.8ubuntu1', 'urgency':'low', 
+        'items':['add mozilla packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 30 Dec 2010 16:30:27 +0100'
+    },
+    {
+        'version':'0.7ubuntu6', 'urgency':'low', 
+        'items':['add gdebi packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 04 Dec 2010 06:16:35 +0100'
+    },
+    {
+        'version':'0.7ubuntu5', 'urgency':'low', 
+        'items':['fixed conflict between mythtv and kde packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 11 Nov 2010 21:57:23 +0100'
+    },
+    {
+        'version':'0.7ubuntu4', 'urgency':'low', 
+        'items':['fixed conflict between mythtv and kde packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 11 Nov 2010 21:55:23 +0100'
+    },
+    {
+        'version':'0.7ubuntu3', 'urgency':'low', 
+        'items':['fixed typo in mythtv packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 24 Oct 2010 12:43:38 +0200'
+    },
+    {
+        'version':'0.7ubuntu2', 'urgency':'low', 
+        'items':['removed gnokii from KDE pim'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 24 Oct 2010 12:43:38 +0200'
+    },
+    {
+        'version':'0.7ubuntu1', 'urgency':'low', 
+        'items':['fixed dependencies among packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 24 Oct 2010 12:43:38 +0200'
+    },
+    {
+        'version':'0.6ubuntu1', 'urgency':'low', 
+        'items':['do not create so many side-by-side packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 23 Oct 2010 18:22:32 +0200'
+    },
+    {
+        'version':'0.5ubuntu1', 'urgency':'low', 
+        'items':['added KDE packages', 'fixed openoffice packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 23 Oct 2010 16:32:26 +0200'
+    },
+    {
+        'version':'0.4ubuntu1', 'urgency':'low', 
+        'items':['added KDE packages', 'fixed openoffice packages'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 23 Oct 2010 12:28:19 +0200'
+    },
+    {
+        'version':'0.3ubuntu1', 'urgency':'low', 
+        'items':['create the entire debian package by script'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 23 Oct 2010 09:14:41 +0200'
+    },
+    {
+        'version':'0.2ubuntu1', 'urgency':'low', 
+        'items':['next version for testing with python gencontrol script'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 20 Oct 2010 20:48:43 +0200'
+    },
+    {
+        'version':'0.1ubuntu1', 'urgency':'low', 
+        'items':['initial release'], 
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 12 Oct 2010 19:49:03 +0200'
+    }
+]
+
+base = [
+    {'name':'base', 
+    'mainpackage':True,
+    'shortdesc':'Installs basic packages for operation', 
+    'description':'', 
+    'side-by-side':[],
+    'packages':['bash', 'tzdata', 'mc', 'augeas-tools', 'augeas-lenses',
+                'unzip', 'zip', 'iotop',
+                'ntfsprogs', 'xfsprogs', 'cryptsetup',
+                'update-manager-core', 'update-notifier-common', 
+                'language-pack-en-base', 
+                'console-data', 'console-setup', 'gawk', 'sed',
+                'strace', 
+                'arsoft-scripts'
+                ]
+    }
+]
+
+graphicsdrivers = [ 
+    {'name':'ati', 'shortdesc':'Installs the ATI/AMD graphics driver', 'description':'', 'packages':['radeontool', 'fglrx', 'fglrx-modaliases', 'v86d'] },
+    {'name':'nvidia', 'shortdesc':'Installs the NVIDIA graphics driver', 'description':'', 
+        'conflicts': ['nvidia-71-modaliases', 'nvidia-185-modaliases', 'nvidia-180-modaliases', 
+                    # nvidia-173-modaliases and nvidia-96-modaliases are required by nvidia-common
+                    # 'nvidia-173-modaliases', 'nvidia-96-modaliases', 
+                    'nvidia-177-modaliases',
+                    'nvidia-glx-180', 'nvidia-glx-185'],
+        'packages':['nvidia-current', 'nvidia-common', 'nvidia-settings', 'v86d'] 
+    },
+    {'name':'nv', 'shortdesc':'Installs the free NVIDIA graphics driver', 'description':'', 'packages':['xserver-xorg-video-nv'] },
+    {'name':'nouveau', 'shortdesc':'Installs the Nouveau graphics driver', 'description':'', 'packages':['xserver-xorg-video-nouveau'] },
+    {'name':'intel', 'shortdesc':'Installs the Intel graphics driver', 'description':'', 'packages':['xserver-xorg-video-intel'] },
+    {'name':'vmware', 'shortdesc':'Installs the VMWare graphics and mouse driver', 'description':'', 'packages':['xserver-xorg-video-vmware'] },
+    {'name':'none', 'shortdesc':'Uninstalls any graphics drivers', 'description':'', 'packages':[] },
+]
+
+plymouth = [ 
+    {'name':'ubuntu-logo', 'shortdesc':'Installs the Ubuntu logo plymouth theme', 'description':'', 'packages':['plymouth-theme-ubuntu-logo'] },
+    {'name':'kubuntu-logo', 'shortdesc':'Installs the Kubuntu logo plymouth theme', 'description':'', 'packages':['plymouth-theme-kubuntu-logo'] },
+    {'name':'xubuntu-logo', 'shortdesc':'Installs the Xubuntu logo plymouth theme', 'description':'', 'packages':['plymouth-theme-xubuntu-logo'] },
+    {'name':'lubuntu-logo', 'shortdesc':'Installs the Lubuntu logo plymouth theme', 'description':'', 'packages':['plymouth-theme-lubuntu-logo'] },
+    {'name':'ubuntu-text', 'shortdesc':'Installs the Ubuntu text plymouth theme', 'description':'', 'packages':['plymouth-theme-ubuntu-text'] },
+    {'name':'kubuntu-text', 'shortdesc':'Installs the Kubuntu text plymouth theme', 'description':'', 'packages':['plymouth-theme-kubuntu-text'] },
+    {'name':'xubuntu-text', 'shortdesc':'Installs the Xubuntu text plymouth theme', 'description':'', 'packages':['plymouth-theme-xubuntu-text'] },
+    {'name':'lubuntu-text', 'shortdesc':'Installs the Lubuntu text plymouth theme', 'description':'', 'packages':['plymouth-theme-lubuntu-text'] },
+    {'name':'ubuntustudio', 'shortdesc':'Installs the Ubuntu Studio plymouth theme', 'description':'', 'packages':['plymouth-theme-ubuntustudio'] },
+    {'name':'edubuntu', 'shortdesc':'Installs the Edubuntu plymouth theme', 'description':'', 'packages':['plymouth-theme-edubuntu'] },
+    {'name':'solar', 'shortdesc':'Installs the solar plymouth theme', 'description':'', 'packages':['plymouth-theme-solar'] },
+    {'name':'sabily', 'shortdesc':'Installs the sabily plymouth theme', 'description':'', 'packages':['plymouth-theme-sabily'] },
+    {'name':'glow', 'shortdesc':'Installs the glow plymouth theme', 'description':'', 'packages':['plymouth-theme-glow'] },
+    {'name':'none', 'shortdesc':'Uninstalls any plymouth theme', 'description':'', 'packages':[] },
+]
+
+openoffice = [
+    {'name':'common', 
+    'mainpackage':True,
+    'shortdesc':'Installs OpenOffice', 
+    'description':'', 
+    'side-by-side':['english', 'german', 'gnome', 'kde'],
+    'packages':['openoffice.org', 'openoffice.org-calc', 'openoffice.org-math', 
+        'openoffice.org-writer', 'openoffice.org-impress', 'openoffice.org-draw', 
+        'openoffice.org-base', 'openoffice.org-pdfimport', 'openoffice.org-base-core', 
+        'openoffice.org-core', 'openoffice.org-hyphenation',
+        'hunspell-dictionary', 'myspell-dictionary', 
+        'pstoedit'] 
+    },
+    {'name':'english', 
+    'shortdesc':'Installs english language files for OpenOffice', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['german', 'gnome', 'kde'],
+    'packages':['aspell-en', 'wamerican-large', 'wbritish-large',
+                'openoffice.org-hyphenation-en-us', 'openoffice.org-thesaurus-en-us', 'openoffice.org-thesaurus-en-au'
+        ] 
+    },
+    {'name':'german', 
+    'shortdesc':'Installs german language files for OpenOffice', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['english', 'gnome', 'kde'],
+    'packages':['wngerman', 'aspell-de', 
+        'openoffice.org-l10n-de', 'openoffice.org-hyphenation-de', 'openoffice.org-thesaurus-de'
+        ] 
+    },
+    {'name':'gnome', 
+    'shortdesc':'Installs GNOME support files for OpenOffice', 
+    'description':'', 
+    'depends':['common', 'english', 'german'],
+    'side-by-side':['english', 'german', 'kde'],
+    'packages':['openoffice.org-gnome', 'openoffice.org-evolution'], 
+    },
+    {'name':'kde', 
+    'shortdesc':'Installs KDE support files for OpenOffice', 
+    'description':'', 
+    'depends':['common', 'english', 'german'],
+    'side-by-side':['english', 'german', 'gnome'],
+    'packages':['openoffice.org-kde', 'openoffice.org-style-oxygen'], 
+    },
+    {'name':'none', 
+    'shortdesc':'Uninstalls OpenOffice', 
+    'description':'', 
+    'packages':[], 
+    'noconflicts':['pstoedit', 
+                    'hunspell-dictionary', 'myspell-dictionary', 
+                    'aspell-en', 'wamerican-large', 'wbritish-large', 
+                    'wngerman', 'aspell-de']
+    },
+]
+
+libreoffice = [
+    {'name':'common', 
+    'mainpackage':True,
+    'shortdesc':'Installs LibreOffice', 
+    'description':'', 
+    'side-by-side':['german', 'english', 'gnome', 'kde'],
+    'packages':['libreoffice', 'libreoffice-calc', 'libreoffice-math', 
+        'libreoffice-writer', 'libreoffice-impress', 'libreoffice-draw', 
+        'libreoffice-base', 'libreoffice-pdfimport', 'libreoffice-base-core', 
+        'libreoffice-core', 
+        'libreoffice-report-builder', 'libreoffice-filter-binfilter', 'libreoffice-officebean',
+        'libreoffice-style-hicontrast', 'libreoffice-style-tango',
+        'libreoffice-style-crystal', 'libreoffice-style-oxygen',
+        'hunspell-dictionary', 'myspell-dictionary', 
+        'pstoedit'] 
+    },
+    {'name':'english', 
+    'shortdesc':'Installs english language and help files for LibreOffice', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['german', 'gnome', 'kde'],
+    'packages':['aspell-en', 'wamerican-large', 'wbritish-large',
+                'libreoffice-help-en-us', 'libreoffice-help-en-gb', 
+                'libreoffice-l10n-en-gb'
+        ] 
+    },
+    {'name':'german', 
+    'shortdesc':'Installs german language and help files for LibreOffice', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['english', 'gnome', 'kde'],
+    'packages':['wngerman', 'aspell-de', 
+        'libreoffice-help-de', 'libreoffice-l10n-de'
+        ] 
+    },
+    {'name':'gnome', 
+    'shortdesc':'Installs GNOME support files for LibreOffice', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['kde', 'english', 'german'],
+    'packages':['libreoffice-gnome'], 
+    },
+    {'name':'kde', 
+    'shortdesc':'Installs KDE support files for LibreOffice', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['gnome', 'english', 'german'],
+    'packages':['libreoffice-kde'], 
+    },
+    {'name':'none', 
+    'shortdesc':'Uninstalls LibreOffice', 
+    'description':'', 
+    'packages':[], 
+    'noconflicts':['pstoedit', 
+                    'hunspell-dictionary', 'myspell-dictionary', 
+                    'aspell-en', 'wamerican-large', 'wbritish-large', 
+                    'wngerman', 'aspell-de']
+    },
+]
+
+abiword = [
+    {'name':'common', 
+    'mainpackage':True,
+    'shortdesc':'Installs the latest version of Abiword', 
+    'description':'', 
+    'packages':['abiword', 'abiword-plugin-grammar', 'abiword-plugin-mathview' ]
+    },
+    {'name':'none', 
+    'shortdesc':'Uninstalls all versions of Abiword', 
+    'description':'', 
+    'packages':[], 
+    },
+]
+
+firefox = [
+    {'name':'common', 
+    'mainpackage':True,
+    'shortdesc':'Installs the latest version of Mozilla Firefox', 
+    'description':'', 
+    'packages':['firefox', 'firefox-branding', 'firefox-launchpad-plugin', 'xul-ext-ubufox', 'browser-plugin-packagekit'],
+    'conflicts': ['gnash', 'gnash-common', 'mozilla-plugin-gnash', 'swfdec-mozilla', 'adblock-plus', 'xul-ext-adblock-plus', 'kubuntu-firefox-installer' ],
+    'replaces': ['firefox-3.5', 'firefox-3.1', 'firefox-3.0']
+    # 'xul-ext-ubufox' pulls in 'apturl'
+    },
+    {'name':'gnome', 
+    'shortdesc':'Installs GNOME support files for Mozilla Firefox', 
+    'description':'This package installs Mozilla Firefox GNome support.', 
+    'depends':['common'],
+    'packages':['firefox-gnome-support', 'xul-ext-gnome-pm'], 
+	'side-by-side':['english', 'german'],
+    'noconflicts':['kmozillahelper', 'kde-config-gtk']
+    },
+    {'name':'kde', 
+    'shortdesc':'Installs KDE support files for Mozilla Firefox', 
+    'description':'This package installs Mozilla Firefox KDE support.', 
+    'depends':['common'],
+	'side-by-side':['english', 'german'],
+    'packages':['firefox-kde-support','kmozillahelper', 'kde-config-gtk'], 
+    },
+    {'name':'english', 
+    'shortdesc':'Installs the english languages files for Mozilla Firefox', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['kde', 'gnome', 'german'],
+    'packages':['firefox-locale-en-us']
+    },
+    {'name':'german', 
+    'shortdesc':'Installs the german languages files for Mozilla Firefox', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['kde', 'gnome', 'english'],
+    'packages':['firefox-locale-de']
+    },
+    {'name':'none', 
+    'shortdesc':'Uninstalls all versions of Mozilla Firefox', 
+    'description':'', 
+    'packages':[], 
+    'noconflicts':['kmozillahelper', 'kde-config-gtk', 'browser-plugin-packagekit']
+    },
+]
+
+thunderbird = [
+    {'name':'common', 
+    'mainpackage':True,
+    'shortdesc':'Installs the latest version of Mozilla Thunderbird', 
+    'description':'', 
+    'packages':['thunderbird', 'browser-plugin-packagekit']
+    },
+    {'name':'gnome', 
+    'shortdesc':'Installs GNOME support files for Mozilla Thunderbird', 
+    'description':'This package installs Mozilla Thunderbird GNome support.', 
+    'depends':['common'],
+    'packages':['thunderbird-gnome-support'], 
+	'side-by-side':['english', 'german'],
+    'noconflicts':['kmozillahelper', 'kde-config-gtk']
+    },
+    {'name':'kde', 
+    'shortdesc':'Installs KDE support files for Mozilla Thunderbird', 
+    'description':'This package installs Mozilla Thunderbird KDE support.', 
+    'depends':['common'],
+	'side-by-side':['english', 'german'],
+    'packages':['kmozillahelper', 'kde-config-gtk'], 
+    },
+    {'name':'english', 
+    'shortdesc':'Installs the english languages files for Mozilla Thunderbird', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['kde', 'gnome', 'german'],
+    'packages':['thunderbird-locale-en-us']
+    },
+    {'name':'german', 
+    'shortdesc':'Installs the german languages files for Mozilla Thunderbird', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['kde', 'gnome', 'english'],
+    'packages':['thunderbird-locale-de']
+    },
+    {'name':'none', 
+    'shortdesc':'Uninstalls all versions of Mozilla Thunderbird', 
+    'description':'', 
+    'packages':[], 
+    'noconflicts':['kmozillahelper', 'kde-config-gtk', 'browser-plugin-packagekit']
+    },
+]
+
+# ttf-mscorefonts-installer
+#                'gtk2-engines-murrine', 'gtk2-engines-pixbuf', 'gtk2-engines-qtcurve', 'gtk2-engines-aurora', 'gtk2-engines-blueheart', 'gtk2-engines-cleanice',
+#                'gtk2-engines-equinox', 'gtk2-engines-magicchicken', 'gtk2-engines-moblin', 'gtk2-engines-mythbuntu', 'gtk2-engines-nodoka', 'gtk2-engines-sapwood'
+#                'gtk2-engines-smooth', 'gtk2-engines-wonderland', 'gtk2-engines-xfce'
+
+# suggested packages from ark
+# rar md5deep cfv arj lha unace
+
+kde = [
+    {'name':'common', 
+    'mainpackage':True,
+    'shortdesc':'Installs the latest version of KDE', 
+    'description':'', 
+    'packages':['polkit-kde-1', 'policykit-desktop-privileges', 'jockey-kde',
+                'konsole', 'konqueror', 'kdesudo', 'kate', 'gdebi-kde', 'kdelibs5-data',
+                'dolphin', 'kdebase-workspace', 
+                'khelpcenter4', 'systemsettings', 'language-selector-qt', 
+                'oxygen-icon-theme', 'kde-zeroconf', 'kdepim-runtime', 'akonadi-server',
+                'kde-style-skulpture', 'muon',
+                'soprano-daemon',
+                'strigi-client', 'strigi-daemon',
+                'kubuntu-konqueror-shortcuts', 
+                'update-manager-kde', 'kmix', 'apport-kde',
+                'apturl-kde', 'ksshaskpass', 'kwalletmanager', 'kwalletcli', 
+                'gtk2-engines-qtcurve', 'kde-style-qtcurve', 'kwin-style-qtcurve', 'kde-config-gtk',
+                'ark', 'okular', 'okular-extra-backends', 'ksnapshot', 'ksystemlog', 'krusader', 'krename', 'krdc', 'krfb',
+                'dragonplayer',
+                'system-config-printer-kde', 'printer-applet',
+                'phonon-backend-vlc', 'phonon-backend-gstreamer',
+                'gstreamer0.10-ffmpeg', 'gstreamer0.10-alsa', 'gstreamer0.10-gnonlin', 'gstreamer0.10-nice', 'gstreamer0.10-plugins-base-apps', 'gstreamer0.10-tools',
+                'gstreamer0.10-plugins-good', 'gstreamer0.10-plugins-bad', 'gstreamer0.10-plugins-ugly',
+                'rekonq',
+                'kde-config-cron',
+                'virtuoso-minimal'
+                ],
+    'conflicts':['phonon-backend-xine', 'kpackagekit',
+                    'ibus-qt4, libibus-qt1, ibus, ibus-gtk, libibus1',
+                    'scim', 'scim-qtimm', 'scim-modules-socket']
+    },
+    {'name':'netbook', 
+    'shortdesc':'Installs KDE optimized for netbooks', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['english', 'german'],
+    'packages':[
+                # plasma netbook edition
+                'plasma-netbook',
+                # multimedia packages
+                'amarok', 'gwenview', 'kdegraphics-strigi-plugins', 
+                # kdepim packages
+                'kdepim', 'kdepim-strigi-plugins', 'kdepim-kresources',
+                # list some kdepim explicit because we want to remove them when arsoft-kde-none is installed
+                'akregator', 'kaddressbook', 'kalarm', 'kmail', 'knode', 'knotes', 'konsolekalendar', 'kontact', 'korganizer', 'ktimetracker', 'kjots', 'blogilo',
+                'kleopatra', 
+                'akonadiconsole'
+                ], 
+    },
+    {'name':'tablet', 
+    'shortdesc':'Installs KDE optimized for tablets', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['english', 'german'],
+    'packages':[
+                # plasma netbook edition
+                'plasma-netbook',
+                # multimedia packages
+                'amarok', 'gwenview', 'kdegraphics-strigi-plugins', 
+                ], 
+    },
+    {'name':'desktop', 
+    'shortdesc':'Installs KDE for regular desktop PCs', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['english', 'german'],
+    'packages':[
+                # plasma desktop edition
+                'plasma-desktop', 'plasma-widget-folderview', 'plasma-runners-addons',
+                # multimedia packages
+                'amarok', 'gwenview', 'kipi-plugins', 'digikam', 'digikam-data', 'kdegraphics-strigi-plugins', 'soundkonverter',
+                # games packages
+                'kdegames',
+                # list some kdegames packages explicit because we want to remove them when arsoft-kde-none is installed
+                'bomber', 'bovo', 'kajongg', 'palapeli',
+                'kapman', 'katomic', 'kbattleship', 'kblackbox',
+                'kblocks', 'kbounce', 'kbreakout', 'kdiamond', 'kfourinline',
+                'kgoldrunner', 'kigo', 'killbots', 'kiriki', 'kjumpingcube',
+                'klines', 'kmahjongg', 'kmines', 'knetwalk', 'kolf',
+                'kollision', 'konquest', 'kpat', 'kreversi',
+                'ksame', 'kshisen', 'ksirk', 'kspaceduel', 'ksquares',
+                'ksudoku', 'ktron', 'ktuberling', 'kubrick', 'lskat',
+                'kdegames-mahjongg-data', 'kdegames-card-data', 'kdegames-card-data-extra',
+                # problematic game
+                #'granatier', 
+                # kdepim packages
+                'kdepim', 'kdepim-strigi-plugins', 'kdepim-kresources',
+                # list some kdepim packages explicit because we want to remove them when arsoft-kde-none is installed
+                'akregator', 'kaddressbook', 'kalarm', 'kmail', 'knode', 'knotes', 'konsolekalendar', 'kontact', 'korganizer', 'ktimetracker', 'kjots', 'blogilo',
+                'kleopatra', 'kget', 'kgpg',
+                'akonadiconsole', 'akonadi-kde-resource-googledata',
+                # chat packages
+                'kopete', 'kopete-message-indicator', 'konversation', 'konversation-data',
+                # burning packages
+                'k3b', 'k3b-data', 'libk3b6-extracodecs',
+                # Hex editor
+                'okteta',
+                # education packages
+                'marble', 'speedcrunch',
+                ], 
+    },
+    {'name':'multimedia', 
+    'shortdesc':'Installs KDE for multimedia PCs', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['english', 'german'],
+    'packages':[
+                # plasma desktop edition
+                'plasma-desktop',
+                # multimedia packages
+                'amarok', 'gwenview', 'kipi-plugins', 'digikam', 'digikam-data', 'kdegraphics-strigi-plugins', 
+                ], 
+    },
+    {'name':'english', 
+    'shortdesc':'Installs the english languages files for KDE', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['netbook', 'tablet', 'desktop', 'multimedia', 'german'],
+    'packages':['language-pack-kde-en']
+    },
+    {'name':'german', 
+    'shortdesc':'Installs the german languages files for KDE', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['netbook', 'tablet', 'desktop', 'multimedia', 'english'],
+    'packages':['language-pack-kde-de']
+    },
+    {'name':'none', 
+    'shortdesc':'Uninstalls all versions of KDE', 
+    'description':'', 
+    'packages':[], 
+    'noconflicts':['gtk2-engines-qtcurve', 'policykit-desktop-privileges',
+                'gstreamer0.10-ffmpeg', 'gstreamer0.10-alsa', 'gstreamer0.10-gnonlin', 'gstreamer0.10-nice', 'gstreamer0.10-plugins-base-apps', 'gstreamer0.10-tools',
+                'gstreamer0.10-plugins-good', 'gstreamer0.10-plugins-bad', 'gstreamer0.10-plugins-ugly'
+                ]
+    },
+]
+
+gnome = [
+    {'name':'common', 
+    'mainpackage':True,
+    'shortdesc':'maintains the latest version of the GNOME desktop environment', 
+    'description':'This package installs the latest version of GNOME desktop environment and removes obsolete and old packages of GNOME desktop environment.', 
+    'packages':['policykit-desktop-privileges', 'policykit-1-gnome', 'gksu-polkit',
+                "gnome-desktop-data", "gnome-settings-daemon", "gnome-panel-data", 'gdebi', 'language-selector',
+                "gnome-menus", "gnome-icon-theme", "gnome-themes-selected", "gnome-mime-data", "apturl", "apport-gtk", "go-home-applet",
+                "gnome-terminal", "gnome-screensaver", "gnome-codec-install", "gnome-search-tool", "update-manager", "update-notifier",
+                "ssh-askpass-gnome", "gpointing-device-settings", 'ubuntu-sounds', 'xdg-user-dirs-gtk',
+                'gconf-defaults-service', 'gconf-editor',
+                'gstreamer0.10-ffmpeg', 'gstreamer0.10-alsa', 'gstreamer0.10-gnonlin', 'gstreamer0.10-nice', 'gstreamer0.10-plugins-base-apps', 'gstreamer0.10-tools',
+                'gstreamer0.10-plugins-good', 'gstreamer0.10-plugins-bad', 'gstreamer0.10-plugins-ugly',
+                'gnome-themes-ubuntu', 'gnome-utils', 'packagekit-gnome', 
+                'indicator-applet-session', 'indicator-me', 'indicator-sound', 'indicator-session', 'notify-osd', 'notify-osd-icons',
+                'nautilus', 'nautilus-sendto', 'nautilus-sendto-empathy', 'nautilus-share', 'gok',
+                "metacity", "metacity-common", "compiz", "compiz-gnome", 'gtk2-engines-qtcurve'
+                ],
+    'conflicts':['ibus-qt4, libibus-qt1, ibus, ibus-gtk, libibus1',
+                    'scim', 'scim-qtimm', 'scim-modules-socket']
+    },
+    {'name':'desktop', 
+    'shortdesc':'Installs GNOME desktop', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['english', 'german'],
+    'packages':["brasero", "brasero-common",  "gnome-media-common", 'gnome-common',
+                "totem", "totem-common", "libtotem-plparser17", "rhythmbox", "rhythmbox-plugins", "rhythmbox-plugin-cdrecorder",
+                'system-config-printer-gnome', 'gnome-paint', 
+                "evolution", "evolution-data-server", "evolution-data-server-common", "evolution-common", "evolution-webcal",
+                "gnome-games", "gnome-mahjongg", "gnome-games-common", "gnome-sudoku", "gnotski", "gnomine", "gnibbles", "glines", "aisleriot",
+                "file-roller", "gedit", "gnome-mag", "gnome-nettool", "gnome-system-tools", "gnome-system-monitor", "tsclient", "vino",
+                'eog', 'eog-plugins', 'xournal', 'gnome-user-guide', 'gnome-accessibility-themes',
+                "evince", "gnome-screenshot", 'epiphany-browser'], 
+    },
+    {'name':'multimedia', 
+    'shortdesc':'Installs GNOME multimedia desktop', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['english', 'german'],
+    'packages':["brasero", "brasero-common",  "gnome-media-common", "totem", "totem-common", "libtotem-plparser17", "rhythmbox", "rhythmbox-plugins", "rhythmbox-plugin-cdrecorder",
+                "file-roller", "gedit", "gnome-mag", "gnome-nettool", "gnome-system-tools", "gnome-system-monitor", "tsclient", "vino"], 
+    },
+    {'name':'english', 
+    'shortdesc':'Installs the english languages files for GNOME', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['desktop', 'multimedia', 'german'],
+    'packages':['language-pack-gnome-en']
+    },
+    {'name':'german', 
+    'shortdesc':'Installs the german languages files for GNOME', 
+    'description':'', 
+    'depends':['common'],
+    'side-by-side':['desktop', 'multimedia', 'english'],
+    'packages':['language-pack-gnome-en']
+    },
+    {'name':'none', 
+    'shortdesc':'removes all versions of the GNOME desktop environment', 
+    'description':'This package removes all versions of GNOME desktop environment.', 
+    'packages':[], 
+    'noconflicts':['gtk2-engines-qtcurve', 'apturl', 'gnome-icon-theme', 'policykit-desktop-privileges',
+                'gstreamer0.10-ffmpeg', 'gstreamer0.10-alsa', 'gstreamer0.10-gnonlin', 'gstreamer0.10-nice', 'gstreamer0.10-plugins-base-apps', 'gstreamer0.10-tools',
+                'gstreamer0.10-plugins-good', 'gstreamer0.10-plugins-bad', 'gstreamer0.10-plugins-ugly'
+                ]
+    },
+]
+
+xfce4 = [
+    {'name':'common', 
+    'mainpackage':True,
+    'shortdesc':'maintains the latest version of the XFCE desktop environment', 
+    'description':'This package installs the latest version of XFCE desktop environment and removes obsolete and old packages of XFCE desktop environment.', 
+    'packages':['xfce4-session', 'xfce4-mixer', 'xfce4-panel', 'xfce4-utils', 'xfce4-settings', 'xfwm4', 'gtk2-engines-xfce', 
+                'mousepad', 'xfce-keyboard-shortcuts', 'xfce4-screenshooter', 'xfce4-volumed' ],
+    },
+    {'name':'none', 
+    'shortdesc':'removes all versions of the XFCE desktop environment', 
+    'description':'This package removes all versions of XFCE desktop environment.', 
+    'packages':[], 
+    },
+]
+
+mythtv = [
+    {'name':'common', 
+    'mainpackage':True,
+    'shortdesc':'maintains the latest version of the MythTV environment', 
+    'description':'This package installs the latest version of MythTV environment and removes obsolete and old packages of MythTV.', 
+    'packages':['mythtv-common', 'arsoft-scripts-mythtv' ],
+    'noconflicts':['mythweb']
+    },
+    {'name':'backend', 
+    'depends':['common'],
+    'side-by-side':['backend', 'frontend', 'web' ],
+    'shortdesc':'Installs the MythTV backend', 
+    'description':'Installs the MythTV backend.', 
+    'packages':['mythtv-backend', 'mythtv-database'], 
+    },
+    {'name':'frontend', 
+    'shortdesc':'Installs the MythTV frontend', 
+    'description':'Installs the MythTV frontend.', 
+    'depends':['common'],
+    'side-by-side':['backend', 'frontend', 'web' ],
+    'packages':[ "mytharchive", "mythbrowser", "mythgallery", "mythgame", "mythmusic", "mythnetvision", "mythnews", "mythweather", "mythtv-theme-mythbuntu" ], 
+    },
+    {'name':'web', 
+    'shortdesc':'Installs the MythTV web configuration', 
+    'description':'Installs the MythTV web configuration.', 
+    'depends':['common', 'frontend' ],
+    'side-by-side':['backend', 'frontend', 'web' ],
+    'packages':["mythweb"], 
+    },
+    {'name':'none', 
+    'shortdesc':'removes all MythTV packages', 
+    'description':'removes all MythTV packages.', 
+    'packages':[], 
+    },
+]
+
+developer = [
+    {'name':'common', 
+    'mainpackage':True,
+    'shortdesc':'maintains the the basic set of development tools', 
+    'description':'basic development tools', 
+    'packages':[ 'libc6-dev', 'glibc-doc', 'manpages-dev',
+                'gcc', 'g++', 'make', 'ack-grep',
+                'cmake', 'cmake-curses-gui', 
+                'dpkg-dev', 'devscripts', 'cdbs', 'debhelper', 'quilt',
+                'git', 'git-svn', 'subversion',
+                ],
+    },
+    {'name':'kde', 
+    'shortdesc':'Installs KDE development tools', 
+    'description':'Installs the KDE development tools.', 
+    'depends':['common'],
+    'side-by-side':['gnome'],
+    'packages':[
+                'cmake-qt-gui', 'kdelibs5-dev',
+                'kdevelop', 'kdevelop-data', 'valkyrie', 'c-cpp-reference', 'qt4-dev-tools', 'qt4-doc', 'qt4-designer', 'umbrello', 'kompare',
+                'kcachegrind', 'kdesdk-strigi-plugins', 'kdesdk-dolphin-plugins', 'kdesvn', 'kdesvn-kio-plugins'
+                # do not install 'kdesdk-kio-plugins' because they replace kdesvn-kio-plugins
+                ]
+    },
+    {'name':'gnome', 
+    'shortdesc':'Installs GNOME development tools', 
+    'description':'Installs the GNOME development tools.', 
+    'depends':['common'],
+    'side-by-side':['kde'],
+    'packages':[], 
+    },
+    {'name':'none', 
+    'shortdesc':'removes all development tools.', 
+    'description':'This package removes all development tools.', 
+    'packages':[], 
+    'noconflicts':['gcc','make','libc6-dev','subversion']
+    },
+]
+
+networkmanager = [
+    {'name':'common', 
+    'mainpackage':True,
+    'shortdesc':'installs the network manager', 
+    'description':'basic network manager', 
+    'packages':[ 'network-manager'],
+    },
+    {'name':'console', 
+    'shortdesc':'Installs console interface for network manager', 
+    'description':'Installs console interface for network manager.', 
+    'depends':['common'],
+    'side-by-side':['gnome', 'kde', 'plasma'],
+    'packages':[],
+    },
+    {'name':'kde', 
+    'shortdesc':'Installs KDE interface (traditional) for network manager', 
+    'description':'Installs KDE interface (traditional) for network manager.', 
+    'depends':['common'],
+    'side-by-side':['gnome', 'console', 'plasma'],
+    'packages':['network-manager-kde', 'network-manager-pptp-kde', 'network-manager-openvpn-kde', 'network-manager-vpnc-kde']
+    },
+    {'name':'plasma', 
+    'shortdesc':'Installs KDE plasma interface for network manager', 
+    'description':'Installs KDE plasma interface for network manager.', 
+    'depends':['common'],
+    'side-by-side':['gnome', 'console', 'kde'],
+    'packages':['plasma-widget-networkmanagement']
+    },
+    {'name':'gnome', 
+    'shortdesc':'Installs GNOME interface for network manager', 
+    'description':'Installs GNOME interface for network manager.', 
+    'depends':['common'],
+    'side-by-side':['plasma', 'console', 'kde'],
+    'packages':['network-manager-gnome', 'network-manager-pptp-gnome', 'network-manager-openvpn-gnome', 'network-manager-vpnc-gnome']
+    },
+    {'name':'none', 
+    'shortdesc':'removes the network manager completely.', 
+    'description':'removes the network manager completely.', 
+    'packages':[], 
+    'noconflicts':[]
+    },
+]
+
+cyrusimapd = [
+    {'name':'common', 
+    'mainpackage':True,
+    'shortdesc':'installs the cyrus imap server', 
+    'description':'common cyrus imap server', 
+    'packages':['arsoft-scripts-cyrusimapd' ],
+    },
+    {'name':'2.2', 
+    'shortdesc':'Installs version 2.2.x of cyrus-imapd', 
+    'description':'Installs version 2.2.x of cyrus-imapd.', 
+    'depends':['common'],
+    'side-by-side':['2.4'],
+    'packages':['cyrus-common-2.2', 'cyrus-admin-2.2', 'cyrus-clients-2.2', 'cyrus-imapd-2.2', 
+                'cyrus-pop3d-2.2', 'cyrus-nntpd-2.2', 'cyrus-murder-2.2', 'cyrus-replication-2.2']
+    },
+    {'name':'2.4', 
+    'shortdesc':'Installs version 2.4.x of cyrus-imapd', 
+    'description':'Installs version 2.4.x of cyrus-imapd.', 
+    'depends':['common'],
+    'side-by-side':['2.2'],
+    'packages':['cyrus-common-2.4', 'cyrus-admin-2.4', 'cyrus-clients-2.4', 'cyrus-imapd-2.4', 
+                'cyrus-pop3d-2.4', 'cyrus-nntpd-2.4', 'cyrus-murder-2.4', 'cyrus-replication-2.4']
+    },
+    {'name':'none', 
+    'shortdesc':'removes the network manager completely.', 
+    'description':'removes the network manager completely.', 
+    'packages':[], 
+    'noconflicts':[]
+    },
+]
+
+all_package_groups = [
+    ('arsoft-base', base),
+    ('arsoft-gfx', graphicsdrivers),
+    ('arsoft-openoffice', openoffice),
+    ('arsoft-libreoffice', libreoffice),
+    ('arsoft-firefox', firefox),
+    ('arsoft-thunderbird', thunderbird),
+    ('arsoft-xfce4', xfce4),
+    ('arsoft-kde', kde),
+    ('arsoft-gnome', gnome),
+    ('arsoft-mythtv', mythtv),
+    ('arsoft-developer', developer),
+    ('arsoft-abiword', abiword),
+    ('arsoft-plymouth', plymouth),
+    ('arsoft-networkmanager', networkmanager),
+    ('arsoft-cyrusimapd', cyrusimapd)
+]
+
+class application(object):
+    verbose = False
+
+    def usage(self):
+        print 'generate-meta-packages [OPTIONS]'
+        print '    -h, --help                 displays this help screen'
+        print '    -v, --verbose              enabled verbose output'
+        print '    -b, --build                build the packages'
+        print '    -p, --put                  upload the packages using dput'
+        print '    -k, --keep                 keep temporaray files and directories'
+        print '    -g, --groups <grp1,grp2>   specified which groups should be generated.'
+        print '    -d, --distribution <d1,d2> specified for which distributions the packages should be generated.'
+        
+    def control_line(self, name, value):
+        ret = name + ": "
+        wrapper = TextWrapper()
+        wrapper.initial_indent = ''
+        wrapper.subsequent_indent = ' '
+        wrapper.break_on_hyphens = False
+        wrapper.break_long_words = False
+        
+        lines = wrapper.wrap(value)
+        first = True
+        for line in lines:
+            ret = ret + line + '\n'
+        return ret
+        
+    def control_description(self, desc):
+        ret = ''
+        wrapper = TextWrapper()
+        wrapper.initial_indent = ' '
+        wrapper.subsequent_indent = ' '
+        wrapper.break_on_hyphens = False
+        wrapper.break_long_words = False
+        lines = wrapper.wrap(desc)
+        for line in lines:
+            ret = ret + line + '\n'
+        return ret
+        
+    def package_group(self, prefix, choices, package_version):
+        all_packages = set()
+        all_package_names = set()
+        for element in choices:
+            if element.has_key('mainpackage'):
+                mainpackage = bool(element['mainpackage'])
+            else:
+                mainpackage = False
+            if mainpackage:
+                package_name = prefix
+            else:
+                package_name = prefix + '-' + element['name']
+
+            all_packages.update(element['packages'])
+            all_package_names.add(package_name)
+            
+        #print '1st all ' + str(all_packages)
+        #print '1st all names ' + str(all_package_names)
+        ret = ''
+        for element in choices:
+            internal_name = prefix + '-' + element['name']
+            if element.has_key('mainpackage'):
+                mainpackage = bool(element['mainpackage'])
+            else:
+                mainpackage = False
+            if mainpackage:
+                name = prefix
+            else:
+                name = prefix + '-' + element['name']
+            
+            depend_packages = set(element['packages'])
+            if element.has_key('depends'):
+                depend_groups = set(element['depends'])
+            else:
+                depend_groups = set()
+            if element.has_key('side-by-side'):
+                sidebyside_packages = set(element['side-by-side'])
+            else:
+                sidebyside_packages = set()
+            if element.has_key('conflicts'):
+                element_conflicts = set(element['conflicts'])
+            else:
+                element_conflicts = set()
+            if element.has_key('replaces'):
+                element_replaces = set(element['replaces'])
+            else:
+                element_replaces = set()
+            if element.has_key('noconflicts'):
+                element_noconflicts = set(element['noconflicts'])
+            else:
+                element_noconflicts = set()
+            
+            # compute the conflicting packages
+            conflict_packages = all_packages.copy()
+            conflict_packages.update(element_conflicts)
+            conflict_packages -= depend_packages
+            conflict_packages -= element_noconflicts
+            conflict_other_packages = all_package_names.copy()
+            conflict_other_packages.remove(name)
+            for dep_element in choices:
+                if dep_element.has_key('mainpackage'):
+                    mainpackage = bool(dep_element['mainpackage'])
+                else:
+                    mainpackage = False
+                if mainpackage:
+                    dep_package_name = prefix
+                else:
+                    dep_package_name = prefix + '-' + dep_element['name']
+                if dep_element.has_key('depends'):
+                    dep_depends = set(dep_element['depends'])
+                else:
+                    dep_depends = set()
+                if element['name'] in dep_depends:
+                    self.debug('pkg: ' + dep_package_name + ' depends on current package ' + element['name'] + ' remove from ' + str(conflict_other_packages))
+                    if dep_package_name in conflict_other_packages:
+                        conflict_other_packages.remove(dep_package_name)
+                    dep_element_packages = set(dep_element['packages'])
+                    conflict_packages -= dep_element_packages
+                if dep_element['name'] in depend_groups:
+                    self.debug('pkg: ' + name + ' remove ' + dep_package_name + '/' + dep_element['name'] + ' from ' + str(conflict_packages))
+                    if dep_package_name in conflict_other_packages:
+                        conflict_other_packages.remove(dep_package_name)
+                    dep_element_packages = set(dep_element['packages'])
+                    conflict_packages -= dep_element_packages
+                    depend_packages.add(dep_package_name + '(=' + package_version + ')')
+                elif dep_element['name'] in sidebyside_packages:
+                    #print 'side by side ' + dep_package_name
+                    if dep_package_name in conflict_other_packages:
+                        conflict_other_packages.remove(dep_package_name)
+                    dep_element_packages = set(dep_element['packages'])
+                    conflict_packages -= dep_element_packages
+                
+            conflict_packages.update(conflict_other_packages)
+            
+            # compute the replaces packages
+            replace_packages = set()
+            replace_packages.update(element_replaces)
+            
+            #print 'deps ' + str(depend_packages)
+            #print 'all ' + str(all_packages)
+            #print 'cf ' + str(conflict_packages)
+            if depend_packages is not None:
+                depends = string.join(depend_packages, ', ')
+            else:
+                depends = None
+            if conflict_packages is not None:
+                conflicts = string.join(conflict_packages, ', ')
+            else:
+                conflicts = None
+            if replace_packages is not None:
+                replaces = string.join(replace_packages, ', ')
+            else:
+                replaces = None
+            
+            pkg_install = ''
+            pkg_install = pkg_install + "\n"
+            pkg_install = pkg_install + self.control_line("Package", name)
+            pkg_install = pkg_install + self.control_line("Architecture", 'all')
+            if depends is not None and len(depends) != 0:
+                pkg_install = pkg_install + self.control_line("Depends", "${misc:Depends}, " + depends)
+            else:
+                pkg_install = pkg_install + self.control_line("Depends", "${misc:Depends}")
+            if conflicts is not None and len(conflicts) != 0:
+                pkg_install = pkg_install + self.control_line("Conflicts", conflicts)
+            if replaces is not None and len(replaces) != 0:
+                pkg_install = pkg_install + self.control_line("Replaces", replaces)
+            if element['shortdesc'] is not None and len(element['shortdesc']) != 0:
+                pkg_install = pkg_install + self.control_line("Description", element['shortdesc'])
+                if element['description'] is not None and len(element['description']) != 0:
+                    pkg_install = pkg_install + self.control_description(element['description'])
+                else:
+                    pkg_install = pkg_install + self.control_description(element['shortdesc'])
+            self.debug("Package: " + name + 
+                        "\n  Depends:" + str(depends) +
+                        "\n  Conflicts:" + str(conflicts))
+            ret += pkg_install
+        return ret
+        
+    def make_package_dir(self, basedir, package_name, package_version, distribution, distribution_release=1):
+        if basedir is None:
+            basedir = os.getcwd()
+        package_dir = basedir + '/' + package_name + '-' + package_version + '~' + distribution + str(distribution_release)
+        package_debian_dir = package_dir + '/debian'
+        package_debian_control = package_debian_dir + '/control'
+        package_debian_changelog = package_debian_dir + '/changelog'
+        package_debian_source_dir = package_debian_dir + '/source'
+        if not os.path.exists(package_dir):
+            os.mkdir(package_dir, 0755)
+        if not os.path.exists(package_debian_dir):
+            os.mkdir(package_debian_dir, 0755)
+        if not os.path.exists(package_debian_source_dir):
+            os.mkdir(package_debian_source_dir, 0755)
+
+        f = open(package_debian_source_dir + '/format', 'w')
+        f.write('3.0 (native)') 
+        f.close()
+        
+        f = open(package_debian_dir + '/compat', 'w')
+        f.write(str(package_debhelper) + '\n') 
+        f.close()
+        
+        f = open(package_debian_dir + '/rules', 'w')
+        f.write(rules_file) 
+        f.close()
+        os.chmod(package_debian_dir + '/rules', 0755)
+        
+        f = open(package_debian_dir + '/copyright', 'w')
+        f.write(copyright_file) 
+        f.close()
+        
+        f = open(package_debian_dir + '/README.Debian', 'w')
+        f.write(readme_debian_file) 
+        f.close()
+
+        # copy this script file into the package dir
+        shutil.copy2(os.path.abspath( __file__ ), package_dir)
+        
+        return (package_dir, package_debian_control, package_debian_changelog)
+        
+    def generate_debian_control(self, control_file, package_version, distribution, distribution_release=1):
+
+        content = source_pkg
+        full_version = package_version + '~' + distribution + str(distribution_release)
+        for (groupname, grouprules) in all_package_groups:
+            if self.selected_groups is not None:
+                if groupname in self.selected_groups:
+                    include = True
+                else:
+                    include = False
+            else:
+                include = True
+            if include:
+                packages = self.package_group(groupname, grouprules, full_version)
+                content = content + packages
+            else:
+                self.debug("Skip group " + groupname)        
+            
+        self.debug(content)
+
+        f = open(control_file, 'w')
+        f.write(content) 
+        f.close()
+        
+    def generate_debian_changelog(self, changelog_file, distribution, changelog, distribution_release=1):
+
+        content = ''
+        for entry in changelog:
+            full_version = entry['version'] + '~' + distribution + str(distribution_release)
+            e = source_package_name + ' (' + full_version + ') ' + distribution + '; urgency=' + entry['urgency'] + '\n'
+            e = e + '\n'
+            for i in entry['items']:
+                e = e + '  * ' + i + '\n'
+            e = e + '\n'
+            e = e + ' -- ' + entry['author'] + '  ' + entry['date'] + '\n'
+            e = e + '\n'
+            content = content + e
+            
+        f = open(changelog_file, 'w')
+        f.write(content)
+        f.close()
+        
+    def get_latest_version_from_changelog(self, changelog, distribution):
+        entry = changelog[0]
+        full_version = entry['version']
+        
+        re_version_pattern = re.compile('^(?P<upstream_version>(\d+\.)?(\d+\.)?(\*|\d+))')
+        result = re_version_pattern.match(full_version)
+        if result is not None:
+            short_version = result.group('upstream_version')
+        else:
+            short_version = ''
+        return (source_package_name, full_version, short_version)
+
+    def get_distribution_codename(self):
+        args = ['/usr/bin/lsb_release', '-cs']
+        p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE) 
+        if p is not None:
+            err = p.wait()
+            stdout_value, stderr_value = p.communicate()
+            if err != 0:
+                self.error("Errors " + str(err) + ": " + str(args) + "\n" + stdout_value + "\n" + stderr_value + "\n")
+                ret = None
+            else:
+                ret = stdout_value.rstrip()
+
+        else:
+            self.error('Failed to create process: ', args)
+            ret = None
+        return ret
+        
+    def do_build(self, package_dir):
+        args = ['debuild', '-S']
+        p = subprocess.Popen(args, cwd=package_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE) 
+        if p is not None:
+            err = p.wait()
+            stdout_value, stderr_value = p.communicate()
+            if err != 0:
+                self.error("Errors " + str(err) + ": " + str(args) + "\n" + stdout_value + "\n" + stderr_value + "\n")
+                ret = False
+            else:
+                self.info("Build of " + package_dir + " successful.")
+                ret = True
+        else:
+            self.error('Failed to create process: ', args)
+            ret = False
+        return ret
+
+    def do_put(self, package_dir, version, distribution, distribution_release=1):
+        changesfile = package_dir + '/../' + source_package_name + '_' +  version + '~' + distribution + str(distribution_release) + '_source.changes'
+        args = ['dput', changesfile]
+        p = subprocess.Popen(args, cwd=package_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE) 
+        if p is not None:
+            err = p.wait()
+            stdout_value, stderr_value = p.communicate()
+            if err != 0:
+                self.error("Errors " + str(err) + ": " + str(args) + "\n" + stdout_value + "\n" + stderr_value + "\n")
+                ret = False
+            else:
+                self.info("Uploaded " + changesfile)
+                ret = True
+        else:
+            self.error('Failed to create process: ', args)
+
+    def do_clean(self, package_dir, version, distribution, distribution_release=1):
+        filebasename = package_dir + '/../' + source_package_name + '_' +  version + '~' + distribution + str(distribution_release)
+        changesfile = filebasename + '_source.changes'
+        buildfile = filebasename + '_source.build'
+        tarfile = filebasename + '.tar.gz'
+        dscfile = filebasename + '.dsc'
+        if os.path.exists(changesfile):
+            os.remove(changesfile)
+        if os.path.exists(buildfile):
+            os.remove(buildfile)
+        if os.path.exists(tarfile):
+			os.remove(tarfile)
+        if os.path.exists(dscfile):
+            os.remove(dscfile)
+        shutil.rmtree(package_dir)
+        ret = True
+        return ret
+            
+            
+    def debug(self, *args):
+        if self.verbose:
+            print string.join(args)
+
+    def message(self, *args):
+        if self.verbose:
+            print string.join(args)
+
+    def info(self, *args):
+        print string.join(args)
+
+    def warning(self, *args):
+        print string.join(args)
+            
+    def error(self, *args):
+        print string.join(args)
+            
+    def usage(self):
+        print "generate-meta-packages [OPTIONS]"
+        print "   -v, --verbose       verbose output"
+        print "   -h, --help          displays this help screen"
+        print "   -b, --build         build the package after preparation"
+        print "   -p, --put           upload the package to launchpad"
+        print "   -k, --keep          keep the package dir after successful build"
+        print "   -d, --distribution <dist0>,...<distN>"
+        print "                       specify the distribution name"
+        print "   -g, --groups <group0>,...,<groupN>"
+        print "                       select the groups to be generated (default: all)"
+
+    def main(self):
+
+        self.verbose = False
+        self.build = False
+        self.put = False
+        self.selected_groups = None
+        self.distributions = []
+        self.clean = True
+        try:
+            opts, args = getopt.getopt(sys.argv[1:], "hvbpd:g:", ["help", "verbose", "build", "put", "distribution=", "groups="])
+        except getopt.GetoptError, err:
+            # print help information and exit:
+            print str(err) # will print something like "option -a not recognized"
+            self.usage()
+            sys.exit(2)
+
+        for o, a in opts:
+            if o == '-v' or o == '--verbose':
+                self.verbose = True
+            elif o == '-b' or o == "--build":
+                self.build = True
+            elif o == '-p' or o == "--put":
+                self.put = True
+            elif o == '-k' or o == "--keep":
+                self.clean = False
+            elif o == '-d' or o == "--distribution":
+                self.distributions = a.split(',')
+            elif o == '-g' or o == "--groups":
+                self.selected_groups = a.split(',')
+            elif o == '-h' or o == "--help":
+                self.usage()
+                sys.exit(0)
+            else:
+                assert False, "unhandled option"
+                
+        if self.put and not self.build:
+            self.build = True
+
+        if len(self.distributions) == 0:
+            #dist = self.get_distribution_codename()
+            #if self.verbose:
+                #print "Distributions: " + str(dist)
+            self.distributions = default_distributions
+        else:
+            for d in self.distributions:
+                if d not in all_distributions:
+                    print "Unknown distribution " + d + ". Abort"
+                    return 1
+                
+        for distribution in self.distributions:
+            if self.verbose:
+                print "Prepare package for distribution " + str(distribution)
+            (package_name, package_latest_full_version, package_latest_short_version) = self.get_latest_version_from_changelog(package_changelog, distribution)
+            
+            if self.verbose:
+                print "Package name: " + str(package_name)
+                print "Package version: " + str(package_latest_short_version) + " (" + package_latest_short_version + ")"
+
+            (package_dir, package_debian_control, package_debian_changelog) = self.make_package_dir(None, package_name, package_latest_short_version, distribution)
+            self.generate_debian_control(package_debian_control, package_latest_short_version, distribution)
+            self.generate_debian_changelog(package_debian_changelog, distribution, package_changelog)
+            
+            if self.build:
+                if self.do_build(package_dir) and self.put:
+                    self.do_put(package_dir, package_latest_full_version, distribution)
+            else:
+                print "Done generating packages for " + str(distribution)
+            if self.clean:
+                self.do_clean(package_dir, package_latest_full_version, distribution)
+            
+
+if __name__ == '__main__':
+    app = application()
+    ret = app.main()
