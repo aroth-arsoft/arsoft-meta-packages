@@ -92,6 +92,16 @@ Fifth Floor, Boston, MA 02110-1301, USA.\n\
 package_changelog = [
 
     {
+        'version':'0.67', 'urgency':'low',
+        'items':['put mythtv database into a separate package', ],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 21 Apr 2012 08:41:43 +0200'
+    },                                   
+    {
+        'version':'0.66', 'urgency':'low',
+        'items':['remove plymouth packages', 'all KDE, GNOME and MythTV frontends require the ttf-mscorefonts-installer package', ],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 14 Apr 2012 15:05:25 +0200'
+    },                                   
+    {
         'version':'0.65', 'urgency':'low',
         'items':['add virtuoso packages as depends for KDE'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 07 Apr 2012 10:53:31 +0200'
@@ -593,23 +603,6 @@ graphicsdrivers = [
     {'name':'none', 'shortdesc':'Uninstalls any graphics drivers', 'description':'', 'packages':[] },
 ]
 
-plymouth = [ 
-    {'name':'ubuntu-logo', 'shortdesc':'Installs the Ubuntu logo plymouth theme', 'description':'', 'packages':['plymouth-theme-ubuntu-logo'] },
-    {'name':'kubuntu-logo', 'shortdesc':'Installs the Kubuntu logo plymouth theme', 'description':'', 'packages':['plymouth-theme-kubuntu-logo'] },
-    {'name':'xubuntu-logo', 'shortdesc':'Installs the Xubuntu logo plymouth theme', 'description':'', 'packages':['plymouth-theme-xubuntu-logo'] },
-    {'name':'lubuntu-logo', 'shortdesc':'Installs the Lubuntu logo plymouth theme', 'description':'', 'packages':['plymouth-theme-lubuntu-logo'] },
-    {'name':'ubuntu-text', 'shortdesc':'Installs the Ubuntu text plymouth theme', 'description':'', 'packages':['plymouth-theme-ubuntu-text'] },
-    {'name':'kubuntu-text', 'shortdesc':'Installs the Kubuntu text plymouth theme', 'description':'', 'packages':['plymouth-theme-kubuntu-text'] },
-    {'name':'xubuntu-text', 'shortdesc':'Installs the Xubuntu text plymouth theme', 'description':'', 'packages':['plymouth-theme-xubuntu-text'] },
-    {'name':'lubuntu-text', 'shortdesc':'Installs the Lubuntu text plymouth theme', 'description':'', 'packages':['plymouth-theme-lubuntu-text'] },
-    {'name':'ubuntustudio', 'shortdesc':'Installs the Ubuntu Studio plymouth theme', 'description':'', 'packages':['plymouth-theme-ubuntustudio'] },
-    {'name':'edubuntu', 'shortdesc':'Installs the Edubuntu plymouth theme', 'description':'', 'packages':['plymouth-theme-edubuntu'] },
-    {'name':'solar', 'shortdesc':'Installs the solar plymouth theme', 'description':'', 'packages':['plymouth-theme-solar'] },
-    {'name':'sabily', 'shortdesc':'Installs the sabily plymouth theme', 'description':'', 'packages':['plymouth-theme-sabily'] },
-    {'name':'glow', 'shortdesc':'Installs the glow plymouth theme', 'description':'', 'packages':['plymouth-theme-glow'] },
-    {'name':'none', 'shortdesc':'Uninstalls any plymouth theme', 'description':'', 'packages':[] },
-]
-
 openoffice = [
     {'name':'common', 
     'mainpackage':True,
@@ -845,6 +838,7 @@ kde = [
     'shortdesc':'Installs the latest version of KDE', 
     'description':'', 
     'packages':['polkit-kde-1', 'policykit-desktop-privileges', 'jockey-kde',
+                'ttf-mscorefonts-installer',
                 'konsole', 'konqueror', 'kdesudo', 'kate', 'gdebi-kde', 'kdelibs5-data',
                 'dolphin', 'kdebase-workspace', 
                 'khelpcenter4', 'systemsettings', 'language-selector-qt', 
@@ -972,7 +966,8 @@ kde = [
     'packages':[], 
     'noconflicts':['gtk2-engines-qtcurve', 'policykit-desktop-privileges',
                 'gstreamer0.10-ffmpeg', 'gstreamer0.10-alsa', 'gstreamer0.10-gnonlin', 'gstreamer0.10-nice', 'gstreamer0.10-plugins-base-apps', 'gstreamer0.10-tools',
-                'gstreamer0.10-plugins-good', 'gstreamer0.10-plugins-bad', 'gstreamer0.10-plugins-ugly'
+                'gstreamer0.10-plugins-good', 'gstreamer0.10-plugins-bad', 'gstreamer0.10-plugins-ugly',
+                'ttf-mscorefonts-installer'
                 ]
     },
 ]
@@ -983,6 +978,7 @@ gnome = [
     'shortdesc':'maintains the latest version of the GNOME desktop environment', 
     'description':'This package installs the latest version of GNOME desktop environment and removes obsolete and old packages of GNOME desktop environment.', 
     'packages':['policykit-desktop-privileges', 'policykit-1-gnome', 'gksu-polkit',
+                'ttf-mscorefonts-installer',
                 "gnome-desktop-data", "gnome-settings-daemon", "gnome-panel-data", 'gdebi', 'language-selector',
                 "gnome-menus", "gnome-icon-theme", "gnome-themes-selected", "gnome-mime-data", "apturl", "apport-gtk", "go-home-applet",
                 "gnome-terminal", "gnome-screensaver", "gnome-codec-install", "gnome-search-tool", "update-manager", "update-notifier",
@@ -1040,7 +1036,8 @@ gnome = [
     'packages':[], 
     'noconflicts':['gtk2-engines-qtcurve', 'apturl', 'gnome-icon-theme', 'policykit-desktop-privileges',
                 'gstreamer0.10-ffmpeg', 'gstreamer0.10-alsa', 'gstreamer0.10-gnonlin', 'gstreamer0.10-nice', 'gstreamer0.10-plugins-base-apps', 'gstreamer0.10-tools',
-                'gstreamer0.10-plugins-good', 'gstreamer0.10-plugins-bad', 'gstreamer0.10-plugins-ugly'
+                'gstreamer0.10-plugins-good', 'gstreamer0.10-plugins-bad', 'gstreamer0.10-plugins-ugly',
+                'ttf-mscorefonts-installer'
                 ]
     },
 ]
@@ -1051,12 +1048,13 @@ xfce4 = [
     'shortdesc':'maintains the latest version of the XFCE desktop environment', 
     'description':'This package installs the latest version of XFCE desktop environment and removes obsolete and old packages of XFCE desktop environment.', 
     'packages':['xfce4-session', 'xfce4-mixer', 'xfce4-panel', 'xfce4-utils', 'xfce4-settings', 'xfwm4', 'gtk2-engines-xfce', 
-                'mousepad', 'xfce-keyboard-shortcuts', 'xfce4-screenshooter', 'xfce4-volumed' ],
+                'mousepad', 'xfce-keyboard-shortcuts', 'xfce4-screenshooter', 'xfce4-volumed', 'ttf-mscorefonts-installer' ],
     },
     {'name':'none', 
     'shortdesc':'removes all versions of the XFCE desktop environment', 
     'description':'This package removes all versions of XFCE desktop environment.', 
     'packages':[], 
+    'noconflicts':['ttf-mscorefonts-installer']
     },
 ]
 
@@ -1068,31 +1066,40 @@ mythtv = [
     'packages':['mythtv-common', 'arsoft-scripts-mythtv' ],
     'noconflicts':['mythweb']
     },
+    {'name':'database', 
+    'depends':['common'],
+    'side-by-side':['database', 'backend', 'frontend', 'web' ],
+    'shortdesc':'Installs the MythTV database', 
+    'description':'Installs the files required to set up and maintain the MythTV database.', 
+    'packages':['mythtv-database'], 
+    },
     {'name':'backend', 
     'depends':['common'],
-    'side-by-side':['backend', 'frontend', 'web' ],
+    'side-by-side':['database', 'backend', 'frontend', 'web' ],
     'shortdesc':'Installs the MythTV backend', 
     'description':'Installs the MythTV backend.', 
-    'packages':['mythtv-backend', 'mythtv-database'], 
+    'packages':['mythtv-backend'], 
     },
     {'name':'frontend', 
     'shortdesc':'Installs the MythTV frontend', 
     'description':'Installs the MythTV frontend.', 
     'depends':['common'],
-    'side-by-side':['backend', 'frontend', 'web' ],
-    'packages':[ "mytharchive", "mythbrowser", "mythgallery", "mythgame", "mythmusic", "mythnetvision", "mythnews", "mythweather", "mythtv-theme-mythbuntu" ], 
+    'side-by-side':['database', 'backend', 'frontend', 'web' ],
+    'packages':[ 'ttf-mscorefonts-installer', 
+                "mytharchive", "mythbrowser", "mythgallery", "mythgame", "mythmusic", "mythnetvision", "mythnews", "mythweather" ], 
     },
     {'name':'web', 
     'shortdesc':'Installs the MythTV web configuration', 
     'description':'Installs the MythTV web configuration.', 
     'depends':['common', 'frontend' ],
-    'side-by-side':['backend', 'frontend', 'web' ],
+    'side-by-side':['database', 'backend', 'frontend', 'web' ],
     'packages':["mythweb"], 
     },
     {'name':'none', 
     'shortdesc':'removes all MythTV packages', 
     'description':'removes all MythTV packages.', 
     'packages':[], 
+    'noconflicts':['ttf-mscorefonts-installer']
     },
 ]
 
@@ -1222,7 +1229,6 @@ all_package_groups = [
     ('arsoft-mythtv', mythtv),
     ('arsoft-developer', developer),
     ('arsoft-abiword', abiword),
-    ('arsoft-plymouth', plymouth),
     ('arsoft-networkmanager', networkmanager),
     ('arsoft-cyrusimapd', cyrusimapd)
 ]
