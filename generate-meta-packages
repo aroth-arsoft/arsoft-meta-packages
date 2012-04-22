@@ -12,7 +12,7 @@ import re
 import shutil
 
 all_distributions = ['hardy', 'intrepid', 'jaunty', 'lucid', 'karmic', 'maverick', 'natty', 'oneiric', 'precise']
-default_distributions = ['lucid', 'natty', 'oneiric']
+default_distributions = ['lucid', 'natty', 'oneiric', 'precise']
 source_package_name = 'arsoft-meta-packages'
 package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
 package_homepage = 'http://www.arsoft-online.com'
@@ -91,6 +91,11 @@ Fifth Floor, Boston, MA 02110-1301, USA.\n\
 
 package_changelog = [
 
+    {
+        'version':'0.68', 'urgency':'low',
+        'items':['remove arsoft-base package and put into an extra package', ],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 22 Apr 2012 17:15:57 +0200'
+    },                                   
     {
         'version':'0.67', 'urgency':'low',
         'items':['put mythtv database into a separate package', ],
@@ -565,24 +570,6 @@ package_changelog = [
         'version':'0.1ubuntu1', 'urgency':'low', 
         'items':['initial release'], 
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 12 Oct 2010 19:49:03 +0200'
-    }
-]
-
-base = [
-    {'name':'base', 
-    'mainpackage':True,
-    'shortdesc':'Installs basic packages for operation', 
-    'description':'', 
-    'side-by-side':[],
-    'packages':['bash', 'tzdata', 'mc', 'augeas-tools', 'augeas-lenses',
-                'unzip', 'zip', 'iotop',
-                'ntfsprogs', 'xfsprogs', 'cryptsetup',
-                'update-manager-core', 'update-notifier-common', 
-                'language-pack-en-base', 
-                'console-data', 'console-setup', 'gawk', 'sed',
-                'strace', 
-                'arsoft-scripts'
-                ]
     }
 ]
 
@@ -1217,7 +1204,6 @@ cyrusimapd = [
 ]
 
 all_package_groups = [
-    ('arsoft-base', base),
     ('arsoft-gfx', graphicsdrivers),
     ('arsoft-openoffice', openoffice),
     ('arsoft-libreoffice', libreoffice),
