@@ -11,8 +11,8 @@ import subprocess
 import re
 import shutil
 
-all_distributions = ['hardy', 'intrepid', 'jaunty', 'lucid', 'karmic', 'maverick', 'natty', 'oneiric', 'precise']
-default_distributions = ['lucid', 'natty', 'oneiric', 'precise']
+all_distributions = ['hardy', 'intrepid', 'jaunty', 'lucid', 'karmic', 'maverick', 'natty', 'oneiric', 'precise', 'quantal']
+default_distributions = ['lucid', 'oneiric', 'precise']
 source_package_name = 'arsoft-meta-packages'
 package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
 package_homepage = 'http://www.arsoft-online.com'
@@ -91,6 +91,16 @@ Fifth Floor, Boston, MA 02110-1301, USA.\n\
 
 package_changelog = [
 
+    {
+        'version':'0.70', 'urgency':'low',
+        'items':['add a package for cyrus clients' ],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 26 May 2012 18:45:52 +0200'
+    },                                   
+    {
+        'version':'0.69', 'urgency':'low',
+        'items':['fixed ibus depends', 'fixed gnome policykit depends' ],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 29 Apr 2012 17:38:32 +0200'
+    },                                   
     {
         'version':'0.68', 'urgency':'low',
         'items':['remove arsoft-base package and put into an extra package', ],
@@ -848,7 +858,7 @@ kde = [
                 'virtuoso-minimal'
                 ],
     'conflicts':['phonon-backend-xine', 'kpackagekit',
-                    'ibus-qt4, libibus-qt1, ibus, ibus-gtk, libibus1',
+#                    'ibus-qt4', 'libibus-qt1', 'ibus', 'ibus-gtk', 'libibus1',
                     'scim', 'scim-qtimm', 'scim-modules-socket']
     },
     {'name':'netbook', 
@@ -978,7 +988,8 @@ gnome = [
                 'nautilus', 'nautilus-sendto', 'nautilus-sendto-empathy', 'nautilus-share', 'gok',
                 "metacity", "metacity-common", "compiz", "compiz-gnome", 'gtk2-engines-qtcurve'
                 ],
-    'conflicts':['ibus-qt4, libibus-qt1, ibus, ibus-gtk, libibus1',
+    'conflicts':[
+#                    'ibus-qt4', 'libibus-qt1', 'ibus', 'ibus-gtk', 'libibus1',
                     'scim', 'scim-qtimm', 'scim-modules-socket']
     },
     {'name':'desktop', 
@@ -1021,7 +1032,7 @@ gnome = [
     'shortdesc':'removes all versions of the GNOME desktop environment', 
     'description':'This package removes all versions of GNOME desktop environment.', 
     'packages':[], 
-    'noconflicts':['gtk2-engines-qtcurve', 'apturl', 'gnome-icon-theme', 'policykit-desktop-privileges',
+    'noconflicts':['gtk2-engines-qtcurve', 'apturl', 'gnome-icon-theme', 'policykit-1-gnome', 'policykit-desktop-privileges',
                 'gstreamer0.10-ffmpeg', 'gstreamer0.10-alsa', 'gstreamer0.10-gnonlin', 'gstreamer0.10-nice', 'gstreamer0.10-plugins-base-apps', 'gstreamer0.10-tools',
                 'gstreamer0.10-plugins-good', 'gstreamer0.10-plugins-bad', 'gstreamer0.10-plugins-ugly',
                 'ttf-mscorefonts-installer'
@@ -1183,7 +1194,7 @@ cyrusimapd = [
     'shortdesc':'Installs version 2.2.x of cyrus-imapd', 
     'description':'Installs version 2.2.x of cyrus-imapd.', 
     'depends':['common'],
-    'side-by-side':['2.4'],
+    'side-by-side':['2.2', '2.4', '2.4-clients'],
     'packages':['cyrus-common-2.2', 'cyrus-admin-2.2', 'cyrus-clients-2.2', 'cyrus-imapd-2.2', 
                 'cyrus-pop3d-2.2', 'cyrus-nntpd-2.2', 'cyrus-murder-2.2', 'cyrus-replication-2.2']
     },
@@ -1191,9 +1202,16 @@ cyrusimapd = [
     'shortdesc':'Installs version 2.4.x of cyrus-imapd', 
     'description':'Installs version 2.4.x of cyrus-imapd.', 
     'depends':['common'],
-    'side-by-side':['2.2'],
+    'side-by-side':['2.2', '2.4', '2.4-clients'],
     'packages':['cyrus-common-2.4', 'cyrus-admin-2.4', 'cyrus-clients-2.4', 'cyrus-imapd-2.4', 
                 'cyrus-pop3d-2.4', 'cyrus-nntpd-2.4', 'cyrus-murder-2.4', 'cyrus-replication-2.4']
+    },
+    {'name':'2.4-clients', 
+    'shortdesc':'Installs version 2.4.x of cyrus-imapd', 
+    'description':'Installs version 2.4.x of cyrus-imapd.', 
+    'depends':['common'],
+    'side-by-side':['2.2', '2.4', '2.4-clients'],
+    'packages':['cyrus-clients-2.4']
     },
     {'name':'none', 
     'shortdesc':'removes the network manager completely.', 
