@@ -12,6 +12,7 @@ kde = [
     'description':'', 
     'packages':['arsoft-desktop',
                 'polkit-kde-1', 'jockey-kde',
+                'gtk2-engines-qtcurve',
                 'konsole', 'konqueror', 'kdesudo', 'kate', 'gdebi-kde', 'kdelibs5-data',
                 'dolphin', 'kdebase-workspace', 
                 'khelpcenter4', 'systemsettings', 'language-selector-qt', 

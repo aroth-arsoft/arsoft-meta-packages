@@ -5,6 +5,16 @@
 package_changelog = [
 
     {
+        'version':'0.74', 'urgency':'low',
+        'items':['install java plugin with firefox'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 01 Jul 2012 08:48:35 +0200'
+    },                                   
+    {
+        'version':'0.73', 'urgency':'low',
+        'items':['fixed trouble with qtcurve packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 24 Jun 2012 17:45:10 +0200'
+    },                                   
+    {
         'version':'0.72', 'urgency':'low',
         'items':['create new dekstop packages for common stuff used by KDE, GNOME and Xfce4',
                 'split python script into smaller pieces'],

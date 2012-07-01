@@ -17,7 +17,6 @@ desktop = [
                 # All gstreamer packages
                 'gstreamer0.10-ffmpeg', 'gstreamer0.10-alsa', 'gstreamer0.10-gnonlin', 'gstreamer0.10-nice', 'gstreamer0.10-plugins-base-apps', 'gstreamer0.10-tools',
                 'gstreamer0.10-plugins-good', 'gstreamer0.10-plugins-bad', 'gstreamer0.10-plugins-ugly',
-                'gtk2-engines-qtcurve',
                 'unclutter', 
                 'xdiagnose', 'xrestop'
                 ],

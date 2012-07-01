@@ -8,6 +8,7 @@ from grp_openoffice import openoffice
 from grp_libreoffice import libreoffice
 from grp_firefox import firefox
 from grp_thunderbird import thunderbird
+from grp_chromium import chromium
 from grp_xfce4 import xfce4
 from grp_kde import kde
 from grp_gnome import gnome
@@ -24,6 +25,7 @@ all_package_groups = [
     ('arsoft-libreoffice', libreoffice),
     ('arsoft-firefox', firefox),
     ('arsoft-thunderbird', thunderbird),
+    ('arsoft-chromium', chromium),
     ('arsoft-xfce4', xfce4),
     ('arsoft-kde', kde),
     ('arsoft-gnome', gnome),

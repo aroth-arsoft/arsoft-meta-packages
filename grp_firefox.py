@@ -7,8 +7,8 @@ firefox = [
     'mainpackage':True,
     'shortdesc':'Installs the latest version of Mozilla Firefox', 
     'description':'', 
-    'packages':['firefox', 'firefox-branding', 'firefox-launchpad-plugin', 'xul-ext-ubufox', 'browser-plugin-packagekit'],
-    'conflicts': ['gnash', 'gnash-common', 'mozilla-plugin-gnash', 'swfdec-mozilla', 'adblock-plus', 'xul-ext-adblock-plus', 'kubuntu-firefox-installer' ],
+    'packages':['firefox', 'firefox-branding', 'firefox-launchpad-plugin', 'xul-ext-ubufox', 'browser-plugin-packagekit', 'browser-plugin-vlc', 'icedtea-7-plugin'],
+    'conflicts': ['gnash', 'gnash-common', 'browser-plugin-gnash', 'browser-plugin-lightspark', 'swfdec-mozilla', 'adblock-plus', 'xul-ext-adblock-plus', 'kubuntu-firefox-installer' ],
     'replaces': ['firefox-3.5', 'firefox-3.1', 'firefox-3.0']
     # 'xul-ext-ubufox' pulls in 'apturl'
     },
@@ -45,7 +45,7 @@ firefox = [
     'shortdesc':'Uninstalls all versions of Mozilla Firefox', 
     'description':'', 
     'packages':[], 
-    'noconflicts':['kmozillahelper', 'kde-config-gtk', 'browser-plugin-packagekit']
+    'noconflicts':['kmozillahelper', 'kde-config-gtk', 'browser-plugin-packagekit', 'browser-plugin-vlc', 'icedtea-7-plugin']
     },
 ]
  
