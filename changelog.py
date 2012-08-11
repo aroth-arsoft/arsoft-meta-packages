@@ -5,15 +5,35 @@
 package_changelog = [
 
     {
+        'version':'0.78', 'urgency':'low',
+        'items':['add packages for latex'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 11 Aug 2012 19:20:56 +0200'
+    },
+    {
+        'version':'0.77', 'urgency':'low',
+        'items':['prefer chromium-codecs-ffmpeg-extra over chromium-codecs-ffmpeg'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 28 Jul 2012 13:41:56 +0200'
+    },
+    {
+        'version':'0.76', 'urgency':'low',
+        'items':['revert to nvidia-current packages and remove nvidia-current-update'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 28 Jul 2012 09:56:28 +0200'
+    },
+    {
+        'version':'0.75', 'urgency':'low',
+        'items':['add mono meta packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 27 Jul 2012 07:26:40 +0200'
+    },
+    {
         'version':'0.74', 'urgency':'low',
         'items':['install java plugin with firefox'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 01 Jul 2012 08:48:35 +0200'
-    },                                   
+    },
     {
         'version':'0.73', 'urgency':'low',
         'items':['fixed trouble with qtcurve packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 24 Jun 2012 17:45:10 +0200'
-    },                                   
+    },
     {
         'version':'0.72', 'urgency':'low',
         'items':['create new dekstop packages for common stuff used by KDE, GNOME and Xfce4',

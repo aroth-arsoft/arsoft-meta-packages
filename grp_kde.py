@@ -25,7 +25,7 @@ kde = [
                 'apturl-kde', 'ksshaskpass', 'kwalletmanager', 'kwalletcli', 
                 'kde-style-qtcurve', 'kwin-style-qtcurve', 'kde-config-gtk',
                 'ark', 'okular', 'okular-extra-backends', 'ksnapshot', 'ksystemlog', 'krusader', 'krename', 'krdc', 'krfb',
-                'dragonplayer',
+                'dragonplayer', 'filelight',
                 'system-config-printer-kde', 'printer-applet',
                 'phonon-backend-vlc', 'phonon-backend-gstreamer',
                 'rekonq',

@@ -2,7 +2,8 @@
 graphicsdrivers = [ 
     {'name':'ati', 'shortdesc':'Installs the ATI/AMD graphics driver', 'description':'', 'packages':['radeontool', 'fglrx', 'fglrx-modaliases', 'v86d'] },
     {'name':'nvidia', 'shortdesc':'Installs the NVIDIA graphics driver', 'description':'', 
-        'packages':['nvidia-current-updates', 'nvidia-settings-updates', 'v86d', 'vdpau-va-driver'] 
+        'packages':['nvidia-current', 'nvidia-settings', 'v86d', 'vdpau-va-driver'],
+        'conflicts':['nvidia-current-updates', 'nvidia-settings-updates']
     },
     {'name':'nv', 'shortdesc':'Installs the free NVIDIA graphics driver', 'description':'', 'packages':['xserver-xorg-video-nv'] },
     {'name':'nouveau', 'shortdesc':'Installs the Nouveau graphics driver', 'description':'', 'packages':['xserver-xorg-video-nouveau'] },

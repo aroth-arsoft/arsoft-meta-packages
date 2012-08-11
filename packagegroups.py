@@ -17,6 +17,8 @@ from grp_developer import developer
 from grp_abiword import abiword
 from grp_networkmanager import networkmanager
 from grp_cyrusimapd import cyrusimapd
+from grp_mono import mono
+from grp_latex import latex
 
 all_package_groups = [
     ('arsoft-gfx', graphicsdrivers),
@@ -33,6 +35,8 @@ all_package_groups = [
     ('arsoft-developer', developer),
     ('arsoft-abiword', abiword),
     ('arsoft-networkmanager', networkmanager),
-    ('arsoft-cyrusimapd', cyrusimapd)
+    ('arsoft-cyrusimapd', cyrusimapd),
+    ('arsoft-mono', mono),
+    ('arsoft-latex', latex)
 ]
  
