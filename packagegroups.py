@@ -18,25 +18,27 @@ from grp_abiword import abiword
 from grp_networkmanager import networkmanager
 from grp_cyrusimapd import cyrusimapd
 from grp_mono import mono
+from grp_java import java
 from grp_latex import latex
 
 all_package_groups = [
-    ('arsoft-gfx', graphicsdrivers),
-    ('arsoft-desktop', desktop),
-    ('arsoft-openoffice', openoffice),
-    ('arsoft-libreoffice', libreoffice),
-    ('arsoft-firefox', firefox),
-    ('arsoft-thunderbird', thunderbird),
-    ('arsoft-chromium', chromium),
-    ('arsoft-xfce4', xfce4),
-    ('arsoft-kde', kde),
-    ('arsoft-gnome', gnome),
-    ('arsoft-mythtv', mythtv),
-    ('arsoft-developer', developer),
-    ('arsoft-abiword', abiword),
-    ('arsoft-networkmanager', networkmanager),
-    ('arsoft-cyrusimapd', cyrusimapd),
-    ('arsoft-mono', mono),
-    ('arsoft-latex', latex)
+    ('arsoft-gfx', graphicsdrivers, {} ),
+    ('arsoft-desktop', desktop, {} ),
+    ('arsoft-openoffice', openoffice, {} ),
+    ('arsoft-libreoffice', libreoffice, {} ),
+    ('arsoft-firefox', firefox, {} ),
+    ('arsoft-thunderbird', thunderbird, {} ),
+    ('arsoft-chromium', chromium, {} ),
+    ('arsoft-xfce4', xfce4, {} ),
+    ('arsoft-kde', kde, {} ),
+    ('arsoft-gnome', gnome, {} ),
+    ('arsoft-mythtv', mythtv, {} ),
+    ('arsoft-developer', developer, {} ),
+    ('arsoft-abiword', abiword, {} ),
+    ('arsoft-networkmanager', networkmanager, {} ),
+    ('arsoft-cyrusimapd', cyrusimapd, {} ),
+    ('arsoft-mono', mono, {} ),
+    ('arsoft-java', java, {'distribution':['!lucid']} ),
+    ('arsoft-latex', latex, {} )
 ]
  

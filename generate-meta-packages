@@ -308,20 +308,35 @@ class application(object):
 
         content = source_pkg
         full_version = package_version + '~' + distribution + str(distribution_release)
-        for (groupname, grouprules) in all_package_groups:
-            if self.selected_groups is not None:
-                if groupname in self.selected_groups:
-                    include = True
-                else:
-                    include = False
+        for (groupname, grouprules, groupopts) in all_package_groups:
+            if groupopts.has_key('distribution'):
+                groupdistribution = groupopts['distribution']
+                build_group_for_distribution = True
+                if distribution in groupdistribution:
+                    build_group_for_distribution = True
+                if ('!' + distribution) in groupdistribution:
+                    build_group_for_distribution = False
             else:
-                include = True
+                build_group_for_distribution = True
+                
+            #self.info('Build group ' + groupname + ' for distribution ' + distribution + ':' + str(build_group_for_distribution))
+
+            if build_group_for_distribution:
+                if self.selected_groups is not None:
+                    if groupname in self.selected_groups:
+                        include = True
+                    else:
+                        include = False
+                else:
+                    include = True
+            else:
+                include = False
             if include:
                 packages = self.package_group(groupname, grouprules, full_version)
                 content = content + packages
             else:
-                self.debug("Skip group " + groupname)        
-            
+                self.info('Skip group ' + groupname + ' for distribution ' + distribution)
+
         self.debug(content)
 
         f = open(control_file, 'w')

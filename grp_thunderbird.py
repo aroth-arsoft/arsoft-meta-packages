@@ -15,21 +15,21 @@ thunderbird = [
     'depends':['common'],
     'packages':['thunderbird-gnome-support'], 
     'side-by-side':['english', 'german'],
-    'noconflicts':['kmozillahelper', 'kde-config-gtk']
+    'noconflicts':['kde-config-gtk']
     },
     {'name':'kde', 
     'shortdesc':'Installs KDE support files for Mozilla Thunderbird', 
     'description':'This package installs Mozilla Thunderbird KDE support.', 
     'depends':['common'],
     'side-by-side':['english', 'german'],
-    'packages':['kmozillahelper', 'kde-config-gtk'], 
+    'packages':['kde-config-gtk'], 
     },
     {'name':'english', 
     'shortdesc':'Installs the english languages files for Mozilla Thunderbird', 
     'description':'', 
     'depends':['common'],
     'side-by-side':['kde', 'gnome', 'german'],
-    'packages':['thunderbird-locale-en-us']
+    'packages':['thunderbird-locale-en']
     },
     {'name':'german', 
     'shortdesc':'Installs the german languages files for Mozilla Thunderbird', 
@@ -42,7 +42,7 @@ thunderbird = [
     'shortdesc':'Uninstalls all versions of Mozilla Thunderbird', 
     'description':'', 
     'packages':[], 
-    'noconflicts':['kmozillahelper', 'kde-config-gtk', 'browser-plugin-packagekit']
+    'noconflicts':['kde-config-gtk', 'browser-plugin-packagekit']
     },
 ]
  

@@ -28,7 +28,7 @@ cyrusimapd = [
     {'name':'2.4-clients', 
     'shortdesc':'Installs version 2.4.x of cyrus-imapd', 
     'description':'Installs version 2.4.x of cyrus-imapd.', 
-    'depends':['common'],
+    'depends':[],
     'side-by-side':['2.2', '2.4', '2.4-clients'],
     'packages':['cyrus-clients-2.4']
     },
@@ -39,4 +39,3 @@ cyrusimapd = [
     'noconflicts':[]
     },
 ]
- 

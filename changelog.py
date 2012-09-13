@@ -5,6 +5,16 @@
 package_changelog = [
 
     {
+        'version':'0.80', 'urgency':'low',
+        'items':['fixed thunderbird and firefox packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 13 Sep 2012 19:37:20 +0200'
+    },
+    {
+        'version':'0.79', 'urgency':'low',
+        'items':['add packages for java'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 13 Sep 2012 14:52:09 +0200'
+    },
+    {
         'version':'0.78', 'urgency':'low',
         'items':['add packages for latex'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 11 Aug 2012 19:20:56 +0200'
