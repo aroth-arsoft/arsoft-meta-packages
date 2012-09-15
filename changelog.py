@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'0.81', 'urgency':'low',
+        'items':['fixed java package inter-dependencies'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 15 Sep 2012 14:55:11 +0200'
+    },
+    {
         'version':'0.80', 'urgency':'low',
         'items':['fixed thunderbird and firefox packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 13 Sep 2012 19:37:20 +0200'

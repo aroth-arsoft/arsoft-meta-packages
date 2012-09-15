@@ -12,16 +12,19 @@ latex = [
     {'name':'extra', 
     'shortdesc':'Installs the extra Latex packages', 
     'description':'', 
+    'side-by-side':['recommended', 'extra', 'doc'],
     'packages':['texlive-latex-extra']
     },
     {'name':'recommended', 
     'shortdesc':'Installs the recommended Latex packages', 
     'description':'', 
+    'side-by-side':['recommended', 'extra', 'doc'],
     'packages':['texlive-latex-recommended', 'texlive-fonts-recommended']
     },
     {'name':'doc', 
     'shortdesc':'Installs the recommended Latex packages', 
     'description':'', 
+    'side-by-side':['recommended', 'extra', 'doc'],
     'packages':['texlive-fonts-recommended-doc']
     },
     {'name':'none', 

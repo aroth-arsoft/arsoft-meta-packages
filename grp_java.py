@@ -8,6 +8,7 @@ java = [
     'shortdesc':'Installs the latest version of Java', 
     'description':'', 
     'packages':['openjdk-7-jre-lib'],
+    'side-by-side':['jre-headless', 'jre', 'jdk'],
     'conflicts':['openjdk-6-jre-lib']
     },
     {'name':'jre-headless', 

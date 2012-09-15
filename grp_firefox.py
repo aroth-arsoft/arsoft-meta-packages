@@ -25,7 +25,7 @@ firefox = [
     'description':'This package installs Mozilla Firefox KDE support.', 
     'depends':['common'],
     'side-by-side':['english', 'german'],
-    'packages':['firefox-kde-support', 'kde-config-gtk'], 
+    'packages':['kde-config-gtk'], 
     },
     {'name':'english', 
     'shortdesc':'Installs the english languages files for Mozilla Firefox', 

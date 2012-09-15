@@ -124,10 +124,77 @@ class application(object):
         for line in lines:
             ret = ret + line + '\n'
         return ret
-        
+    
+    def _calc_full_depends(self, name, prefix, choices):
+        ret_depends = set()
+        ret_packages = set()
+        mydepends = set()
+        for element in choices:
+            if element['name'] == name:
+                if element.has_key('depends'):
+                    mydepends |= set(element['depends'])
+                if element.has_key('packages'):
+                    ret_packages |= set(element['packages'])
+                break;
+        self.debug('_calc_full_depends: ' + name + ' mydepends=' + str(mydepends))
+        for mydep in mydepends:
+            for element in choices:
+                if mydep == element['name']:
+                    if element.has_key('mainpackage'):
+                        mainpackage = bool(element['mainpackage'])
+                    else:
+                        mainpackage = False
+                    if mainpackage:
+                        dep_package_name = prefix
+                    else:
+                        dep_package_name = prefix + '-' + element['name']
+
+                    (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices)
+                    
+                    ret_depends.add(dep_package_name)
+                    ret_depends |= set(element_depends)
+                    ret_packages |= element_packages
+                    break
+        self.debug('_calc_full_depends: ' + name + ' return ret_depends=' + str(ret_depends) + ', ret_packages=' + str(ret_packages))
+        return (ret_depends, ret_packages)
+
+    def _calc_descendants(self, name, prefix, choices):
+        ret_depends = set()
+        ret_packages = set()
+        myrealname = name
+        for element in choices:
+            if element['name'] == name:
+                if element.has_key('mainpackage'):
+                    mainpackage = bool(element['mainpackage'])
+                else:
+                    mainpackage = False
+                if mainpackage:
+                    myrealname = prefix
+                else:
+                    myrealname = prefix + '-' + element['name']
+                break
+        for element in choices:
+            if name != element['name']:
+                (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices)
+                if myrealname in element_depends:
+                    if element.has_key('mainpackage'):
+                        mainpackage = bool(element['mainpackage'])
+                    else:
+                        mainpackage = False
+                    if mainpackage:
+                        dep_package_name = prefix
+                    else:
+                        dep_package_name = prefix + '-' + element['name']
+                    
+                    ret_depends.add(dep_package_name)
+                    ret_depends |= set(element_depends)
+                    ret_packages |= element_packages
+        return (ret_depends, ret_packages)
+    
     def package_group(self, prefix, choices, package_version):
         all_packages = set()
         all_package_names = set()
+        package_depends = {}
         for element in choices:
             if element.has_key('mainpackage'):
                 mainpackage = bool(element['mainpackage'])
@@ -176,14 +243,23 @@ class application(object):
                 element_noconflicts = set(element['noconflicts'])
             else:
                 element_noconflicts = set()
+
+            
+            (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices)
+            (element_descendants_depends, element_descendants_packages) = self._calc_descendants(element['name'], prefix, choices)
+            
             
             # compute the conflicting packages
             conflict_packages = all_packages.copy()
             conflict_packages.update(element_conflicts)
-            conflict_packages -= depend_packages
             conflict_packages -= element_noconflicts
+            conflict_packages -= element_packages
+            conflict_packages -= element_descendants_packages
             conflict_other_packages = all_package_names.copy()
             conflict_other_packages.remove(name)
+            conflict_other_packages -= element_depends
+            conflict_other_packages -= element_descendants_depends
+            
             for dep_element in choices:
                 if dep_element.has_key('mainpackage'):
                     mainpackage = bool(dep_element['mainpackage'])
@@ -197,12 +273,14 @@ class application(object):
                     dep_depends = set(dep_element['depends'])
                 else:
                     dep_depends = set()
+
                 if element['name'] in dep_depends:
                     self.debug('pkg: ' + dep_package_name + ' depends on current package ' + element['name'] + ' remove from ' + str(conflict_other_packages))
                     if dep_package_name in conflict_other_packages:
                         conflict_other_packages.remove(dep_package_name)
                     dep_element_packages = set(dep_element['packages'])
                     conflict_packages -= dep_element_packages
+                self.debug('pkg: ' + dep_package_name + ' depend_groups=' + str(depend_groups))
                 if dep_element['name'] in depend_groups:
                     self.debug('pkg: ' + name + ' remove ' + dep_package_name + '/' + dep_element['name'] + ' from ' + str(conflict_packages))
                     if dep_package_name in conflict_other_packages:
