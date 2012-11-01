@@ -9,7 +9,7 @@ java = [
     'description':'', 
     'packages':['openjdk-7-jre-lib'],
     'side-by-side':['jre-headless', 'jre', 'jdk'],
-    'conflicts':['openjdk-6-jre-lib']
+    'conflicts':['openjdk-6-jre-lib', 'sun-java6-plugin']
     },
     {'name':'jre-headless', 
     'shortdesc':'Installs the latest version of the Java Runtime Environment', 

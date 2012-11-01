@@ -5,6 +5,31 @@
 package_changelog = [
 
     {
+        'version':'0.86', 'urgency':'low',
+        'items':['fixed wrong depends by language-selector-qt use language-selector-kde instead', 'remove sun-java6-plugin package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 01 Nov 2012 16:03:21 +0100'
+    },
+    {
+        'version':'0.85', 'urgency':'low',
+        'items':['remove apport from KDE and GNOME packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 28 Oct 2012 08:41:11 +0100'
+    },
+    {
+        'version':'0.84', 'urgency':'low',
+        'items':['fixed more conflicts in arsoft-gfx-nvidia package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 21 Oct 2012 11:21:06 +0200'
+    },
+    {
+        'version':'0.83', 'urgency':'low',
+        'items':['fixed conflicts between nvidia-current and fglrx packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 21 Oct 2012 09:42:59 +0200'
+    },
+    {
+        'version':'0.82', 'urgency':'low',
+        'items':['first build for quantal'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 19 Oct 2012 07:46:38 +0200'
+    },
+    {
         'version':'0.81', 'urgency':'low',
         'items':['fixed java package inter-dependencies'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 15 Sep 2012 14:55:11 +0200'

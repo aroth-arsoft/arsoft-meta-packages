@@ -10,7 +10,7 @@ gnome = [
     'packages':['arsoft-desktop',
                 'policykit-1-gnome', 'gksu-polkit',
                 "gnome-desktop-data", "gnome-settings-daemon", "gnome-panel-data", 'gdebi', 'language-selector',
-                "gnome-menus", "gnome-icon-theme", "gnome-themes-selected", "gnome-mime-data", "apturl", "apport-gtk", "go-home-applet",
+                "gnome-menus", "gnome-icon-theme", "gnome-themes-selected", "gnome-mime-data", "apturl", "go-home-applet",
                 "gnome-terminal", "gnome-screensaver", "gnome-codec-install", "gnome-search-tool", "update-manager", "update-notifier",
                 "ssh-askpass-gnome", "gpointing-device-settings", 'ubuntu-sounds', 'xdg-user-dirs-gtk',
                 'gconf-defaults-service', 'gconf-editor',
