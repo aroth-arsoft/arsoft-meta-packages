@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'0.87', 'urgency':'low',
+        'items':['added googleearth packages', 'added chrome packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 07 Nov 2012 19:50:56 +0100'
+    },
+    {
         'version':'0.86', 'urgency':'low',
         'items':['fixed wrong depends by language-selector-qt use language-selector-kde instead', 'remove sun-java6-plugin package'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 01 Nov 2012 16:03:21 +0100'

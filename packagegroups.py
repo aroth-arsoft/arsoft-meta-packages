@@ -9,6 +9,7 @@ from grp_libreoffice import libreoffice
 from grp_firefox import firefox
 from grp_thunderbird import thunderbird
 from grp_chromium import chromium
+from grp_chrome import chrome
 from grp_xfce4 import xfce4
 from grp_kde import kde
 from grp_gnome import gnome
@@ -20,6 +21,7 @@ from grp_cyrusimapd import cyrusimapd
 from grp_mono import mono
 from grp_java import java
 from grp_latex import latex
+from grp_googleearth import googleearth
 
 all_package_groups = [
     ('arsoft-gfx', graphicsdrivers, {} ),
@@ -29,6 +31,7 @@ all_package_groups = [
     ('arsoft-firefox', firefox, {} ),
     ('arsoft-thunderbird', thunderbird, {} ),
     ('arsoft-chromium', chromium, {} ),
+    ('arsoft-chrome', chrome, {} ),
     ('arsoft-xfce4', xfce4, {} ),
     ('arsoft-kde', kde, {} ),
     ('arsoft-gnome', gnome, {} ),
@@ -39,6 +42,6 @@ all_package_groups = [
     ('arsoft-cyrusimapd', cyrusimapd, {} ),
     ('arsoft-mono', mono, {} ),
     ('arsoft-java', java, {'distribution':['!lucid']} ),
-    ('arsoft-latex', latex, {} )
+    ('arsoft-latex', latex, {} ),
+    ('arsoft-googleearth', googleearth, {} )
 ]
- 
