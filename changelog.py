@@ -5,6 +5,16 @@
 package_changelog = [
 
     {
+        'version':'0.89', 'urgency':'low',
+        'items':['added lightdm packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 15 Dec 2012 17:09:06 +0100'
+    },
+    {
+        'version':'0.88', 'urgency':'low',
+        'items':['added googlemusicmanager packages', 'force removal of libxfce4util-common when xfce is not installed', 'remove old/obsolete google earth packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 25 Nov 2012 12:51:24 +0100'
+    },
+    {
         'version':'0.87', 'urgency':'low',
         'items':['added googleearth packages', 'added chrome packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 07 Nov 2012 19:50:56 +0100'

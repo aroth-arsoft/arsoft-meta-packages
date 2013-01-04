@@ -22,6 +22,8 @@ from grp_mono import mono
 from grp_java import java
 from grp_latex import latex
 from grp_googleearth import googleearth
+from grp_googlemusicmanager import googlemusicmanager
+from grp_lightdm import lightdm
 
 all_package_groups = [
     ('arsoft-gfx', graphicsdrivers, {} ),
@@ -43,5 +45,7 @@ all_package_groups = [
     ('arsoft-mono', mono, {} ),
     ('arsoft-java', java, {'distribution':['!lucid']} ),
     ('arsoft-latex', latex, {} ),
-    ('arsoft-googleearth', googleearth, {} )
+    ('arsoft-googleearth', googleearth, {} ),
+    ('arsoft-googlemusicmanager', googlemusicmanager, {} ),
+    ('arsoft-lightdm', lightdm, {} )
 ]

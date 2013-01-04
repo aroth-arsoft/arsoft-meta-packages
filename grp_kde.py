@@ -15,7 +15,7 @@ kde = [
                 'gtk2-engines-qtcurve',
                 'konsole', 'konqueror', 'kdesudo', 'kate', 'gdebi-kde', 'kdelibs5-data',
                 'dolphin', 'kdebase-workspace', 
-                'khelpcenter4', 'systemsettings', 'language-selector-kde', 
+                'khelpcenter4', 'systemsettings', 'language-selector-kde', 'userconfig',
                 'oxygen-icon-theme', 'kde-zeroconf', 'kdepim-runtime', 'akonadi-server',
                 'kde-style-skulpture', 'muon',
                 'soprano-daemon',

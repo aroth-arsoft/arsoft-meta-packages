@@ -7,7 +7,7 @@ java = [
     'mainpackage':True,
     'shortdesc':'Installs the latest version of Java', 
     'description':'', 
-    'packages':['openjdk-7-jre-lib'],
+    'packages':['default-jre', 'openjdk-7-jre-lib'],
     'side-by-side':['jre-headless', 'jre', 'jdk'],
     'conflicts':['openjdk-6-jre-lib', 'sun-java6-plugin']
     },
@@ -15,7 +15,7 @@ java = [
     'shortdesc':'Installs the latest version of the Java Runtime Environment', 
     'description':'', 
     'depends':['common'],
-    'packages':['openjdk-7-jre-headless']
+    'packages':['default-jre-headless', 'openjdk-7-jre-headless']
     },
     {'name':'jre', 
     'shortdesc':'Installs the latest version of the Java Runtime Environment', 
@@ -36,4 +36,3 @@ java = [
     'noconflicts':[]
     },
 ]
- 

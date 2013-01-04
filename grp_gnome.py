@@ -17,6 +17,7 @@ gnome = [
                 'gnome-themes-ubuntu', 'gnome-utils', 'packagekit-gnome', 
                 'indicator-applet-session', 'indicator-me', 'indicator-sound', 'indicator-session', 'notify-osd', 'notify-osd-icons',
                 'nautilus', 'nautilus-sendto', 'nautilus-sendto-empathy', 'nautilus-share', 'gok',
+                'gnome-keyring', 'gnome-session-bin', 'gnome-system-log',
                 "metacity", "metacity-common", "compiz", "compiz-gnome"
                 ],
     'packages':['arsoft-desktop']
@@ -32,7 +33,7 @@ gnome = [
                 "evolution", "evolution-data-server", "evolution-data-server-common", "evolution-common", "evolution-webcal",
                 "gnome-games", "gnome-mahjongg", "gnome-games-common", "gnome-sudoku", "gnotski", "gnomine", "gnibbles", "glines", "aisleriot",
                 "file-roller", "gedit", "gnome-mag", "gnome-nettool", "gnome-system-tools", "gnome-system-monitor", "tsclient", "vino",
-                'eog', 'eog-plugins', 'xournal', 'gnome-user-guide', 'gnome-accessibility-themes',
+                'eog', 'eog-plugins', 'xournal', 'gnome-user-guide', 'gnome-accessibility-themes', 'gnome-disk-utility', 
                 "evince", "gnome-screenshot", 'epiphany-browser'], 
     },
     {'name':'multimedia', 
