@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'0.90', 'urgency':'low',
+        'items':['fixed firefox packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 23 Jan 2013 16:25:04 +0100'
+    },
+    {
         'version':'0.89', 'urgency':'low',
         'items':['added lightdm packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 15 Dec 2012 17:09:06 +0100'
