@@ -5,9 +5,19 @@
 package_changelog = [
 
     {
+        'version':'0.92', 'urgency':'low',
+        'items':['rebuild latest'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 25 Jan 2013 09:49:32 +0100'
+    },
+    {
+        'version':'0.91', 'urgency':'low',
+        'items':['fixed apport trouble'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 04 Jan 2013 18:12:26 +0100'
+    },
+    {
         'version':'0.90', 'urgency':'low',
         'items':['fixed firefox packages'],
-        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 23 Jan 2013 16:25:04 +0100'
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 15 Dec 2012 18:39:08 +0100'
     },
     {
         'version':'0.89', 'urgency':'low',
