@@ -73,9 +73,9 @@ kde = [
                 # plasma desktop edition
                 'kde-plasma-desktop', 'kdeplasma-addons',
                 # multimedia packages
-                'amarok', 'gwenview', 'kipi-plugins', 'digikam', 'digikam-data', 'kdegraphics-strigi-plugins', 'soundkonverter',
-                # games packages
-                'kdegames',
+                'amarok', 'gwenview', 'kdegraphics-strigi-plugins', 'soundkonverter',
+                # temp disable digikam
+                # 'kipi-plugins', 'digikam', 'digikam-data', 
                 # list some kdegames packages explicit because we want to remove them when arsoft-kde-none is installed
                 'bomber', 'bovo', 'kajongg', 'palapeli',
                 'kapman', 'katomic', 'kbattleship', 'kblackbox',
@@ -85,7 +85,7 @@ kde = [
                 'kollision', 'konquest', 'kpat', 'kreversi',
                 'ksame', 'kshisen', 'ksirk', 'kspaceduel', 'ksquares',
                 'ksudoku', 'ktron', 'ktuberling', 'kubrick', 'lskat',
-                'kdegames-mahjongg-data', 'kdegames-card-data', 'kdegames-card-data-extra',
+                'kmahjongg-data', 'kdegames-card-data', 'kdegames-card-data-extra',
                 # problematic game
                 #'granatier', 
                 # kdepim packages

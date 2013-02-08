@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'0.93', 'urgency':'low',
+        'items':['fixed kdegames trouble', 'temporary disable digikam'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 06 Feb 2013 18:34:27 +0100'
+    },
+    {
         'version':'0.92', 'urgency':'low',
         'items':['rebuild latest'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 25 Jan 2013 09:49:32 +0100'
