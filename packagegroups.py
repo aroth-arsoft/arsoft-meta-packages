@@ -24,6 +24,8 @@ from grp_latex import latex
 from grp_googleearth import googleearth
 from grp_googlemusicmanager import googlemusicmanager
 from grp_lightdm import lightdm
+from grp_nagios import nagios
+from grp_icinga import icinga
 
 all_package_groups = [
     ('arsoft-gfx', graphicsdrivers, {} ),
@@ -47,5 +49,7 @@ all_package_groups = [
     ('arsoft-latex', latex, {} ),
     ('arsoft-googleearth', googleearth, {} ),
     ('arsoft-googlemusicmanager', googlemusicmanager, {} ),
-    ('arsoft-lightdm', lightdm, {} )
+    ('arsoft-lightdm', lightdm, {} ),
+    ('arsoft-nagios', nagios, {} ),
+    ('arsoft-icinga', icinga, {} )
 ]
