@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.51', 'urgency':'low',
+        'items':['install more icinga packages.'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 16 Feb 2013 18:55:55 +0100'
+    },
+    {
         'version':'2.50', 'urgency':'low',
         'items':['dump version to get nagios packages currently installed.', 'added nagios and icinga packages.'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 10 Feb 2013 13:06:19 +0100'

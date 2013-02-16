@@ -7,7 +7,7 @@ icinga = [
     'mainpackage':True,
     'shortdesc':'maintains the latest version of the Icinga monitoring solution', 
     'description':'This package installs the latest version of Icinga monitoring solution.', 
-    'packages':['arsoft-base', 'icinga']
+    'packages':['arsoft-base', 'icinga-common', 'icinga-core', 'icinga-cgi', 'icinga-doc', 'icinga-web', 'icinga-idoutils', 'icinga' ]
     },
     {'name':'none', 
     'shortdesc':'removes all versions of the Icinga monitoring solution', 
