@@ -14,7 +14,7 @@ nagios = [
     'description':'', 
     'depends':['common'],
     'side-by-side':['server'],
-    'packages':['arsoft-nagios-plugins', 'nagios-nrpe-server', 'nagios-plugins-basic', 'nagios-plugins-extra', 'nagios-plugins-standard']
+    'packages':['arsoft-nagios-plugins', 'nagios-nrpe-server', 'nagios-plugins-basic', 'nagios-plugins-extra', 'nagios-plugins-standard', 'nagios-plugins-contrib']
     },
     {'name':'server', 
     'shortdesc':'Installs Nagios server', 
