@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.53', 'urgency':'low',
+        'items':['fixed libreoffice dependancy issues'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 04 Mar 2013 13:22:29 +0100'
+    },
+    {
         'version':'2.52', 'urgency':'low',
         'items':['add microcode packages', 'install pnp4nagios packages along with icinga'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 04 Mar 2013 07:02:17 +0100'

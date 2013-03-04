@@ -12,7 +12,7 @@ libreoffice = [
         'libreoffice-writer', 'libreoffice-impress', 'libreoffice-draw', 
         'libreoffice-base', 'libreoffice-pdfimport', 'libreoffice-base-core', 
         'libreoffice-core', 
-        'libreoffice-filter-binfilter', 'libreoffice-officebean',
+        'libreoffice-officebean',
         'libreoffice-style-hicontrast', 'libreoffice-style-tango',
         'libreoffice-style-crystal', 'libreoffice-style-oxygen',
         'hunspell-dictionary', 'myspell-dictionary', 
