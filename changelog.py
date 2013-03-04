@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.52', 'urgency':'low',
+        'items':['add microcode packages', 'install pnp4nagios packages along with icinga'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 04 Mar 2013 07:02:17 +0100'
+    },
+    {
         'version':'2.51', 'urgency':'low',
         'items':['install more icinga packages.'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 16 Feb 2013 18:55:55 +0100'
