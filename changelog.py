@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.54', 'urgency':'low',
+        'items':['install nrpe plugin with arsoft-nagios', 'more libreoffice tuning'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 13 Mar 2013 08:20:57 +0100'
+    },
+    {
         'version':'2.53', 'urgency':'low',
         'items':['fixed libreoffice dependancy issues'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 04 Mar 2013 13:22:29 +0100'

@@ -7,7 +7,7 @@ nagios = [
     'mainpackage':True,
     'shortdesc':'maintains the latest version of the common nagios files', 
     'description':'This package installs the latest version of Nagios.', 
-    'packages':['arsoft-base' ]
+    'packages':['arsoft-base', 'nagios-nrpe-plugin']
     },
     {'name':'agent', 
     'shortdesc':'Installs Nagios agent', 
@@ -21,7 +21,7 @@ nagios = [
     'description':'', 
     'depends':['common', 'agent'],
     'side-by-side':['agent'],
-    'packages':['nagios3', 'nagios-nrpe-plugin']
+    'packages':['nagios3']
     },
     {'name':'none', 
     'shortdesc':'removes all versions of the Nagios monitoring solution', 

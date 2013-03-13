@@ -24,8 +24,8 @@ libreoffice = [
     'depends':['common'],
     'side-by-side':['german', 'gnome', 'kde'],
     'packages':['aspell-en', 'wamerican-large', 'wbritish-large',
-                'libreoffice-help-en-us', 'libreoffice-help-en-gb', 
-                'libreoffice-l10n-en-gb'
+                'libreoffice-grammarcheck-en-us',
+                'libreoffice-l10n-en-gb',
         ] 
     },
     {'name':'german', 
@@ -34,7 +34,7 @@ libreoffice = [
     'depends':['common'],
     'side-by-side':['english', 'gnome', 'kde'],
     'packages':['wngerman', 'aspell-de', 
-        'libreoffice-help-de', 'libreoffice-l10n-de'
+        'libreoffice-l10n-de'
         ] 
     },
     {'name':'gnome', 
