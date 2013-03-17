@@ -21,7 +21,7 @@ nagios = [
     'description':'', 
     'depends':['common', 'agent'],
     'side-by-side':['agent'],
-    'packages':['nagios3']
+    'packages':['nagios3', 'nagios3-cgi', 'nagios3-core']
     },
     {'name':'none', 
     'shortdesc':'removes all versions of the Nagios monitoring solution', 
