@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.56', 'urgency':'low',
+        'items':['fixed icinga vs. nagios conflicts'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 17 Mar 2013 17:29:55 +0100'
+    },
+    {
         'version':'2.55', 'urgency':'low',
         'items':['icinga server now conflicts nagios server', 'remove nagios server packages when not installed'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 17 Mar 2013 10:58:16 +0100'
