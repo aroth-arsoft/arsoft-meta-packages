@@ -27,6 +27,7 @@ from grp_lightdm import lightdm
 from grp_nagios import nagios
 from grp_icinga import icinga
 from grp_microcode import microcode
+from grp_grub import grub
 
 all_package_groups = [
     ('arsoft-gfx', graphicsdrivers, {} ),
@@ -54,4 +55,5 @@ all_package_groups = [
     ('arsoft-nagios', nagios, {} ),
     ('arsoft-icinga', icinga, {} ),
     ('arsoft-microcode', microcode, {} ),
+    ('arsoft-grub', grub, {} ),
 ]

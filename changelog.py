@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.57', 'urgency':'low',
+        'items':['add grub packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 21 Mar 2013 15:19:20 +0100'
+    },
+    {
         'version':'2.56', 'urgency':'low',
         'items':['fixed icinga vs. nagios conflicts'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 17 Mar 2013 17:29:55 +0100'
