@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.58', 'urgency':'low',
+        'items':['fixed grub packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 21 Mar 2013 18:10:25 +0100'
+    },
+    {
         'version':'2.57', 'urgency':'low',
         'items':['add grub packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 21 Mar 2013 15:19:20 +0100'

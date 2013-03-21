@@ -7,21 +7,24 @@ grub = [
     'mainpackage':True,
     'shortdesc':'Installs the latest version of grub', 
     'description':'', 
-    'packages':['grub2-common' ]
+    'packages':['grub2-common']
     },
     {'name':'bios', 
     'shortdesc':'Installs the GRUB for systems with BIOS', 
     'description':'', 
+    'depends':['common'],
     'packages':['grub2']
     },
     {'name':'efi-amd64', 
     'shortdesc':'Installs the GRUB for 64-bit EFI systems', 
     'description':'', 
+    'depends':['common'],
     'packages':['grub-efi-amd64', 'efibootmgr']
     },
     {'name':'efi-ia32', 
     'shortdesc':'Installs the GRUB for 32-bit EFI systems', 
     'description':'', 
+    'depends':['common'],
     'packages':['grub-efi-ia32', 'efibootmgr']
     },
     {'name':'none', 
