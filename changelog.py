@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.59', 'urgency':'low',
+        'items':['fixed KDE package depends'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 15 Apr 2013 11:57:03 +0200'
+    },
+    {
         'version':'2.58', 'urgency':'low',
         'items':['fixed grub packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 21 Mar 2013 18:10:25 +0100'
