@@ -82,7 +82,7 @@ kde = [
                 'kgoldrunner', 'kigo', 'killbots', 'kiriki', 'kjumpingcube',
                 'klines', 'kmahjongg', 'kmines', 'knetwalk', 'kolf',
                 'kollision', 'konquest', 'kpat', 'kreversi',
-                'ksame', 'kshisen', 'ksirk', 'kspaceduel', 'ksquares',
+                'kshisen', 'ksirk', 'kspaceduel', 'ksquares',
                 'ksudoku', 'ktron', 'ktuberling', 'kubrick', 'lskat',
                 'kmahjongg-data', 'kdegames-card-data', 'kdegames-card-data-extra',
                 # problematic game
