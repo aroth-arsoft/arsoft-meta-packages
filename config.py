@@ -8,4 +8,4 @@ source_package_name = 'arsoft-meta-packages'
 package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
 package_homepage = 'http://www.arsoft-online.com'
 package_debhelper = 5
-package_standardsversions = '3.9.3'
+package_standardsversions = '3.9.4'

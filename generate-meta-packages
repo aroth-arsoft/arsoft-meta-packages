@@ -27,7 +27,7 @@ Standards-Version: " + str(package_standardsversions) + "\n\
 
 rules_file = "\
 #!/usr/bin/make -f\n\
-# debian/rules for " + source_package_name + ". GNU copyright 2010-2012 by " + package_maintainer + ".\n\
+# debian/rules for " + source_package_name + ". GNU copyright 2010-2013 by " + package_maintainer + ".\n\
 \n\
 #export DH_VERBOSE=1\n\
 \n\
@@ -67,7 +67,7 @@ README for Debian\n\
 "
 
 copyright_file = "\
-Copyright 2010-2012 by " + package_maintainer + "\n\
+Copyright 2010-2013 by " + package_maintainer + "\n\
 \n\
 The files in this package are free software; you can redistribute them\n\
 and/or modify them under the terms of the GNU General Public License\n\
@@ -205,7 +205,12 @@ class application(object):
             else:
                 package_name = prefix + '-' + element['name']
 
-            all_packages.update(element['packages'])
+            for pkg in element['packages']:
+                if isinstance(pkg, tuple):
+                    for tup_elem in pkg:
+                        all_packages.add(tup_elem)
+                else:
+                    all_packages.add(pkg)
             all_package_names.add(package_name)
             
         #print '1st all ' + str(all_packages)
@@ -221,7 +226,7 @@ class application(object):
                 name = prefix
             else:
                 name = prefix + '-' + element['name']
-            
+
             depend_packages = set(element['packages'])
             if element.has_key('depends'):
                 depend_groups = set(element['depends'])
@@ -244,16 +249,20 @@ class application(object):
             else:
                 element_noconflicts = set()
 
-            
             (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices)
             (element_descendants_depends, element_descendants_packages) = self._calc_descendants(element['name'], prefix, choices)
-            
-            
+
             # compute the conflicting packages
             conflict_packages = all_packages.copy()
             conflict_packages.update(element_conflicts)
             conflict_packages -= element_noconflicts
-            conflict_packages -= element_packages
+            for pkg in element_packages:
+                if isinstance(pkg, tuple):
+                    for tup_elem in pkg:
+                        conflict_packages.remove(tup_elem)
+                else:
+                    conflict_packages.remove(pkg)
+            
             conflict_packages -= element_descendants_packages
             conflict_other_packages = all_package_names.copy()
             conflict_other_packages.remove(name)
@@ -305,7 +314,14 @@ class application(object):
             #print 'all ' + str(all_packages)
             #print 'cf ' + str(conflict_packages)
             if depend_packages is not None:
-                depends = string.join(depend_packages, ', ')
+                full_depend_packages = set()
+                for pkg in depend_packages:
+                    if isinstance(pkg, tuple):
+                        entry = ' | '.join(pkg)
+                    else:
+                        entry = pkg
+                    full_depend_packages.add(entry)
+                depends = ', '.join(full_depend_packages)
             else:
                 depends = None
             if conflict_packages is not None:

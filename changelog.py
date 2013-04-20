@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.61', 'urgency':'low',
+        'items':['add unity packages', 'use nvidia-current or nvidia-current-updates'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 20 Apr 2013 14:59:49 +0200'
+    },
+    {
         'version':'2.60', 'urgency':'low',
         'items':['remove ksame from depends'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 15 Apr 2013 15:12:36 +0200'
