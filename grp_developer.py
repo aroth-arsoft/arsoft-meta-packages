@@ -37,7 +37,7 @@ developer = [
     'shortdesc':'removes all development tools.', 
     'description':'This package removes all development tools.', 
     'packages':[], 
-    'noconflicts':['gcc','make','libc6-dev','subversion']
+    'noconflicts':['gcc','make','libc6-dev','subversion', 'git', 'git-svn']
     },
 ]
  
