@@ -13,7 +13,7 @@ microcode = [
     'shortdesc':'Installs the microcode package for AMD CPUs', 
     'description':'', 
     'depends':['common'],
-    'packages':['amd64-microcode']
+    'packages':[('amd64-microcode', 'linux-firmware')]
     },
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of Java', 
