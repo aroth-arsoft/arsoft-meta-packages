@@ -191,7 +191,7 @@ class application(object):
                     ret_packages |= element_packages
         return (ret_depends, ret_packages)
     
-    def package_group(self, prefix, choices, package_version):
+    def package_group(self, distribution, prefix, choices, package_version):
         all_packages = set()
         all_package_names = set()
         package_depends = {}
@@ -205,12 +205,20 @@ class application(object):
             else:
                 package_name = prefix + '-' + element['name']
 
-            for pkg in element['packages']:
-                if isinstance(pkg, tuple):
-                    for tup_elem in pkg:
-                        all_packages.add(tup_elem)
-                else:
-                    all_packages.add(pkg)
+            if element.has_key('packages'):
+                for pkg in element['packages']:
+                    if isinstance(pkg, tuple):
+                        for tup_elem in pkg:
+                            all_packages.add(tup_elem)
+                    else:
+                        all_packages.add(pkg)
+            if element.has_key('packages-' + distribution):
+                for pkg in element['packages-' + distribution]:
+                    if isinstance(pkg, tuple):
+                        for tup_elem in pkg:
+                            all_packages.add(tup_elem)
+                    else:
+                        all_packages.add(pkg)
             all_package_names.add(package_name)
             
         #print '1st all ' + str(all_packages)
@@ -227,7 +235,13 @@ class application(object):
             else:
                 name = prefix + '-' + element['name']
 
-            depend_packages = set(element['packages'])
+            if element.has_key('packages'):
+                depend_packages = set(element['packages'])
+            else:
+                depend_packages = set()
+            if element.has_key('packages-' + distribution):
+                depend_packages = depend_packages | set(element['packages-' + distribution])
+
             if element.has_key('depends'):
                 depend_groups = set(element['depends'])
             else:
@@ -240,6 +254,8 @@ class application(object):
                 element_conflicts = set(element['conflicts'])
             else:
                 element_conflicts = set()
+            if element.has_key('conflicts-' + distribution):
+                element_conflicts = element_conflicts | set(element['conflicts-' + distribution])
             if element.has_key('replaces'):
                 element_replaces = set(element['replaces'])
             else:
@@ -248,6 +264,8 @@ class application(object):
                 element_noconflicts = set(element['noconflicts'])
             else:
                 element_noconflicts = set()
+            if element.has_key('noconflicts-' + distribution):
+                element_noconflicts = element_noconflicts | set(element['noconflicts-' + distribution])
 
             (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices)
             (element_descendants_depends, element_descendants_packages) = self._calc_descendants(element['name'], prefix, choices)
@@ -287,21 +305,36 @@ class application(object):
                     self.debug('pkg: ' + dep_package_name + ' depends on current package ' + element['name'] + ' remove from ' + str(conflict_other_packages))
                     if dep_package_name in conflict_other_packages:
                         conflict_other_packages.remove(dep_package_name)
-                    dep_element_packages = set(dep_element['packages'])
+                    if dep_element.has_key('packages'):
+                        dep_element_packages = set(dep_element['packages'])
+                    else:
+                        dep_element_packages = set()
+                    if dep_element.has_key('packages-' + distribution):
+                        dep_element_packages = dep_element_packages | set(dep_element['packages-' + distribution])
                     conflict_packages -= dep_element_packages
                 self.debug('pkg: ' + dep_package_name + ' depend_groups=' + str(depend_groups))
                 if dep_element['name'] in depend_groups:
                     self.debug('pkg: ' + name + ' remove ' + dep_package_name + '/' + dep_element['name'] + ' from ' + str(conflict_packages))
                     if dep_package_name in conflict_other_packages:
                         conflict_other_packages.remove(dep_package_name)
-                    dep_element_packages = set(dep_element['packages'])
+                    if dep_element.has_key('packages'):
+                        dep_element_packages = set(dep_element['packages'])
+                    else:
+                        dep_element_packages = set()
+                    if dep_element.has_key('packages-' + distribution):
+                        dep_element_packages = dep_element_packages | set(dep_element['packages-' + distribution])
                     conflict_packages -= dep_element_packages
                     depend_packages.add(dep_package_name + '(=' + package_version + ')')
                 elif dep_element['name'] in sidebyside_packages:
                     #print 'side by side ' + dep_package_name
                     if dep_package_name in conflict_other_packages:
                         conflict_other_packages.remove(dep_package_name)
-                    dep_element_packages = set(dep_element['packages'])
+                    if dep_element.has_key('packages'):
+                        dep_element_packages = set(dep_element['packages'])
+                    else:
+                        dep_element_packages = set()
+                    if dep_element.has_key('packages-' + distribution):
+                        dep_element_packages = dep_element_packages | set(dep_element['packages-' + distribution])
                     conflict_packages -= dep_element_packages
                 
             conflict_packages.update(conflict_other_packages)
@@ -426,7 +459,7 @@ class application(object):
             else:
                 include = False
             if include:
-                packages = self.package_group(groupname, grouprules, full_version)
+                packages = self.package_group(distribution, groupname, grouprules, full_version)
                 content = content + packages
             else:
                 self.info('Skip group ' + groupname + ' for distribution ' + distribution)
@@ -538,20 +571,20 @@ class application(object):
             
     def debug(self, *args):
         if self.verbose:
-            print string.join(args)
+            print(string.join(args))
 
     def message(self, *args):
         if self.verbose:
-            print string.join(args)
+            print(string.join(args))
 
     def info(self, *args):
-        print string.join(args)
+        print(string.join(args))
 
     def warning(self, *args):
-        print string.join(args)
+        print(string.join(args))
             
     def error(self, *args):
-        print string.join(args)
+        print(string.join(args))
             
     def usage(self):
         print "generate-meta-packages [OPTIONS]"

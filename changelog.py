@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.62', 'urgency':'low',
+        'items':['add support to generate distribution specific packages', 'should solve java dependency issues on precise'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 07 May 2013 17:04:49 +0200'
+    },
+    {
         'version':'2.61', 'urgency':'low',
         'items':['add unity packages', 'use nvidia-current or nvidia-current-updates'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 20 Apr 2013 14:59:49 +0200'
