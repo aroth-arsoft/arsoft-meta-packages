@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.63', 'urgency':'low',
+        'items':['fixed dependancy generation'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 08 May 2013 07:14:47 +0200'
+    },
+    {
         'version':'2.62', 'urgency':'low',
         'items':['add support to generate distribution specific packages', 'should solve java dependency issues on precise'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 07 May 2013 17:04:49 +0200'
