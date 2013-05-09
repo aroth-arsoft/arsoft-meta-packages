@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.64', 'urgency':'low',
+        'items':['either install nagios server or nagios agent, but not both'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 09 May 2013 18:40:57 +0200'
+    },
+    {
         'version':'2.63', 'urgency':'low',
         'items':['fixed dependancy generation'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 08 May 2013 07:14:47 +0200'

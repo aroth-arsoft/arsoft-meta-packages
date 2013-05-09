@@ -13,15 +13,15 @@ nagios = [
     'shortdesc':'Installs Nagios agent', 
     'description':'', 
     'depends':['common'],
-    'side-by-side':['server'],
-    'packages':['arsoft-nagios-plugins', 'nagios-nrpe-server', 'nagios-plugins-basic', 'nagios-plugins-extra', 'nagios-plugins-standard', 'nagios-plugins-contrib']
+    'packages':['arsoft-nagios-plugins', 'nagios-nrpe-server', 'nagios-plugins-basic', 'nagios-plugins-extra', 'nagios-plugins-standard', 'nagios-plugins-contrib'],
+    'noconflicts': ['nagios-images']
     },
     {'name':'server', 
     'shortdesc':'Installs Nagios server', 
     'description':'', 
-    'depends':['common', 'agent'],
-    'side-by-side':['agent'],
-    'packages':['nagios3', 'nagios3-cgi', 'nagios3-core']
+    'depends':['common'],
+    'packages':['arsoft-nagios-plugins', 'nagios-nrpe-server', 'nagios-plugins-basic', 'nagios-plugins-extra', 'nagios-plugins-standard', 'nagios-plugins-contrib', 
+                'nagios3', 'nagios3-cgi', 'nagios3-core', 'nagios-images']
     },
     {'name':'none', 
     'shortdesc':'removes all versions of the Nagios monitoring solution', 
