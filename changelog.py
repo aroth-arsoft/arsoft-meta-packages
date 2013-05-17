@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.65', 'urgency':'low',
+        'items':['install arsoft-pnp4nagios along with icinga'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 17 May 2013 15:21:54 +0200'
+    },
+    {
         'version':'2.64', 'urgency':'low',
         'items':['either install nagios server or nagios agent, but not both'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 09 May 2013 18:40:57 +0200'
