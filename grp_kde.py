@@ -22,7 +22,7 @@ kde = [
                 'strigi-client', 'strigi-daemon',
                 'update-manager-kde', 'kmix', 'bluedevil',
                 'apturl-kde', 'ksshaskpass', 'kwalletmanager', 'kwalletcli', 
-                'kde-style-qtcurve', 'kwin-style-qtcurve', 'kde-config-gtk',
+                'kde-style-qtcurve', 'kwin-style-qtcurve', 
                 'ark', 'okular', 'okular-extra-backends', 'ksnapshot', 'ksystemlog', 'krusader', 'krename', 'krdc', 'krfb',
                 'dragonplayer', 'filelight',
                 'printer-applet',
@@ -31,6 +31,10 @@ kde = [
                 'kde-config-cron',
                 'virtuoso-minimal'
                 ],
+    'packages-oneiric': ['kde-config-gtk'],
+    'packages-precise': ['kde-config-gtk'],
+    'packages-quantal': ['kde-config-gtk-style'],
+    'packages-raring': ['kde-config-gtk-style'],
     'conflicts':['phonon-backend-xine', 'kpackagekit']
     },
     {'name':'netbook', 

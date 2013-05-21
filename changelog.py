@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.66', 'urgency':'low',
+        'items':['some KDE package dependencies fixed on raring'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 21 May 2013 16:28:09 +0200'
+    },
+    {
         'version':'2.65', 'urgency':'low',
         'items':['install arsoft-pnp4nagios along with icinga'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 17 May 2013 15:21:54 +0200'
