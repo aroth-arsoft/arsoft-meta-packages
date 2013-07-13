@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.67', 'urgency':'low',
+        'items':['fixed trouble with latest nvidia drivers'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 13 Jul 2013 08:23:21 +0200'
+    },
+    {
         'version':'2.66', 'urgency':'low',
         'items':['some KDE package dependencies fixed on raring'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 21 May 2013 16:28:09 +0200'

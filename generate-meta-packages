@@ -4,12 +4,13 @@
 
 import sys
 import os
-import getopt
+import argparse
 import string
 from textwrap import TextWrapper
 import subprocess
 import re
 import shutil
+from arsoft.utils import runcmdAndGetData
 
 from config import *
 from changelog import package_changelog
@@ -87,17 +88,6 @@ Fifth Floor, Boston, MA 02110-1301, USA.\n\
 "
 
 class application(object):
-    verbose = False
-
-    def usage(self):
-        print 'generate-meta-packages [OPTIONS]'
-        print '    -h, --help                 displays this help screen'
-        print '    -v, --verbose              enabled verbose output'
-        print '    -b, --build                build the packages'
-        print '    -p, --put                  upload the packages using dput'
-        print '    -k, --keep                 keep temporaray files and directories'
-        print '    -g, --groups <grp1,grp2>   specified which groups should be generated.'
-        print '    -d, --distribution <d1,d2> specified for which distributions the packages should be generated.'
         
     def control_line(self, name, value):
         ret = name + ": "
@@ -503,36 +493,23 @@ class application(object):
         return (source_package_name, full_version, short_version)
 
     def get_distribution_codename(self):
-        args = ['/usr/bin/lsb_release', '-cs']
-        p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE) 
-        if p is not None:
-            err = p.wait()
-            stdout_value, stderr_value = p.communicate()
-            if err != 0:
-                self.error("Errors " + str(err) + ": " + str(args) + "\n" + stdout_value + "\n" + stderr_value + "\n")
-                ret = None
-            else:
-                ret = stdout_value.rstrip()
-
+        (sts, stdout, stderr) = runcmdAndGetData('/usr/bin/lsb_release', ['-cs'])
+        if sts != 0:
+            self.error("Errors %i: %s" %(sts, stderr))
         else:
-            self.error('Failed to create process: ', args)
-            ret = None
+            ret = stdout.strip()
         return ret
         
-    def do_build(self, package_dir):
-        args = ['debuild', '-S']
-        p = subprocess.Popen(args, cwd=package_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE) 
-        if p is not None:
-            err = p.wait()
-            stdout_value, stderr_value = p.communicate()
-            if err != 0:
-                self.error("Errors " + str(err) + ": " + str(args) + "\n" + stdout_value + "\n" + stderr_value + "\n")
-                ret = False
-            else:
-                self.info("Build of " + package_dir + " successful.")
-                ret = True
+    def do_build(self, package_dir, binary=False):
+        args = []
+        if not binary:
+            args.append('-S')
+        (sts, stdout, stderr) = runcmdAndGetData('debuild', args, cwd=package_dir)
+        if sts == 0:
+            self.info("Build of " + package_dir + " successful.")
+            ret = True
         else:
-            self.error('Failed to create process: ', args)
+            self.error("Errors %i: %s" %(sts, stderr))
             ret = False
         return ret
 
@@ -587,57 +564,36 @@ class application(object):
             
     def error(self, *args):
         print(string.join(args))
-            
-    def usage(self):
-        print "generate-meta-packages [OPTIONS]"
-        print "   -v, --verbose       verbose output"
-        print "   -h, --help          displays this help screen"
-        print "   -b, --build         build the package after preparation"
-        print "   -p, --put           upload the package to launchpad"
-        print "   -k, --keep          keep the package dir after successful build"
-        print "   -d, --distribution <dist0>,...<distN>"
-        print "                       specify the distribution name"
-        print "   -g, --groups <group0>,...,<groupN>"
-        print "                       select the groups to be generated (default: all)"
 
     def main(self):
 
-        self.verbose = False
-        self.build = False
-        self.put = False
-        self.selected_groups = None
-        self.distributions = []
-        self.clean = True
-        try:
-            opts, args = getopt.getopt(sys.argv[1:], "hvbpd:g:", ["help", "verbose", "build", "put", "distribution=", "groups="])
-        except getopt.GetoptError, err:
-            # print help information and exit:
-            print str(err) # will print something like "option -a not recognized"
-            self.usage()
-            sys.exit(2)
+        #=============================================================================================
+        # process command line
+        #=============================================================================================
+        parser = argparse.ArgumentParser(description='helper script to manage/configure a local OpenVPN installation.')
+        parser.add_argument('-v', '--verbose', dest='verbose', action='store_true', help='enable verbose output.')
+        parser.add_argument('--version', dest='version', action='store_true', help='shows the version and exits.')
+        parser.add_argument('-b', '--build', dest='build', action='store_true', help='build the package after preparation')
+        parser.add_argument('--build-binary', dest='build_binary', action='store_true', help='build the binary packages after preparation')
+        parser.add_argument('-p', '--put', dest='put', action='store_true', help='upload the package to launchpad')
+        parser.add_argument('-k', '--keep', dest='keep', action='store_true', help='keep the package dir after successful build')
+        parser.add_argument('-d', '--distribution', dest='distribution', metavar='DISTRO', nargs='*', default=default_distributions, help='specify the distribution name')
+        parser.add_argument('-g', '--groups', dest='groups', metavar='GRP', nargs='*', help='select the groups to be generated (default: all)')
 
-        for o, a in opts:
-            if o == '-v' or o == '--verbose':
-                self.verbose = True
-            elif o == '-b' or o == "--build":
-                self.build = True
-            elif o == '-p' or o == "--put":
-                self.put = True
-            elif o == '-k' or o == "--keep":
-                self.clean = False
-            elif o == '-d' or o == "--distribution":
-                self.distributions = a.split(',')
-            elif o == '-g' or o == "--groups":
-                self.selected_groups = a.split(',')
-            elif o == '-h' or o == "--help":
-                self.usage()
-                sys.exit(0)
-            else:
-                assert False, "unhandled option"
-                
+        args = parser.parse_args()
+
+        self.verbose = args.verbose
+        self.build = args.build
+        self.build_binary = args.build_binary
+        self.put = args.put
+        self.selected_groups = args.groups
+        self.distributions = args.distribution
+        self.clean = True if args.keep == False else False
+
         if self.put and not self.build:
             self.build = True
 
+        ret = 0
         if len(self.distributions) == 0:
             #dist = self.get_distribution_codename()
             #if self.verbose:
@@ -663,14 +619,14 @@ class application(object):
             self.generate_debian_changelog(package_debian_changelog, distribution, package_changelog)
             
             if self.build:
-                if self.do_build(package_dir) and self.put:
+                if self.do_build(package_dir, binary=self.build_binary) and self.put:
                     self.do_put(package_dir, package_latest_full_version, distribution)
             else:
                 print "Done generating packages for " + str(distribution)
             if self.clean:
                 self.do_clean(package_dir, package_latest_full_version, distribution)
-            
+        return ret
 
 if __name__ == '__main__':
     app = application()
-    ret = app.main()
+    sys.exit(app.main())

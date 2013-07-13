@@ -5,7 +5,7 @@ graphicsdrivers = [
         'noconflicts':['nvidia-current']
     },
     {'name':'nvidia', 'shortdesc':'Installs the NVIDIA graphics driver', 'description':'', 
-        'packages':[('nvidia-current','nvidia-current-updates'), ('nvidia-settings','nvidia-settings-updates'), 'v86d', 'vdpau-va-driver'],
+        'packages':[('nvidia-304','nvidia-313','nvidia-319','nvidia-325'), ('nvidia-settings','nvidia-settings-updates'), 'v86d', 'vdpau-va-driver'],
         'noconflicts':['fglrx']
     },
     {'name':'nv', 'shortdesc':'Installs the free NVIDIA graphics driver', 'description':'', 'packages':['xserver-xorg-video-nv'] },
