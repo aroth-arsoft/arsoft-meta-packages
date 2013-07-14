@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.68', 'urgency':'low',
+        'items':['fixed xfce4 depends'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 13 Jul 2013 10:02:37 +0200'
+    },
+    {
         'version':'2.67', 'urgency':'low',
         'items':['fixed trouble with latest nvidia drivers'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 13 Jul 2013 08:23:21 +0200'
