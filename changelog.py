@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.69', 'urgency':'low',
+        'items':['install mythbuntu frontend package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 18 Jul 2013 13:11:16 +0200'
+    },
+    {
         'version':'2.68', 'urgency':'low',
         'items':['fixed xfce4 depends'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 13 Jul 2013 10:02:37 +0200'
