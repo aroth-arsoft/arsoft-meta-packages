@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.70', 'urgency':'low',
+        'items':['fixed depends for KDE 4.11.0'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 14 Aug 2013 18:24:36 +0200'
+    },
+    {
         'version':'2.69', 'urgency':'low',
         'items':['install mythbuntu frontend package'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 18 Jul 2013 13:11:16 +0200'

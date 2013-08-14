@@ -17,12 +17,12 @@ kde = [
                 'dolphin', 'kdebase-workspace', 
                 'khelpcenter4', 'systemsettings', 'userconfig',
                 'oxygen-icon-theme', 'kde-zeroconf', 'kdepim-runtime', 'akonadi-server',
-                'kde-style-skulpture', 'muon',
+                'muon',
                 'soprano-daemon',
                 'strigi-client', 'strigi-daemon',
                 'update-manager-kde', 'kmix', 'bluedevil',
                 'apturl-kde', 'ksshaskpass', 'kwalletmanager', 'kwalletcli', 
-                'kde-style-qtcurve', 'kwin-style-qtcurve', 
+                'kde-style-qtcurve', 
                 'ark', 'okular', 'okular-extra-backends', 'ksnapshot', 'ksystemlog', 'krusader', 'krename', 'krdc', 'krfb',
                 'dragonplayer', 'filelight',
                 'printer-applet',
@@ -88,7 +88,6 @@ kde = [
                 'kollision', 'konquest', 'kpat', 'kreversi',
                 'kshisen', 'ksirk', 'kspaceduel', 'ksquares',
                 'ksudoku', 'ktron', 'ktuberling', 'kubrick', 'lskat',
-                'kmahjongg-data', 'kdegames-card-data', 'kdegames-card-data-extra',
                 # problematic game
                 #'granatier', 
                 # kdepim packages
