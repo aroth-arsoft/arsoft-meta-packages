@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.71', 'urgency':'low',
+        'items':['improve nvidia-settings depends'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 15 Aug 2013 08:22:21 +0200'
+    },
+    {
         'version':'2.70', 'urgency':'low',
         'items':['fixed depends for KDE 4.11.0'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 14 Aug 2013 18:24:36 +0200'
