@@ -17,15 +17,13 @@ firefox = [
     'description':'This package installs Mozilla Firefox GNome support.', 
     'depends':['common'],
     'packages':['firefox-gnome-support', 'xul-ext-gnome-pm'], 
-    'side-by-side':['english', 'german'],
-    'noconflicts':['kde-config-gtk']
+    'side-by-side':['english', 'german']
     },
     {'name':'kde', 
     'shortdesc':'Installs KDE support files for Mozilla Firefox', 
     'description':'This package installs Mozilla Firefox KDE support.', 
     'depends':['common'],
-    'side-by-side':['english', 'german'],
-    'packages':['kde-config-gtk'], 
+    'side-by-side':['english', 'german']
     },
     {'name':'english', 
     'shortdesc':'Installs the english languages files for Mozilla Firefox', 
@@ -45,7 +43,7 @@ firefox = [
     'shortdesc':'Uninstalls all versions of Mozilla Firefox', 
     'description':'', 
     'packages':[], 
-    'noconflicts':['kde-config-gtk', 'browser-plugin-packagekit', 'browser-plugin-vlc', 'icedtea-7-plugin']
+    'noconflicts':['browser-plugin-packagekit', 'browser-plugin-vlc', 'icedtea-7-plugin']
     },
 ]
  

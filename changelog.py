@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.72', 'urgency':'low',
+        'items':['improve firefox and thunderbird depends', 'fixed fglrx trouble'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 21 Aug 2013 08:23:01 +0200'
+    },
+    {
         'version':'2.71', 'urgency':'low',
         'items':['improve nvidia-settings depends'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 15 Aug 2013 08:22:21 +0200'

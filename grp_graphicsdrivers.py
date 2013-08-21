@@ -1,7 +1,7 @@
 
 graphicsdrivers = [ 
     {'name':'ati', 'shortdesc':'Installs the ATI/AMD graphics driver', 'description':'', 
-        'packages':['radeontool', 'fglrx', 'fglrx-modaliases', 'v86d'],
+        'packages':['radeontool', 'fglrx', 'v86d'],
         'noconflicts':['nvidia-current']
     },
     {'name':'nvidia', 'shortdesc':'Installs the NVIDIA graphics driver', 'description':'', 
