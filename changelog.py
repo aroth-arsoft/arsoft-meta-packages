@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.73', 'urgency':'low',
+        'items':['add graphics driver for open-source radeon'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 21 Aug 2013 19:51:52 +0200'
+    },
+    {
         'version':'2.72', 'urgency':'low',
         'items':['improve firefox and thunderbird depends', 'fixed fglrx trouble'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 21 Aug 2013 08:23:01 +0200'

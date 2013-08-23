@@ -4,6 +4,9 @@ graphicsdrivers = [
         'packages':['radeontool', 'fglrx', 'v86d'],
         'noconflicts':['nvidia-current']
     },
+    {'name':'radeon', 'shortdesc':'Installs the ATI/AMD radeon graphics driver', 'description':'', 
+        'packages':['xserver-xorg-video-radeon']
+    },
     {'name':'nvidia', 'shortdesc':'Installs the NVIDIA graphics driver', 'description':'', 
         'packages':[ 
             ('nvidia-304','nvidia-313','nvidia-319','nvidia-325'), 
