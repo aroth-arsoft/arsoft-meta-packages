@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.74', 'urgency':'low',
+        'items':['install more xfce4 base packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 01 Sep 2013 09:02:20 +0200'
+    },
+    {
         'version':'2.73', 'urgency':'low',
         'items':['add graphics driver for open-source radeon'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 21 Aug 2013 19:51:52 +0200'

@@ -9,7 +9,10 @@ xfce4 = [
     'description':'This package installs the latest version of XFCE desktop environment and removes obsolete and old packages of XFCE desktop environment.', 
     'packages':['arsoft-desktop',
                 'xfce4-session', 'xfce4-mixer', 'xfce4-panel', 'xfce4-appfinder', 'xfce4-settings', 'xfwm4', 'gtk2-engines-xfce', 
-                'xfce-keyboard-shortcuts', 'xfce4-screenshooter', 'xfce4-volumed', 'libxfce4util-common'],
+                'xfce-keyboard-shortcuts', 'xfce4-screenshooter', 'xfce4-volumed', 
+                'xfce4-notifyd', 'xfdesktop4', 'thunar', 'tumbler',
+                'xfce4-taskmanager', 'xfce4-terminal', 'xfce4-places-plugin', 'xfce4-indicator-plugin'
+                ], 
     },
     {'name':'none', 
     'shortdesc':'removes all versions of the XFCE desktop environment', 
