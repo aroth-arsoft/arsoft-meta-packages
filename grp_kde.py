@@ -77,8 +77,7 @@ kde = [
                 'kde-plasma-desktop', 'kdeplasma-addons',
                 # multimedia packages
                 'amarok', 'gwenview', 'kdegraphics-strigi-plugins', 'soundkonverter',
-                # temp disable digikam
-                # 'kipi-plugins', 'digikam', 'digikam-data', 
+                'kipi-plugins', 'digikam',
                 # list some kdegames packages explicit because we want to remove them when arsoft-kde-none is installed
                 'bomber', 'bovo', 'kajongg', 'palapeli',
                 'kapman', 'katomic', 'kbattleship', 'kblackbox',
@@ -115,7 +114,7 @@ kde = [
                 # plasma desktop edition
                 'kde-plasma-desktop',
                 # multimedia packages
-                'amarok', 'gwenview', 'kipi-plugins', 'digikam', 'digikam-data', 'kdegraphics-strigi-plugins', 
+                'amarok', 'gwenview', 'kipi-plugins', 'digikam', 'kdegraphics-strigi-plugins', 
                 ], 
     },
     {'name':'english', 

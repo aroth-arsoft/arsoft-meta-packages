@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.75', 'urgency':'low',
+        'items':['install digikam along with KDE desktop'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 07 Sep 2013 09:12:41 +0200'
+    },
+    {
         'version':'2.74', 'urgency':'low',
         'items':['install more xfce4 base packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 01 Sep 2013 09:02:20 +0200'
