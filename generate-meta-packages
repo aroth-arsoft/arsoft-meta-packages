@@ -1,0 +1,632 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+# kate: space-indent on; indent-width 4; mixedindent off; indent-mode python;
+
+import sys
+import os
+import argparse
+import string
+from textwrap import TextWrapper
+import subprocess
+import re
+import shutil
+from arsoft.utils import runcmdAndGetData
+
+from config import *
+from changelog import package_changelog
+from packagegroups import all_package_groups
+
+source_pkg = "\
+Source: " + source_package_name + "\n\
+Section: misc\n\
+Priority: optional\n\
+Maintainer: " + package_maintainer + "\n\
+Homepage: " + package_homepage + "\n\
+Build-Depends: debhelper (>= " + str(package_debhelper) + ")\n\
+Standards-Version: " + str(package_standardsversions) + "\n\
+"
+
+rules_file = "\
+#!/usr/bin/make -f\n\
+# debian/rules for " + source_package_name + ". GNU copyright 2010-2013 by " + package_maintainer + ".\n\
+\n\
+#export DH_VERBOSE=1\n\
+\n\
+build:\n\
+\n\
+clean:\n\
+\tdh_testdir\n\
+\tdh_testroot\n\
+\tdh_clean\n\
+\n\
+install: build\n\
+\tdh_testdir\n\
+\tdh_testroot\n\
+\tdh_clean -k\n\
+\n\
+binary-indep: install\n\
+\tdh_testdir\n\
+\tdh_testroot\n\
+\tdh_install\n\
+\tdh_installdocs\n\
+\tdh_installchangelogs\n\
+\tdh_compress\n\
+\tdh_fixperms\n\
+\tdh_installdeb\n\
+\tdh_gencontrol\n\
+\tdh_md5sums\n\
+\tdh_builddeb\n\
+\n\
+binary-arch: install\n\
+\n\
+binary: binary-indep binary-arch\n\
+.PHONY: build clean binary-indep binary-arch binary install\n\
+"
+
+readme_debian_file = "\
+README for Debian\n\
+"
+
+copyright_file = "\
+Copyright 2010-2013 by " + package_maintainer + "\n\
+\n\
+The files in this package are free software; you can redistribute them\n\
+and/or modify them under the terms of the GNU General Public License\n\
+as published by the Free Software Foundation; either version 2, or (at\n\
+your option) any later version.\n\
+\n\
+The files in this package are distributed in the hope that they will\n\
+be useful, but WITHOUT ANY WARRANTY; without even the implied warranty\n\
+of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU\n\
+General Public License for more details.\n\
+\n\
+You should have received a copy of the GNU General Public License\n\
+with your Debian GNU/Linux system, in /usr/share/common-licenses/GPL,\n\
+or with the Debian GNU/Linux bash source package as the file COPYING.\n\
+If not, write to the Free Software Foundation, Inc., 51 Franklin St,\n\
+Fifth Floor, Boston, MA 02110-1301, USA.\n\
+"
+
+class application(object):
+        
+    def control_line(self, name, value):
+        ret = name + ": "
+        wrapper = TextWrapper()
+        wrapper.initial_indent = ''
+        wrapper.subsequent_indent = ' '
+        wrapper.break_on_hyphens = False
+        wrapper.break_long_words = False
+        
+        lines = wrapper.wrap(value)
+        first = True
+        for line in lines:
+            ret = ret + line + '\n'
+        return ret
+        
+    def control_description(self, desc):
+        ret = ''
+        wrapper = TextWrapper()
+        wrapper.initial_indent = ' '
+        wrapper.subsequent_indent = ' '
+        wrapper.break_on_hyphens = False
+        wrapper.break_long_words = False
+        lines = wrapper.wrap(desc)
+        for line in lines:
+            ret = ret + line + '\n'
+        return ret
+    
+    def _calc_full_depends(self, name, prefix, choices, distribution):
+        ret_depends = set()
+        ret_packages = set()
+        mydepends = set()
+        for element in choices:
+            if element['name'] == name:
+                if element.has_key('depends'):
+                    mydepends |= set(element['depends'])
+                if element.has_key('packages'):
+                    ret_packages |= set(element['packages'])
+                if element.has_key('packages-' + distribution):
+                    ret_packages |= set(element['packages-' + distribution])
+                break;
+        self.debug('_calc_full_depends: ' + name + ' mydepends=' + str(mydepends))
+        for mydep in mydepends:
+            for element in choices:
+                if mydep == element['name']:
+                    if element.has_key('mainpackage'):
+                        mainpackage = bool(element['mainpackage'])
+                    else:
+                        mainpackage = False
+                    if mainpackage:
+                        dep_package_name = prefix
+                    else:
+                        dep_package_name = prefix + '-' + element['name']
+
+                    (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices, distribution)
+                    
+                    ret_depends.add(dep_package_name)
+                    ret_depends |= set(element_depends)
+                    ret_packages |= element_packages
+                    break
+        self.debug('_calc_full_depends: ' + name + ' return ret_depends=' + str(ret_depends) + ', ret_packages=' + str(ret_packages))
+        return (ret_depends, ret_packages)
+
+    def _calc_descendants(self, name, prefix, choices, distribution):
+        ret_depends = set()
+        ret_packages = set()
+        myrealname = name
+        for element in choices:
+            if element['name'] == name:
+                if element.has_key('mainpackage'):
+                    mainpackage = bool(element['mainpackage'])
+                else:
+                    mainpackage = False
+                if mainpackage:
+                    myrealname = prefix
+                else:
+                    myrealname = prefix + '-' + element['name']
+                break
+        for element in choices:
+            if name != element['name']:
+                (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices, distribution)
+                if myrealname in element_depends:
+                    if element.has_key('mainpackage'):
+                        mainpackage = bool(element['mainpackage'])
+                    else:
+                        mainpackage = False
+                    if mainpackage:
+                        dep_package_name = prefix
+                    else:
+                        dep_package_name = prefix + '-' + element['name']
+                    
+                    ret_depends.add(dep_package_name)
+                    ret_depends |= set(element_depends)
+                    ret_packages |= element_packages
+        return (ret_depends, ret_packages)
+    
+    def package_group(self, distribution, prefix, choices, package_version):
+        all_packages = set()
+        all_package_names = set()
+        package_depends = {}
+        for element in choices:
+            if element.has_key('mainpackage'):
+                mainpackage = bool(element['mainpackage'])
+            else:
+                mainpackage = False
+            if mainpackage:
+                package_name = prefix
+            else:
+                package_name = prefix + '-' + element['name']
+
+            if element.has_key('packages'):
+                for pkg in element['packages']:
+                    if isinstance(pkg, tuple):
+                        for tup_elem in pkg:
+                            all_packages.add(tup_elem)
+                    else:
+                        all_packages.add(pkg)
+            if element.has_key('packages-' + distribution):
+                for pkg in element['packages-' + distribution]:
+                    if isinstance(pkg, tuple):
+                        for tup_elem in pkg:
+                            all_packages.add(tup_elem)
+                    else:
+                        all_packages.add(pkg)
+            all_package_names.add(package_name)
+            
+        #print '1st all ' + str(all_packages)
+        #print '1st all names ' + str(all_package_names)
+        ret = ''
+        for element in choices:
+            internal_name = prefix + '-' + element['name']
+            if element.has_key('mainpackage'):
+                mainpackage = bool(element['mainpackage'])
+            else:
+                mainpackage = False
+            if mainpackage:
+                name = prefix
+            else:
+                name = prefix + '-' + element['name']
+
+            if element.has_key('packages'):
+                depend_packages = set(element['packages'])
+            else:
+                depend_packages = set()
+            if element.has_key('packages-' + distribution):
+                depend_packages = depend_packages | set(element['packages-' + distribution])
+
+            if element.has_key('depends'):
+                depend_groups = set(element['depends'])
+            else:
+                depend_groups = set()
+            if element.has_key('side-by-side'):
+                sidebyside_packages = set(element['side-by-side'])
+            else:
+                sidebyside_packages = set()
+            if element.has_key('conflicts'):
+                element_conflicts = set(element['conflicts'])
+            else:
+                element_conflicts = set()
+            if element.has_key('conflicts-' + distribution):
+                element_conflicts = element_conflicts | set(element['conflicts-' + distribution])
+            if element.has_key('replaces'):
+                element_replaces = set(element['replaces'])
+            else:
+                element_replaces = set()
+            if element.has_key('noconflicts'):
+                element_noconflicts = set(element['noconflicts'])
+            else:
+                element_noconflicts = set()
+            if element.has_key('noconflicts-' + distribution):
+                element_noconflicts = element_noconflicts | set(element['noconflicts-' + distribution])
+
+            (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices, distribution)
+            (element_descendants_depends, element_descendants_packages) = self._calc_descendants(element['name'], prefix, choices, distribution)
+
+            # compute the conflicting packages
+            conflict_packages = all_packages.copy()
+            conflict_packages.update(element_conflicts)
+            conflict_packages -= element_noconflicts
+            for pkg in element_packages:
+                if isinstance(pkg, tuple):
+                    for tup_elem in pkg:
+                        conflict_packages.remove(tup_elem)
+                else:
+                    conflict_packages.remove(pkg)
+            
+            conflict_packages -= element_descendants_packages
+            conflict_other_packages = all_package_names.copy()
+            conflict_other_packages.remove(name)
+            conflict_other_packages -= element_depends
+            conflict_other_packages -= element_descendants_depends
+            
+            for dep_element in choices:
+                if dep_element.has_key('mainpackage'):
+                    mainpackage = bool(dep_element['mainpackage'])
+                else:
+                    mainpackage = False
+                if mainpackage:
+                    dep_package_name = prefix
+                else:
+                    dep_package_name = prefix + '-' + dep_element['name']
+                if dep_element.has_key('depends'):
+                    dep_depends = set(dep_element['depends'])
+                else:
+                    dep_depends = set()
+
+                if element['name'] in dep_depends:
+                    self.debug('pkg: ' + dep_package_name + ' depends on current package ' + element['name'] + ' remove from ' + str(conflict_other_packages))
+                    if dep_package_name in conflict_other_packages:
+                        conflict_other_packages.remove(dep_package_name)
+                    if dep_element.has_key('packages'):
+                        dep_element_packages = set(dep_element['packages'])
+                    else:
+                        dep_element_packages = set()
+                    if dep_element.has_key('packages-' + distribution):
+                        dep_element_packages = dep_element_packages | set(dep_element['packages-' + distribution])
+                    conflict_packages -= dep_element_packages
+                self.debug('pkg: ' + dep_package_name + ' depend_groups=' + str(depend_groups))
+                if dep_element['name'] in depend_groups:
+                    self.debug('pkg: ' + name + ' remove ' + dep_package_name + '/' + dep_element['name'] + ' from ' + str(conflict_packages))
+                    if dep_package_name in conflict_other_packages:
+                        conflict_other_packages.remove(dep_package_name)
+                    if dep_element.has_key('packages'):
+                        dep_element_packages = set(dep_element['packages'])
+                    else:
+                        dep_element_packages = set()
+                    if dep_element.has_key('packages-' + distribution):
+                        dep_element_packages = dep_element_packages | set(dep_element['packages-' + distribution])
+                    conflict_packages -= dep_element_packages
+                    depend_packages.add(dep_package_name + '(=' + package_version + ')')
+                elif dep_element['name'] in sidebyside_packages:
+                    #print 'side by side ' + dep_package_name
+                    if dep_package_name in conflict_other_packages:
+                        conflict_other_packages.remove(dep_package_name)
+                    if dep_element.has_key('packages'):
+                        dep_element_packages = set(dep_element['packages'])
+                    else:
+                        dep_element_packages = set()
+                    if dep_element.has_key('packages-' + distribution):
+                        dep_element_packages = dep_element_packages | set(dep_element['packages-' + distribution])
+                    conflict_packages -= dep_element_packages
+                
+            conflict_packages.update(conflict_other_packages)
+            
+            # compute the replaces packages
+            replace_packages = set()
+            replace_packages.update(element_replaces)
+            
+            #print 'deps ' + str(depend_packages)
+            #print 'all ' + str(all_packages)
+            #print 'cf ' + str(conflict_packages)
+            if depend_packages is not None:
+                full_depend_packages = set()
+                for pkg in depend_packages:
+                    if isinstance(pkg, tuple):
+                        entry = ' | '.join(pkg)
+                    else:
+                        entry = pkg
+                    full_depend_packages.add(entry)
+                depends = ', '.join(full_depend_packages)
+            else:
+                depends = None
+            if conflict_packages is not None:
+                conflicts = string.join(conflict_packages, ', ')
+            else:
+                conflicts = None
+            if replace_packages is not None:
+                replaces = string.join(replace_packages, ', ')
+            else:
+                replaces = None
+            
+            pkg_install = ''
+            pkg_install = pkg_install + "\n"
+            pkg_install = pkg_install + self.control_line("Package", name)
+            pkg_install = pkg_install + self.control_line("Architecture", 'all')
+            if depends is not None and len(depends) != 0:
+                pkg_install = pkg_install + self.control_line("Depends", "${misc:Depends}, " + depends)
+            else:
+                pkg_install = pkg_install + self.control_line("Depends", "${misc:Depends}")
+            if conflicts is not None and len(conflicts) != 0:
+                pkg_install = pkg_install + self.control_line("Conflicts", conflicts)
+            if replaces is not None and len(replaces) != 0:
+                pkg_install = pkg_install + self.control_line("Replaces", replaces)
+            if element['shortdesc'] is not None and len(element['shortdesc']) != 0:
+                pkg_install = pkg_install + self.control_line("Description", element['shortdesc'])
+                if element['description'] is not None and len(element['description']) != 0:
+                    pkg_install = pkg_install + self.control_description(element['description'])
+                else:
+                    pkg_install = pkg_install + self.control_description(element['shortdesc'])
+            self.debug("Package: " + name + 
+                        "\n  Depends:" + str(depends) +
+                        "\n  Conflicts:" + str(conflicts))
+            ret += pkg_install
+        return ret
+        
+    def make_package_dir(self, basedir, package_name, package_version, distribution, distribution_release=1):
+        if basedir is None:
+            basedir = os.getcwd()
+        package_dir = basedir + '/' + package_name + '-' + package_version + '~' + distribution + str(distribution_release)
+        package_debian_dir = package_dir + '/debian'
+        package_debian_control = package_debian_dir + '/control'
+        package_debian_changelog = package_debian_dir + '/changelog'
+        package_debian_source_dir = package_debian_dir + '/source'
+        if not os.path.exists(package_dir):
+            os.mkdir(package_dir, 0755)
+        if not os.path.exists(package_debian_dir):
+            os.mkdir(package_debian_dir, 0755)
+        if not os.path.exists(package_debian_source_dir):
+            os.mkdir(package_debian_source_dir, 0755)
+
+        f = open(package_debian_source_dir + '/format', 'w')
+        f.write('3.0 (native)') 
+        f.close()
+        
+        f = open(package_debian_dir + '/compat', 'w')
+        f.write(str(package_debhelper) + '\n') 
+        f.close()
+        
+        f = open(package_debian_dir + '/rules', 'w')
+        f.write(rules_file) 
+        f.close()
+        os.chmod(package_debian_dir + '/rules', 0755)
+        
+        f = open(package_debian_dir + '/copyright', 'w')
+        f.write(copyright_file) 
+        f.close()
+        
+        f = open(package_debian_dir + '/README.Debian', 'w')
+        f.write(readme_debian_file) 
+        f.close()
+
+        # copy this script file into the package dir
+        shutil.copy2(os.path.abspath( __file__ ), package_dir)
+        
+        return (package_dir, package_debian_control, package_debian_changelog)
+        
+    def generate_debian_control(self, control_file, package_version, distribution, distribution_release=1):
+
+        content = source_pkg
+        full_version = package_version + '~' + distribution + str(distribution_release)
+        for (groupname, grouprules, groupopts) in all_package_groups:
+            if groupopts.has_key('distribution'):
+                groupdistribution = groupopts['distribution']
+                build_group_for_distribution = True
+                if distribution in groupdistribution:
+                    build_group_for_distribution = True
+                if ('!' + distribution) in groupdistribution:
+                    build_group_for_distribution = False
+            else:
+                build_group_for_distribution = True
+                
+            #self.info('Build group ' + groupname + ' for distribution ' + distribution + ':' + str(build_group_for_distribution))
+
+            if build_group_for_distribution:
+                if self.selected_groups is not None:
+                    if groupname in self.selected_groups:
+                        include = True
+                    else:
+                        include = False
+                else:
+                    include = True
+            else:
+                include = False
+            if include:
+                packages = self.package_group(distribution, groupname, grouprules, full_version)
+                content = content + packages
+            else:
+                self.info('Skip group ' + groupname + ' for distribution ' + distribution)
+
+        self.debug(content)
+
+        f = open(control_file, 'w')
+        f.write(content) 
+        f.close()
+        
+    def generate_debian_changelog(self, changelog_file, distribution, changelog, distribution_release=1):
+
+        content = ''
+        for entry in changelog:
+            full_version = entry['version'] + '~' + distribution + str(distribution_release)
+            e = source_package_name + ' (' + full_version + ') ' + distribution + '; urgency=' + entry['urgency'] + '\n'
+            e = e + '\n'
+            for i in entry['items']:
+                e = e + '  * ' + i + '\n'
+            e = e + '\n'
+            e = e + ' -- ' + entry['author'] + '  ' + entry['date'] + '\n'
+            e = e + '\n'
+            content = content + e
+            
+        f = open(changelog_file, 'w')
+        f.write(content)
+        f.close()
+        
+    def get_latest_version_from_changelog(self, changelog, distribution):
+        entry = changelog[0]
+        full_version = entry['version']
+        
+        re_version_pattern = re.compile('^(?P<upstream_version>(\d+\.)?(\d+\.)?(\*|\d+))')
+        result = re_version_pattern.match(full_version)
+        if result is not None:
+            short_version = result.group('upstream_version')
+        else:
+            short_version = ''
+        return (source_package_name, full_version, short_version)
+
+    def get_distribution_codename(self):
+        (sts, stdout, stderr) = runcmdAndGetData('/usr/bin/lsb_release', ['-cs'])
+        if sts != 0:
+            self.error("Errors %i: %s" %(sts, stderr))
+        else:
+            ret = stdout.strip()
+        return ret
+        
+    def do_build(self, package_dir, binary=False):
+        args = []
+        if not binary:
+            args.append('-S')
+        (sts, stdout, stderr) = runcmdAndGetData('debuild', args, cwd=package_dir)
+        if sts == 0:
+            self.info("Build of " + package_dir + " successful.")
+            ret = True
+        else:
+            self.error("Errors %i: %s" %(sts, stderr))
+            ret = False
+        return ret
+
+    def do_put(self, package_dir, version, distribution, distribution_release=1):
+        changesfile = package_dir + '/../' + source_package_name + '_' +  version + '~' + distribution + str(distribution_release) + '_source.changes'
+        args = ['dput', changesfile]
+        p = subprocess.Popen(args, cwd=package_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE) 
+        if p is not None:
+            err = p.wait()
+            stdout_value, stderr_value = p.communicate()
+            if err != 0:
+                self.error("Errors " + str(err) + ": " + str(args) + "\n" + stdout_value + "\n" + stderr_value + "\n")
+                ret = False
+            else:
+                self.info("Uploaded " + changesfile)
+                ret = True
+        else:
+            self.error('Failed to create process: ', args)
+
+    def do_clean(self, package_dir, version, distribution, distribution_release=1):
+        filebasename = package_dir + '/../' + source_package_name + '_' +  version + '~' + distribution + str(distribution_release)
+        changesfile = filebasename + '_source.changes'
+        buildfile = filebasename + '_source.build'
+        tarfile = filebasename + '.tar.gz'
+        dscfile = filebasename + '.dsc'
+        if os.path.exists(changesfile):
+            os.remove(changesfile)
+        if os.path.exists(buildfile):
+            os.remove(buildfile)
+        if os.path.exists(tarfile):
+			os.remove(tarfile)
+        if os.path.exists(dscfile):
+            os.remove(dscfile)
+        shutil.rmtree(package_dir)
+        ret = True
+        return ret
+            
+            
+    def debug(self, *args):
+        if self.verbose:
+            print(string.join(args))
+
+    def message(self, *args):
+        if self.verbose:
+            print(string.join(args))
+
+    def info(self, *args):
+        print(string.join(args))
+
+    def warning(self, *args):
+        print(string.join(args))
+            
+    def error(self, *args):
+        print(string.join(args))
+
+    def main(self):
+
+        #=============================================================================================
+        # process command line
+        #=============================================================================================
+        parser = argparse.ArgumentParser(description='helper script to manage/configure a local OpenVPN installation.')
+        parser.add_argument('-v', '--verbose', dest='verbose', action='store_true', help='enable verbose output.')
+        parser.add_argument('--version', dest='version', action='store_true', help='shows the version and exits.')
+        parser.add_argument('-b', '--build', dest='build', action='store_true', help='build the package after preparation')
+        parser.add_argument('--build-binary', dest='build_binary', action='store_true', help='build the binary packages after preparation')
+        parser.add_argument('-p', '--put', dest='put', action='store_true', help='upload the package to launchpad')
+        parser.add_argument('-k', '--keep', dest='keep', action='store_true', help='keep the package dir after successful build')
+        parser.add_argument('-d', '--distribution', dest='distribution', metavar='DISTRO', nargs='*', default=default_distributions, help='specify the distribution name')
+        parser.add_argument('-g', '--groups', dest='groups', metavar='GRP', nargs='*', help='select the groups to be generated (default: all)')
+
+        args = parser.parse_args()
+
+        self.verbose = args.verbose
+        self.build = args.build
+        self.build_binary = args.build_binary
+        self.put = args.put
+        self.selected_groups = args.groups
+        self.distributions = args.distribution
+        self.clean = True if args.keep == False else False
+
+        if self.put and not self.build:
+            self.build = True
+
+        ret = 0
+        if len(self.distributions) == 0:
+            #dist = self.get_distribution_codename()
+            #if self.verbose:
+                #print "Distributions: " + str(dist)
+            self.distributions = default_distributions
+        else:
+            for d in self.distributions:
+                if d not in all_distributions:
+                    print "Unknown distribution " + d + ". Abort"
+                    return 1
+                
+        for distribution in self.distributions:
+            if self.verbose:
+                print "Prepare package for distribution " + str(distribution)
+            (package_name, package_latest_full_version, package_latest_short_version) = self.get_latest_version_from_changelog(package_changelog, distribution)
+            
+            if self.verbose:
+                print "Package name: " + str(package_name)
+                print "Package version: " + str(package_latest_short_version) + " (" + package_latest_short_version + ")"
+
+            (package_dir, package_debian_control, package_debian_changelog) = self.make_package_dir(None, package_name, package_latest_short_version, distribution)
+            self.generate_debian_control(package_debian_control, package_latest_short_version, distribution)
+            self.generate_debian_changelog(package_debian_changelog, distribution, package_changelog)
+            
+            if self.build:
+                if self.do_build(package_dir, binary=self.build_binary) and self.put:
+                    self.do_put(package_dir, package_latest_full_version, distribution)
+            else:
+                print "Done generating packages for " + str(distribution)
+            if self.clean:
+                self.do_clean(package_dir, package_latest_full_version, distribution)
+        return ret
+
+if __name__ == '__main__':
+    app = application()
+    sys.exit(app.main())
