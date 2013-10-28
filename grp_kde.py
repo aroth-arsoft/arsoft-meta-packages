@@ -48,7 +48,7 @@ kde = [
                 # multimedia packages
                 'amarok', 'gwenview', 'kdegraphics-strigi-plugins', 
                 # kdepim packages
-                'kdepim', 'kdepim-strigi-plugins', 'kdepim-kresources',
+                'kdepim', 'kdepim-kresources',
                 # list some kdepim explicit because we want to remove them when arsoft-kde-none is installed
                 'akregator', 'kaddressbook', 'kalarm', 'kmail', 'knode', 'knotes', 'konsolekalendar', 'kontact', 'korganizer', 'ktimetracker', 'kjots', 'blogilo',
                 'kleopatra', 
@@ -90,7 +90,7 @@ kde = [
                 # problematic game
                 #'granatier', 
                 # kdepim packages
-                'kdepim', 'kdepim-strigi-plugins', 'kdepim-kresources',
+                'kdepim', 'kdepim-kresources',
                 # list some kdepim packages explicit because we want to remove them when arsoft-kde-none is installed
                 'akregator', 'kaddressbook', 'kalarm', 'kmail', 'knode', 'knotes', 'konsolekalendar', 'kontact', 'korganizer', 'ktimetracker', 'kjots', 'blogilo',
                 'kleopatra', 'kget', 'kgpg',

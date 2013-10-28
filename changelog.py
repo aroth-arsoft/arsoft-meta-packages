@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.77', 'urgency':'low',
+        'items':['drop kdepim-strigi-plugins'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 28 Oct 2013 19:32:09 +0100'
+    },
+    {
         'version':'2.76', 'urgency':'low',
         'items':['prepare for saucy'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 14 Oct 2013 16:56:16 +0200'
