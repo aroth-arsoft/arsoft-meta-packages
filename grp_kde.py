@@ -76,30 +76,18 @@ kde = [
                 'marble', 'speedcrunch',
                 ], 
     },
-    {'name':'multimedia', 
-    'shortdesc':'Installs KDE for multimedia PCs', 
-    'description':'', 
-    'depends':['common'],
-    'side-by-side':['english', 'german'],
-    'packages':[
-                # plasma desktop edition
-                'kde-plasma-desktop',
-                # multimedia packages
-                'amarok', 'gwenview', 'kipi-plugins', 'digikam', 'kdegraphics-strigi-plugins', 
-                ], 
-    },
     {'name':'english', 
     'shortdesc':'Installs the english languages files for KDE', 
     'description':'', 
     'depends':['common'],
-    'side-by-side':['netbook', 'tablet', 'desktop', 'multimedia', 'german'],
+    'side-by-side':['desktop', 'german'],
     'packages':['language-pack-kde-en']
     },
     {'name':'german', 
     'shortdesc':'Installs the german languages files for KDE', 
     'description':'', 
     'depends':['common'],
-    'side-by-side':['netbook', 'tablet', 'desktop', 'multimedia', 'english'],
+    'side-by-side':['desktop', 'english'],
     'packages':['language-pack-kde-de']
     },
     {'name':'none', 
