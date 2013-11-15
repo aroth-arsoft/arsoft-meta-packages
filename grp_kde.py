@@ -16,12 +16,13 @@ kde = [
                 'konsole', 'konqueror', 'kdesudo', 'kate', 'gdebi-kde', 'kdelibs5-data',
                 'dolphin', 'kdebase-workspace', 
                 'khelpcenter4', 'systemsettings', 'userconfig',
+                'kubuntu-notification-helper',
                 'oxygen-icon-theme', 'kde-zeroconf', 'kdepim-runtime', 'akonadi-server',
                 'muon',
                 'soprano-daemon',
                 'strigi-client', 'strigi-daemon',
                 'update-manager-kde', 'kmix', 'bluedevil',
-                'apturl-kde', 'ksshaskpass', 'kwalletmanager', 'kwalletcli', 
+                'apturl-kde', 'ksshaskpass', 'kwalletmanager', 'kwalletcli',
                 'kde-style-qtcurve', 
                 'ark', 'okular', 'okular-extra-backends', 'ksnapshot', 'ksystemlog', 'krusader', 'krename', 'krdc', 'krfb',
                 'dragonplayer', 'filelight',
@@ -31,41 +32,11 @@ kde = [
                 'kde-config-cron',
                 'virtuoso-minimal'
                 ],
-    'packages-oneiric': ['kde-config-gtk'],
     'packages-precise': ['kde-config-gtk'],
-    'packages-quantal': ['kde-config-gtk-style'],
-    'packages-raring': ['kde-config-gtk-style'],
+    'packages-raring': ['kde-config-gtk-style', 'user-manager', 'muon-discover'],
+    'packages-saucy': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro'],
+    'packages-trusty': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro'],
     'conflicts':['phonon-backend-xine', 'kpackagekit']
-    },
-    {'name':'netbook', 
-    'shortdesc':'Installs KDE optimized for netbooks', 
-    'description':'', 
-    'depends':['common'],
-    'side-by-side':['english', 'german'],
-    'packages':[
-                # plasma netbook edition
-                'plasma-netbook',
-                # multimedia packages
-                'amarok', 'gwenview', 'kdegraphics-strigi-plugins', 
-                # kdepim packages
-                'kdepim', 'kdepim-kresources',
-                # list some kdepim explicit because we want to remove them when arsoft-kde-none is installed
-                'akregator', 'kaddressbook', 'kalarm', 'kmail', 'knode', 'knotes', 'konsolekalendar', 'kontact', 'korganizer', 'ktimetracker', 'kjots', 'blogilo',
-                'kleopatra', 
-                'akonadiconsole'
-                ], 
-    },
-    {'name':'tablet', 
-    'shortdesc':'Installs KDE optimized for tablets', 
-    'description':'', 
-    'depends':['common'],
-    'side-by-side':['english', 'german'],
-    'packages':[
-                # plasma netbook edition
-                'plasma-netbook',
-                # multimedia packages
-                'amarok', 'gwenview', 'kdegraphics-strigi-plugins', 
-                ], 
     },
     {'name':'desktop', 
     'shortdesc':'Installs KDE for regular desktop PCs', 
@@ -74,7 +45,7 @@ kde = [
     'side-by-side':['english', 'german'],
     'packages':[
                 # plasma desktop edition
-                'kde-plasma-desktop', 'kdeplasma-addons',
+                'kde-plasma-desktop', 'plasma-netbook', 'kdeplasma-addons',
                 # multimedia packages
                 'amarok', 'gwenview', 'kdegraphics-strigi-plugins', 'soundkonverter',
                 'kipi-plugins', 'digikam',

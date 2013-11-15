@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.78', 'urgency':'low',
+        'items':['take over more kubuntu packages', 'add nvidia driver version 331'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 15 Nov 2013 18:49:28 +0100'
+    },
+    {
         'version':'2.77', 'urgency':'low',
         'items':['drop kdepim-strigi-plugins'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 28 Oct 2013 19:32:09 +0100'
