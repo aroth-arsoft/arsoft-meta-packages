@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.79', 'urgency':'low',
+        'items':['use any of the various google earth packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 10 Dec 2013 08:18:38 +0100'
+    },
+    {
         'version':'2.78', 'urgency':'low',
         'items':['take over more kubuntu packages', 'add nvidia driver version 331'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 15 Nov 2013 18:49:28 +0100'
