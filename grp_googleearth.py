@@ -7,15 +7,15 @@ googleearth = [
     'mainpackage':True,
     'shortdesc':'Installs the latest version of Google Earth', 
     'description':'', 
-    'packages':['google-earth-stable'],
-    'conflicts':['googleearth', 'googleearth-package']
+    'packages':[('google-earth-stable', 'googleearth', 'googleearth-package')],
+    'conflicts':[]
     },
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of Google Earth', 
     'description':'', 
     'packages':[], 
     'noconflicts':[],
-    'conflicts':['googleearth', 'googleearth-package']
+    'conflicts':[]
     },
 ]
  
