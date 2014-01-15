@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.80', 'urgency':'low',
+        'items':['drop obsolete packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 15 Jan 2014 08:16:39 +0100'
+    },
+    {
         'version':'2.79', 'urgency':'low',
         'items':['use any of the various google earth packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 10 Dec 2013 08:18:38 +0100'

@@ -51,7 +51,7 @@ mythtv = [
     'shortdesc':'removes all MythTV packages', 
     'description':'removes all MythTV packages.', 
     'packages':[], 
-    'noconflicts':['arsoft-desktop']
+    'noconflicts':['arsoft-desktop', 'ttf-mscorefonts-installer']
     },
 ]
  
