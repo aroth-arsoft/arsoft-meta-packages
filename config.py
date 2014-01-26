@@ -3,7 +3,7 @@
 # kate: space-indent on; indent-width 4; mixedindent off; indent-mode python;
 
 all_distributions = ['hardy', 'intrepid', 'jaunty', 'lucid', 'karmic', 'maverick', 'natty', 'oneiric', 'precise', 'quantal', 'raring', 'saucy', 'trusty']
-default_distributions = ['precise', 'raring', 'saucy']
+default_distributions = ['precise', 'saucy', 'trusty']
 source_package_name = 'arsoft-meta-packages'
 package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
 package_homepage = 'http://www.arsoft-online.com'

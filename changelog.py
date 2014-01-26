@@ -5,6 +5,21 @@
 package_changelog = [
 
     {
+        'version':'2.83', 'urgency':'low',
+        'items':['move depends issues in microcode group'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 26 Jan 2014 09:04:23 +0100'
+    },
+    {
+        'version':'2.82', 'urgency':'low',
+        'items':['fixed mistaken depends on microcode group'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 25 Jan 2014 17:46:00 +0100'
+    },
+    {
+        'version':'2.81', 'urgency':'low',
+        'items':['install mode basic KDE packages', 'add arsoft-microcode-generic package for all firmware'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 25 Jan 2014 17:14:19 +0100'
+    },
+    {
         'version':'2.80', 'urgency':'low',
         'items':['drop obsolete packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 15 Jan 2014 08:16:39 +0100'

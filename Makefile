@@ -6,3 +6,5 @@ clean:
 	rm -f *.build
 	rm -f *~
 	rm -f *.pyc *.pyo
+	rm -f *.deb
+

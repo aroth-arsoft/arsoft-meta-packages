@@ -14,7 +14,7 @@ kde = [
                 'polkit-kde-1', 'jockey-kde',
                 'gtk2-engines-qtcurve',
                 'konsole', 'konqueror', 'kdesudo', 'kate', 'gdebi-kde', 'kdelibs5-data',
-                'dolphin', 'kdebase-workspace', 
+                'dolphin', 'kdebase-workspace', 'kscreen',
                 'khelpcenter4', 'systemsettings',
                 'kubuntu-notification-helper',
                 'oxygen-icon-theme', 'kde-zeroconf', 'kdepim-runtime', 'akonadi-server',
@@ -29,6 +29,7 @@ kde = [
                 'phonon-backend-vlc', 'phonon-backend-gstreamer',
                 'rekonq',
                 'kde-config-cron',
+                'print-manager',
                 'virtuoso-minimal'
                 ],
     'packages-precise': ['kde-config-gtk'],
