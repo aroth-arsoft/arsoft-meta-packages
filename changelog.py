@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.84', 'urgency':'low',
+        'items':['allow to install google earth i386/multiarch'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 26 Jan 2014 09:04:23 +0100'
+    },
+    {
         'version':'2.83', 'urgency':'low',
         'items':['move depends issues in microcode group'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 26 Jan 2014 09:04:23 +0100'
