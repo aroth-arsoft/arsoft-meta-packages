@@ -10,6 +10,7 @@ from textwrap import TextWrapper
 import subprocess
 import re
 import shutil
+import glob
 from arsoft.utils import runcmdAndGetData
 
 from config import *
@@ -26,9 +27,9 @@ Build-Depends: debhelper (>= " + str(package_debhelper) + ")\n\
 Standards-Version: " + str(package_standardsversions) + "\n\
 "
 
-rules_file = "\
+rules_file_header = "\
 #!/usr/bin/make -f\n\
-# debian/rules for " + source_package_name + ". GNU copyright 2010-2013 by " + package_maintainer + ".\n\
+# debian/rules for " + source_package_name + ". GNU copyright 2010-2014 by " + package_maintainer + ".\n\
 \n\
 #export DH_VERBOSE=1\n\
 \n\
@@ -42,7 +43,9 @@ clean:\n\
 install: build\n\
 \tdh_testdir\n\
 \tdh_testroot\n\
-\tdh_clean -k\n\
+\tdh_prep\n\
+"
+rules_file_footer = "\
 \n\
 binary-indep: install\n\
 \tdh_testdir\n\
@@ -68,7 +71,7 @@ README for Debian\n\
 "
 
 copyright_file = "\
-Copyright 2010-2013 by " + package_maintainer + "\n\
+Copyright 2010-2014 by " + package_maintainer + "\n\
 \n\
 The files in this package are free software; you can redistribute them\n\
 and/or modify them under the terms of the GNU General Public License\n\
@@ -381,7 +384,67 @@ class application(object):
                         "\n  Conflicts:" + str(conflicts))
             ret += pkg_install
         return ret
-        
+
+    def package_group_postinst(self, package_debian_dir, distribution, prefix, choices):
+        for element in choices:
+            if element.has_key('mainpackage'):
+                mainpackage = bool(element['mainpackage'])
+            else:
+                mainpackage = False
+            if mainpackage:
+                package_name = prefix
+            else:
+                package_name = prefix + '-' + element['name']
+
+            diverts = element['divert'] if element.has_key('divert') else []
+            if diverts:
+                content = "#!/bin/sh -e\nPKG=%s\nif [ \"$1\" = configure ] ; then\n" % (package_name)
+                for (div_target, div_file) in diverts:
+                    div_dict = { 'div_target':div_target, 'div_file': div_file, 'package_name':package_name }
+                    content = content + "    dpkg-divert --add --package %(package_name)s --rename --divert %(div_target)s.distrib %(div_target)s\n" % div_dict
+                    content = content + "    [ ! -e %(div_target)s ] && cp -p /usr/share/%(package_name)s/%(div_file)s %(div_target)s\n" % div_dict
+
+                content = content + "fi\n#DEBHELPER#\nexit 0\n"
+
+                package_postinst_file = os.path.join(package_debian_dir, package_name + '.postinst')
+
+                f = open(package_postinst_file, 'w')
+                f.write(content)
+                f.close()
+                os.chmod(package_postinst_file, 0755)
+
+
+    def package_group_install_files(self, package_dir, package_debian_dir, distribution, prefix, choices):
+        ret = ''
+        for element in choices:
+            if element.has_key('mainpackage'):
+                mainpackage = bool(element['mainpackage'])
+            else:
+                mainpackage = False
+            if mainpackage:
+                package_name = prefix
+            else:
+                package_name = prefix + '-' + element['name']
+
+            files = element['files'] if element.has_key('files') else []
+            if files:
+                dest_dir = '/usr/share/' + package_name
+                for (src, dest, mode) in files:
+
+                    package_src = package_dir + '/' + src
+                    package_src_dir = os.path.dirname(package_src)
+                    if not os.path.isdir(package_src_dir):
+                        os.makedirs(package_src_dir)
+                    shutil.copy2( src, package_src)
+                    dest_full = os.path.join(dest_dir, dest)
+                    dest_full_dir = os.path.dirname(dest_full)
+                    if dest_full_dir:
+                        ret = ret + '\tinstall -d $(CURDIR)/debian/%(package_name)s%(dest)s\n' % \
+                            { 'dest': dest_full_dir, 'package_name':package_name }
+                    ret = ret + '\tinstall -m %(mode)o %(src)s $(CURDIR)/debian/%(package_name)s%(dest)s\n' % \
+                        { 'src': src, 'dest': dest_full, 'mode': mode, 'package_name':package_name }
+        return ret
+
     def make_package_dir(self, basedir, package_name, package_version, distribution, distribution_release=1):
         if basedir is None:
             basedir = os.getcwd()
@@ -405,6 +468,37 @@ class application(object):
         f.write(str(package_debhelper) + '\n') 
         f.close()
         
+        rules_file = rules_file_header
+        for (groupname, grouprules, groupopts) in all_package_groups:
+            if groupopts.has_key('distribution'):
+                groupdistribution = groupopts['distribution']
+                build_group_for_distribution = True
+                if distribution in groupdistribution:
+                    build_group_for_distribution = True
+                if ('!' + distribution) in groupdistribution:
+                    build_group_for_distribution = False
+            else:
+                build_group_for_distribution = True
+
+            #self.info('Build group ' + groupname + ' for distribution ' + distribution + ':' + str(build_group_for_distribution))
+
+            if build_group_for_distribution:
+                if self.selected_groups is not None:
+                    if groupname in self.selected_groups:
+                        include = True
+                    else:
+                        include = False
+                else:
+                    include = True
+            else:
+                include = False
+            if include:
+                ret = self.package_group_install_files(package_dir, package_debian_dir, distribution, groupname, grouprules)
+                rules_file = rules_file + ret
+            else:
+                self.info('Skip group ' + groupname + ' for distribution ' + distribution)
+        rules_file = rules_file + rules_file_footer
+
         f = open(package_debian_dir + '/rules', 'w')
         f.write(rules_file) 
         f.close()
@@ -419,10 +513,14 @@ class application(object):
         f.close()
 
         # copy this script file into the package dir
-        shutil.copy2(os.path.abspath( __file__ ), package_dir)
-        
-        return (package_dir, package_debian_control, package_debian_changelog)
-        
+        this_script_dir = os.path.dirname(__file__)
+        source_files = glob.glob(this_script_dir + '/*.py')
+        source_files.extend( [__file__, 'LICENSE', 'Makefile', 'README.md'] )
+        for f in source_files:
+            shutil.copy2(os.path.abspath(f), package_dir)
+
+        return (package_dir, package_debian_dir)
+
     def generate_debian_control(self, control_file, package_version, distribution, distribution_release=1):
 
         content = source_pkg
@@ -461,7 +559,37 @@ class application(object):
         f = open(control_file, 'w')
         f.write(content) 
         f.close()
-        
+
+    def generate_debian_postinst(self, package_debian_dir, distribution):
+
+        for (groupname, grouprules, groupopts) in all_package_groups:
+            if groupopts.has_key('distribution'):
+                groupdistribution = groupopts['distribution']
+                build_group_for_distribution = True
+                if distribution in groupdistribution:
+                    build_group_for_distribution = True
+                if ('!' + distribution) in groupdistribution:
+                    build_group_for_distribution = False
+            else:
+                build_group_for_distribution = True
+
+            #self.info('Build group ' + groupname + ' for distribution ' + distribution + ':' + str(build_group_for_distribution))
+
+            if build_group_for_distribution:
+                if self.selected_groups is not None:
+                    if groupname in self.selected_groups:
+                        include = True
+                    else:
+                        include = False
+                else:
+                    include = True
+            else:
+                include = False
+            if include:
+                self.package_group_postinst(package_debian_dir, distribution, groupname, grouprules)
+            else:
+                self.info('Skip group ' + groupname + ' for distribution ' + distribution)
+
     def generate_debian_changelog(self, changelog_file, distribution, changelog, distribution_release=1):
 
         content = ''
@@ -479,7 +607,7 @@ class application(object):
         f = open(changelog_file, 'w')
         f.write(content)
         f.close()
-        
+
     def get_latest_version_from_changelog(self, changelog, distribution):
         entry = changelog[0]
         full_version = entry['version']
@@ -614,9 +742,13 @@ class application(object):
                 print "Package name: " + str(package_name)
                 print "Package version: " + str(package_latest_short_version) + " (" + package_latest_short_version + ")"
 
-            (package_dir, package_debian_control, package_debian_changelog) = self.make_package_dir(None, package_name, package_latest_short_version, distribution)
+            (package_dir, package_debian_dir) = self.make_package_dir(None, package_name, package_latest_short_version, distribution)
+            package_debian_control = os.path.join(package_debian_dir, 'control')
+            package_debian_changelog = os.path.join(package_debian_dir, 'changelog')
+
             self.generate_debian_control(package_debian_control, package_latest_short_version, distribution)
             self.generate_debian_changelog(package_debian_changelog, distribution, package_changelog)
+            self.generate_debian_postinst(package_debian_dir, distribution)
             
             if self.build:
                 if self.do_build(package_dir, binary=self.build_binary) and self.put:
