@@ -5,9 +5,14 @@
 package_changelog = [
 
     {
+        'version':'2.85', 'urgency':'low',
+        'items':['add functionality to include files and diverting files', 'chrome installs custom starts script'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 16 Mar 2014 10:45:29 +0100'
+    },
+    {
         'version':'2.84', 'urgency':'low',
         'items':['allow to install google earth i386/multiarch'],
-        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 26 Jan 2014 09:04:23 +0100'
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 26 Jan 2014 09:08:43 +0100'
     },
     {
         'version':'2.83', 'urgency':'low',
