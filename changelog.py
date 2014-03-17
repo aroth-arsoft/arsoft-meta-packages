@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.86', 'urgency':'low',
+        'items':['fixed trouble on precise with mutli-arch google-earth packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 17 Mar 2014 18:59:41 +0100'
+    },
+    {
         'version':'2.85', 'urgency':'low',
         'items':['add functionality to include files and diverting files', 'chrome installs custom starts script'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 16 Mar 2014 10:45:29 +0100'
