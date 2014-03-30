@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.87', 'urgency':'low',
+        'items':['fixed dependancy issues on trusty'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 30 Mar 2014 09:07:04 +0200'
+    },
+    {
         'version':'2.86', 'urgency':'low',
         'items':['fixed trouble on precise with mutli-arch google-earth packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 17 Mar 2014 18:59:41 +0100'
