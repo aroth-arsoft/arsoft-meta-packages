@@ -447,21 +447,34 @@ class application(object):
 
             diverts = element['divert'] if element.has_key('divert') else []
             if diverts:
-                content = "#!/bin/sh -e\nPKG=%s\nif [ \"$1\" = configure ] ; then\n" % (package_name)
+                postinst_content = "#!/bin/sh -e\nPKG=%s\nif [ \"$1\" = configure ] ; then\n" % (package_name)
                 for (div_target, div_file) in diverts:
                     div_dict = { 'div_target':div_target, 'div_file': div_file, 'package_name':package_name }
-                    content = content + "    dpkg-divert --add --package %(package_name)s --rename --divert %(div_target)s.distrib %(div_target)s\n" % div_dict
-                    content = content + "    [ ! -e %(div_target)s ] && cp -p /usr/share/%(package_name)s/%(div_file)s %(div_target)s\n" % div_dict
+                    postinst_content = postinst_content + "    dpkg-divert --add --package %(package_name)s --rename --divert %(div_target)s.distrib %(div_target)s\n" % div_dict
+                    postinst_content = postinst_content + "    [ ! -e %(div_target)s ] && cp -p /usr/share/%(package_name)s/%(div_file)s %(div_target)s\n" % div_dict
 
-                content = content + "fi\n#DEBHELPER#\nexit 0\n"
+                postinst_content = postinst_content + "fi\n#DEBHELPER#\nexit 0\n"
 
                 package_postinst_file = os.path.join(package_debian_dir, package_name + '.postinst')
 
                 f = open(package_postinst_file, 'w')
-                f.write(content)
+                f.write(postinst_content)
                 f.close()
                 os.chmod(package_postinst_file, 0755)
 
+                prerm_content = "#!/bin/sh -e\nPKG=%s\nif [ \"$1\" = remove ] ; then\n" % (package_name)
+                for (div_target, div_file) in diverts:
+                    div_dict = { 'div_target':div_target, 'div_file': div_file, 'package_name':package_name }
+                    prerm_content = prerm_content + "    dpkg-divert --remove --package %(package_name)s --rename --divert %(div_target)s.distrib %(div_target)s\n" % div_dict
+
+                prerm_content = prerm_content + "fi\n#DEBHELPER#\nexit 0\n"
+
+                package_prerm_file = os.path.join(package_debian_dir, package_name + '.prerm')
+
+                f = open(package_prerm_file, 'w')
+                f.write(prerm_content)
+                f.close()
+                os.chmod(package_prerm_file, 0755)
 
     def package_group_install_files(self, package_dir, package_debian_dir, distribution, prefix, choices):
         ret = ''
