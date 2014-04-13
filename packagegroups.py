@@ -29,6 +29,7 @@ from grp_icinga import icinga
 from grp_microcode import microcode
 from grp_grub import grub
 from grp_unity import unity
+from grp_vim import vim
 
 all_package_groups = [
     ('arsoft-gfx', graphicsdrivers, {} ),
@@ -58,4 +59,5 @@ all_package_groups = [
     ('arsoft-microcode', microcode, {} ),
     ('arsoft-grub', grub, {} ),
     ('arsoft-unity', unity, {} ),
+    ('arsoft-vim', vim, {} ),
 ]

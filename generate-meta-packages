@@ -133,23 +133,48 @@ class application(object):
                 break;
         self.debug('_calc_full_depends: ' + name + ' mydepends=' + str(mydepends))
         for mydep in mydepends:
-            for element in choices:
-                if mydep == element['name']:
-                    if element.has_key('mainpackage'):
-                        mainpackage = bool(element['mainpackage'])
-                    else:
-                        mainpackage = False
-                    if mainpackage:
-                        dep_package_name = prefix
-                    else:
-                        dep_package_name = prefix + '-' + element['name']
+            if isinstance(mydep, tuple):
+                mydep_all_depends = list()
+                for mydep_item in mydep:
+                    mydep_item_real = mydep_item
+                    for element in choices:
+                        if mydep_item == element['name']:
+                            if element.has_key('mainpackage'):
+                                mainpackage = bool(element['mainpackage'])
+                            else:
+                                mainpackage = False
+                            if mainpackage:
+                                dep_package_name = prefix
+                            else:
+                                dep_package_name = prefix + '-' + element['name']
 
-                    (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices, distribution)
-                    
-                    ret_depends.add(dep_package_name)
-                    ret_depends |= set(element_depends)
-                    ret_packages |= element_packages
-                    break
+                            (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices, distribution)
+
+                            mydep_item_real = dep_package_name
+                            ret_depends |= set(element_depends)
+                            ret_packages |= element_packages
+                            break
+                    mydep_all_depends.append(mydep_item_real)
+                #print(tuple(mydep_all_depends))
+                ret_depends.add(tuple(mydep_all_depends))
+            else:
+                for element in choices:
+                    if mydep == element['name']:
+                        if element.has_key('mainpackage'):
+                            mainpackage = bool(element['mainpackage'])
+                        else:
+                            mainpackage = False
+                        if mainpackage:
+                            dep_package_name = prefix
+                        else:
+                            dep_package_name = prefix + '-' + element['name']
+
+                        (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices, distribution)
+
+                        ret_depends.add(dep_package_name)
+                        ret_depends |= set(element_depends)
+                        ret_packages |= element_packages
+                        break
         self.debug('_calc_full_depends: ' + name + ' return ret_depends=' + str(ret_depends) + ', ret_packages=' + str(ret_packages))
         return (ret_depends, ret_packages)
 
@@ -279,7 +304,12 @@ class application(object):
             conflict_packages -= element_descendants_packages
             conflict_other_packages = all_package_names.copy()
             conflict_other_packages.remove(name)
-            conflict_other_packages -= element_depends
+            for pkg in element_depends:
+                if isinstance(pkg, tuple):
+                    for tup_elem in pkg:
+                        conflict_other_packages.remove(tup_elem)
+                else:
+                    conflict_other_packages.remove(pkg)
             conflict_other_packages -= element_descendants_depends
             
             for dep_element in choices:
@@ -295,41 +325,60 @@ class application(object):
                     dep_depends = set(dep_element['depends'])
                 else:
                     dep_depends = set()
+                if dep_element.has_key('packages'):
+                    dep_element_packages = set(dep_element['packages'])
+                else:
+                    dep_element_packages = set()
+                if dep_element.has_key('packages-' + distribution):
+                    dep_element_packages = dep_element_packages | set(dep_element['packages-' + distribution])
 
                 if element['name'] in dep_depends:
                     self.debug('pkg: ' + dep_package_name + ' depends on current package ' + element['name'] + ' remove from ' + str(conflict_other_packages))
                     if dep_package_name in conflict_other_packages:
                         conflict_other_packages.remove(dep_package_name)
-                    if dep_element.has_key('packages'):
-                        dep_element_packages = set(dep_element['packages'])
-                    else:
-                        dep_element_packages = set()
-                    if dep_element.has_key('packages-' + distribution):
-                        dep_element_packages = dep_element_packages | set(dep_element['packages-' + distribution])
                     conflict_packages -= dep_element_packages
                 self.debug('pkg: ' + dep_package_name + ' depend_groups=' + str(depend_groups))
-                if dep_element['name'] in depend_groups:
+                current_depend_groups = list()
+                for dep_grp in depend_groups:
+                    if isinstance(dep_grp, tuple):
+                        if dep_element['name'] in dep_grp:
+                            current_depend_groups.append(dep_grp)
+                    else:
+                        if dep_grp == dep_element['name']:
+                            current_depend_groups.append(dep_element['name'])
+                            break
+
+                if current_depend_groups:
                     self.debug('pkg: ' + name + ' remove ' + dep_package_name + '/' + dep_element['name'] + ' from ' + str(conflict_packages))
                     if dep_package_name in conflict_other_packages:
                         conflict_other_packages.remove(dep_package_name)
-                    if dep_element.has_key('packages'):
-                        dep_element_packages = set(dep_element['packages'])
-                    else:
-                        dep_element_packages = set()
-                    if dep_element.has_key('packages-' + distribution):
-                        dep_element_packages = dep_element_packages | set(dep_element['packages-' + distribution])
                     conflict_packages -= dep_element_packages
-                    depend_packages.add(dep_package_name + '(=' + package_version + ')')
+
+                    for dep_grp in current_depend_groups:
+                        if isinstance(dep_grp, tuple):
+                            all_dep = list()
+                            for dep_grp_elem in dep_grp:
+                                dep_grp_elem_package_name = dep_grp_elem
+                                for dep_element in choices:
+                                    if dep_element['name'] != dep_grp_elem:
+                                        continue
+                                    if dep_element.has_key('mainpackage'):
+                                        mainpackage = bool(dep_element['mainpackage'])
+                                    else:
+                                        mainpackage = False
+                                    if mainpackage:
+                                        dep_grp_elem_package_name = prefix
+                                    else:
+                                        dep_grp_elem_package_name = prefix + '-' + dep_element['name']
+
+                                all_dep.append(dep_grp_elem_package_name + '(=' + package_version + ')')
+                            depend_packages.add(tuple(all_dep))
+                        else:
+                            depend_packages.add(dep_package_name + '(=' + package_version + ')')
                 elif dep_element['name'] in sidebyside_packages:
                     #print 'side by side ' + dep_package_name
                     if dep_package_name in conflict_other_packages:
                         conflict_other_packages.remove(dep_package_name)
-                    if dep_element.has_key('packages'):
-                        dep_element_packages = set(dep_element['packages'])
-                    else:
-                        dep_element_packages = set()
-                    if dep_element.has_key('packages-' + distribution):
-                        dep_element_packages = dep_element_packages | set(dep_element['packages-' + distribution])
                     conflict_packages -= dep_element_packages
                 
             conflict_packages.update(conflict_other_packages)
@@ -373,12 +422,12 @@ class application(object):
                 pkg_install = pkg_install + self.control_line("Conflicts", conflicts)
             if replaces is not None and len(replaces) != 0:
                 pkg_install = pkg_install + self.control_line("Replaces", replaces)
-            if element['shortdesc'] is not None and len(element['shortdesc']) != 0:
+            if 'shortdesc' in element and element['shortdesc']:
                 pkg_install = pkg_install + self.control_line("Description", element['shortdesc'])
-                if element['description'] is not None and len(element['description']) != 0:
+                if 'description' in element and element['description']:
                     pkg_install = pkg_install + self.control_description(element['description'])
                 else:
-                    pkg_install = pkg_install + self.control_description(element['shortdesc'])
+                    pkg_install = pkg_install + self.control_description(element['shortdesc'] + '.')
             self.debug("Package: " + name + 
                         "\n  Depends:" + str(depends) +
                         "\n  Conflicts:" + str(conflicts))
@@ -637,7 +686,7 @@ class application(object):
             self.info("Build of " + package_dir + " successful.")
             ret = True
         else:
-            self.error("Errors %i: %s" %(sts, stderr))
+            self.error("Error %i: %s\n%s" %(sts, stdout, stderr))
             ret = False
         return ret
 

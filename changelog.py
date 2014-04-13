@@ -5,8 +5,13 @@
 package_changelog = [
 
     {
+        'version':'2.88', 'urgency':'low',
+        'items':['add package group vim', 'install start script for google-chrome-stable'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 13 Apr 2014 13:40:03 +0200'
+    },
+    {
         'version':'2.87', 'urgency':'low',
-        'items':['fixed dependancy issues on trusty'],
+        'items':['fixed dependency issues on trusty'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 30 Mar 2014 09:07:04 +0200'
     },
     {
@@ -126,7 +131,7 @@ package_changelog = [
     },
     {
         'version':'2.63', 'urgency':'low',
-        'items':['fixed dependancy generation'],
+        'items':['fixed dependency generation'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 08 May 2013 07:14:47 +0200'
     },
     {
@@ -176,7 +181,7 @@ package_changelog = [
     },
     {
         'version':'2.53', 'urgency':'low',
-        'items':['fixed libreoffice dependancy issues'],
+        'items':['fixed libreoffice dependency issues'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 04 Mar 2013 13:22:29 +0100'
     },
     {
@@ -447,7 +452,7 @@ package_changelog = [
     },                                   
     {
         'version':'0.43', 'urgency':'low',
-        'items':['fixed gstreamer dependancy issues'],
+        'items':['fixed gstreamer dependency issues'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 29 Aug 2011 08:19:46 +0200'
     },                                   
     {
@@ -667,7 +672,7 @@ package_changelog = [
     },
     {
         'version':'0.12ubuntu4', 'urgency':'low', 
-        'items':['fixed arsoft-gfx-nvidia dependancy issues'],
+        'items':['fixed arsoft-gfx-nvidia dependency issues'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 03 Feb 2011 20:47:12 +0100'
     },
     {
