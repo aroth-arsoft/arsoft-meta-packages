@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.110', 'urgency':'low',
+        'items':['bump version to get vim packages currently installed.'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 13 Apr 2014 15:49:41 +0200'
+    },
+    {
         'version':'2.88', 'urgency':'low',
         'items':['add package group vim', 'install start script for google-chrome-stable'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 13 Apr 2014 13:40:03 +0200'
@@ -196,7 +201,7 @@ package_changelog = [
     },
     {
         'version':'2.50', 'urgency':'low',
-        'items':['dump version to get nagios packages currently installed.', 'added nagios and icinga packages.'],
+        'items':['bump version to get nagios packages currently installed.', 'added nagios and icinga packages.'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 10 Feb 2013 13:06:19 +0100'
     },
     {

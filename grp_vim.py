@@ -6,7 +6,13 @@ vim = [
     {'name':'common', 
     'mainpackage':True,
     'shortdesc':'Installs common package for the enhanced vi editor',
-    'packages':['vim', 'vim-doc', 'vim-runtime'],
+    'packages':['vim', 'vim-doc', 'vim-scripts', 'vim-runtime'],
+    'files': [
+        ('vim/vimrc', 'vimrc', 0644),
+        ],
+    'divert': [
+        ('/etc/vim/vimrc', 'vimrc'),
+        ]
     },
     {'name':'tiny',
     'shortdesc':'Installs enhanced vi editor - compact version',
