@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.111', 'urgency':'low',
+        'items':['prepare nvidia packages for next driver versions'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 14 Apr 2014 09:39:08 +0200'
+    },
+    {
         'version':'2.110', 'urgency':'low',
         'items':['bump version to get vim packages currently installed.'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 13 Apr 2014 15:49:41 +0200'
