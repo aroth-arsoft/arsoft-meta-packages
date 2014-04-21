@@ -7,34 +7,20 @@ thunderbird = [
     'mainpackage':True,
     'shortdesc':'Installs the latest version of Mozilla Thunderbird', 
     'description':'', 
-    'packages':['thunderbird', 'browser-plugin-packagekit']
+    'packages':['thunderbird', 'thunderbird-locale-en', 'thunderbird-locale-de', 'browser-plugin-packagekit']
     },
     {'name':'gnome', 
     'shortdesc':'Installs GNOME support files for Mozilla Thunderbird', 
     'description':'This package installs Mozilla Thunderbird GNome support.', 
     'depends':['common'],
     'packages':['thunderbird-gnome-support'], 
-    'side-by-side':['english', 'german']
+    'side-by-side':['gnome', 'kde']
     },
     {'name':'kde', 
     'shortdesc':'Installs KDE support files for Mozilla Thunderbird', 
     'description':'This package installs Mozilla Thunderbird KDE support.', 
     'depends':['common'],
-    'side-by-side':['english', 'german']
-    },
-    {'name':'english', 
-    'shortdesc':'Installs the english languages files for Mozilla Thunderbird', 
-    'description':'', 
-    'depends':['common'],
-    'side-by-side':['kde', 'gnome', 'german'],
-    'packages':['thunderbird-locale-en']
-    },
-    {'name':'german', 
-    'shortdesc':'Installs the german languages files for Mozilla Thunderbird', 
-    'description':'', 
-    'depends':['common'],
-    'side-by-side':['kde', 'gnome', 'english'],
-    'packages':['thunderbird-locale-de']
+    'side-by-side':['gnome', 'kde']
     },
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of Mozilla Thunderbird', 
@@ -43,4 +29,3 @@ thunderbird = [
     'noconflicts':['browser-plugin-packagekit']
     },
 ]
- 

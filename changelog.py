@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.113', 'urgency':'low',
+        'items':['install language package english+german with firefox and thunderbird'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 21 Apr 2014 12:53:55 +0200'
+    },
+    {
         'version':'2.112', 'urgency':'low',
         'items':['fixed gstreamer trouble on trusty'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 14 Apr 2014 19:35:26 +0200'
