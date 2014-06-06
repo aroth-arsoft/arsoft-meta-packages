@@ -56,14 +56,15 @@ gnome = [
     'description':'', 
     'depends':['common'],
     'side-by-side':['desktop', 'multimedia', 'english'],
-    'packages':['language-pack-gnome-en']
+    'packages':['language-pack-gnome-de']
     },
     {'name':'none', 
     'shortdesc':'removes all versions of the GNOME desktop environment', 
     'description':'This package removes all versions of GNOME desktop environment.', 
     'packages':[], 
     'noconflicts':['arsoft-desktop', 
-                'apturl', 'gnome-icon-theme', 'policykit-1-gnome'
+                'apturl', 'gnome-icon-theme', 'policykit-1-gnome',
+                'language-pack-gnome-en', 'language-pack-gnome-de'
                 ]
     },
 ]

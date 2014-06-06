@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.114', 'urgency':'low',
+        'items':['another language package fix'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 06 Jun 2014 18:19:17 +0200'
+    },
+    {
         'version':'2.113', 'urgency':'low',
         'items':['install language package english+german with firefox and thunderbird'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 21 Apr 2014 12:53:55 +0200'
@@ -21,7 +26,7 @@ package_changelog = [
     },
     {
         'version':'2.110', 'urgency':'low',
-        'items':['bump version to get vim packages currently installed.'],
+        'items':['bump version to get vim packages correctly installed.'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 13 Apr 2014 15:49:41 +0200'
     },
     {

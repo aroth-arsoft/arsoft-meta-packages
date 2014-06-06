@@ -33,9 +33,9 @@ kde = [
                 'virtuoso-minimal'
                 ],
     'packages-precise': ['kde-config-gtk'],
-    'packages-raring': ['kde-config-gtk-style', 'user-manager', 'muon-discover'],
     'packages-saucy': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro'],
     'packages-trusty': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro'],
+    'packages-utopic': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro'],
     'conflicts':['phonon-backend-xine', 'kpackagekit']
     },
     {'name':'desktop', 
@@ -81,20 +81,19 @@ kde = [
     'description':'', 
     'depends':['common'],
     'side-by-side':['desktop', 'german'],
-    'packages':['language-pack-kde-en']
+    'packages':['language-pack-kde-en', 'language-pack-gnome-en']
     },
     {'name':'german', 
     'shortdesc':'Installs the german languages files for KDE', 
     'description':'', 
     'depends':['common'],
     'side-by-side':['desktop', 'english'],
-    'packages':['language-pack-kde-de']
+    'packages':['language-pack-kde-de', 'language-pack-gnome-de']
     },
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of KDE', 
     'description':'', 
     'packages':[], 
-    'noconflicts':['arsoft-desktop']
+    'noconflicts':['arsoft-desktop', 'language-pack-gnome-en', 'language-pack-gnome-de']
     },
 ]
- 

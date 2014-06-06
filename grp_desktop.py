@@ -17,7 +17,7 @@ desktop = [
     'description':'', 
     'packages':['ttf-mscorefonts-installer', 
                 'policykit-desktop-privileges',
-                'unclutter', 
+                'unclutter',
                 ],
     'conflicts':[
 #                    'ibus-qt4', 'libibus-qt1', 'ibus', 'ibus-gtk', 'libibus1',
