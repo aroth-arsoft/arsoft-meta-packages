@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.115', 'urgency':'low',
+        'items':['remove ibus for gtk and qt'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 06 Jun 2014 18:57:41 +0200'
+    },
+    {
         'version':'2.114', 'urgency':'low',
         'items':['another language package fix'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 06 Jun 2014 18:19:17 +0200'

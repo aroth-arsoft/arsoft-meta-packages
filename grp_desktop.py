@@ -20,7 +20,7 @@ desktop = [
                 'unclutter',
                 ],
     'conflicts':[
-#                    'ibus-qt4', 'libibus-qt1', 'ibus', 'ibus-gtk', 'libibus1',
+                    'ibus-qt4', 'ibus-gtk', 'libibus-qt1',
                     'scim', 'scim-qtimm', 'scim-modules-socket']
     },
     {'name':'none', 
