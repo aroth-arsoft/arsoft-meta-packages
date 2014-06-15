@@ -81,9 +81,15 @@ endif
 " have further <Tab>s cycle through the possibilities:
 set wildmode=list:longest,full
 
+" configure the list of white-chars
+" see http://stackoverflow.com/questions/1675688/make-vim-show-all-white-spaces-as-a-character
+"
 " when using list, keep tabs at their full width and display `arrows':
 execute 'set listchars+=tab:' . nr2char(187) . nr2char(183)
 " (Character 187 is a right double-chevron, and 183 a mid-dot.)
+set listchars+=trail:~
+set listchars+=extends:>
+set listchars+=precedes:<
 
 " have fifty lines of command-line (etc) history:
 set history=50
@@ -98,7 +104,7 @@ set showcmd             " get some feedback
 set showmode            " show current mode
 set showmatch           " show matching brackets
 set shortmess=aTI       " No "welcome" message - shut up!
- 
+
 " * Text Formatting -- Specific File Formats
 
 " enable filetype detection:
