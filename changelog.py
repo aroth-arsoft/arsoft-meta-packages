@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.116', 'urgency':'low',
+        'items':['add nvidia-340'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 25 Jun 2014 07:54:49 +0200'
+    },
+    {
         'version':'2.115', 'urgency':'low',
         'items':['remove ibus for gtk and qt'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 06 Jun 2014 18:57:41 +0200'
