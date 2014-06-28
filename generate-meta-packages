@@ -710,7 +710,8 @@ class application(object):
         return ret
 
     def do_put(self, package_dir, version, distribution, distribution_release=1):
-        changesfile = package_dir + '/../' + source_package_name + '_' +  version + '~' + distribution + str(distribution_release) + '_source.changes'
+        distribution_verno = all_distributions[distribution]
+        changesfile = package_dir + '/../' + source_package_name + '_' +  version + '~%s.%i_source.changes' % (distribution_verno, distribution_release)
         args = ['dput', changesfile]
         p = subprocess.Popen(args, cwd=package_dir, stdout=subprocess.PIPE, stderr=subprocess.PIPE) 
         if p is not None:
