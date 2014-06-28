@@ -299,7 +299,8 @@ class application(object):
                     for tup_elem in pkg:
                         conflict_packages.remove(tup_elem)
                 else:
-                    conflict_packages.remove(pkg)
+                    if pkg in conflict_packages:
+                        conflict_packages.remove(pkg)
             
             conflict_packages -= element_descendants_packages
             conflict_other_packages = all_package_names.copy()
@@ -309,7 +310,8 @@ class application(object):
                     for tup_elem in pkg:
                         conflict_other_packages.remove(tup_elem)
                 else:
-                    conflict_other_packages.remove(pkg)
+                    if pkg in conflict_other_packages:
+                        conflict_other_packages.remove(pkg)
             conflict_other_packages -= element_descendants_depends
             
             for dep_element in choices:
@@ -510,7 +512,8 @@ class application(object):
     def make_package_dir(self, basedir, package_name, package_version, distribution, distribution_release=1):
         if basedir is None:
             basedir = os.getcwd()
-        package_dir = basedir + '/' + package_name + '-' + package_version + '~' + distribution + str(distribution_release)
+        distribution_verno = all_distributions[distribution]
+        package_dir = basedir + '/' + package_name + '-' + package_version + '~%s.%i' % (distribution_verno, distribution_release)
         package_debian_dir = package_dir + '/debian'
         package_debian_control = package_debian_dir + '/control'
         package_debian_changelog = package_debian_dir + '/changelog'
@@ -586,7 +589,8 @@ class application(object):
     def generate_debian_control(self, control_file, package_version, distribution, distribution_release=1):
 
         content = source_pkg
-        full_version = package_version + '~' + distribution + str(distribution_release)
+        distribution_verno = all_distributions[distribution]
+        full_version = package_version + '~%s.%i' % (distribution_verno, distribution_release)
         for (groupname, grouprules, groupopts) in all_package_groups:
             if groupopts.has_key('distribution'):
                 groupdistribution = groupopts['distribution']
@@ -654,9 +658,11 @@ class application(object):
 
     def generate_debian_changelog(self, changelog_file, distribution, changelog, distribution_release=1):
 
+        distribution_verno = all_distributions[distribution]
         content = ''
         for entry in changelog:
-            full_version = entry['version'] + '~' + distribution + str(distribution_release)
+
+            full_version = entry['version'] + '~%s.%i' % (distribution_verno, distribution_release)
             e = source_package_name + ' (' + full_version + ') ' + distribution + '; urgency=' + entry['urgency'] + '\n'
             e = e + '\n'
             for i in entry['items']:
@@ -760,11 +766,11 @@ class application(object):
         #=============================================================================================
         # process command line
         #=============================================================================================
-        parser = argparse.ArgumentParser(description='helper script to manage/configure a local OpenVPN installation.')
+        parser = argparse.ArgumentParser(description='generate the arsoft meta packages for Ubuntu/Kubuntu.')
         parser.add_argument('-v', '--verbose', dest='verbose', action='store_true', help='enable verbose output.')
         parser.add_argument('--version', dest='version', action='store_true', help='shows the version and exits.')
         parser.add_argument('-b', '--build', dest='build', action='store_true', help='build the package after preparation')
-        parser.add_argument('--build-binary', dest='build_binary', action='store_true', help='build the binary packages after preparation')
+        parser.add_argument('--binary', dest='build_binary', action='store_true', help='build the binary packages after preparation')
         parser.add_argument('-p', '--put', dest='put', action='store_true', help='upload the package to launchpad')
         parser.add_argument('-k', '--keep', dest='keep', action='store_true', help='keep the package dir after successful build')
         parser.add_argument('-d', '--distribution', dest='distribution', metavar='DISTRO', nargs='*', default=default_distributions, help='specify the distribution name')
