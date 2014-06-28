@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.117', 'urgency':'low',
+        'items':['add arsoft-developer-kdevelop'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 28 Jun 2014 09:25:02 +0200'
+    },
+    {
         'version':'2.116', 'urgency':'low',
         'items':['add nvidia-340'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 25 Jun 2014 07:54:49 +0200'
