@@ -30,6 +30,7 @@ from grp_microcode import microcode
 from grp_grub import grub
 from grp_unity import unity
 from grp_vim import vim
+from grp_check_mk import check_mk
 
 all_package_groups = [
     ('arsoft-gfx', graphicsdrivers, {} ),
@@ -60,4 +61,5 @@ all_package_groups = [
     ('arsoft-grub', grub, {} ),
     ('arsoft-unity', unity, {} ),
     ('arsoft-vim', vim, {} ),
+    ('arsoft-check-mk', check_mk, {} ),
 ]

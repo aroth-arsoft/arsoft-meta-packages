@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.118', 'urgency':'low',
+        'items':['add arsoft-check-mk package group'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 16 Jul 2014 07:30:01 +0200'
+    },
+    {
         'version':'2.117', 'urgency':'low',
         'items':['add arsoft-developer-kdevelop'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 28 Jun 2014 09:25:02 +0200'
