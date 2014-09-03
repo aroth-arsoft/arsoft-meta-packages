@@ -9,7 +9,7 @@
 APPNAME=chrome
 LIBDIR=/opt/google/chrome
 GDB=/usr/bin/gdb
-BUILD_DIST="Ubuntu 13.10"
+BUILD_DIST="Ubuntu 14.04"
 
 usage () {
   echo "$APPNAME [-h|--help] [-g|--debug] [--temp-profile] [options] [URL]"
@@ -25,6 +25,25 @@ usage () {
 
 if [ -f /etc/$APPNAME/default ] ; then
   . /etc/$APPNAME/default
+fi
+
+# Check if the CPU supports SSE2. If not, try to pop up a dialog to explain the
+# problem and exit. Otherwise the browser will just crash with a SIGILL.
+# http://crbug.com/348761
+grep ^flags /proc/cpuinfo|grep -qs sse2
+if [ $? != 0 ]; then
+  SSE2_DEPRECATION_MSG="This computer can no longer run Google Chrome because \
+its hardware is no longer supported."
+  if which zenity &> /dev/null; then
+    zenity --warning --text="$SSE2_DEPRECATION_MSG"
+  elif which gmessage &> /dev/null; then
+    gmessage "$SSE2_DEPRECATION_MSG"
+  elif which xmessage &> /dev/null; then
+    xmessage "$SSE2_DEPRECATION_MSG"
+  else
+    echo "$SSE2_DEPRECATION_MSG" 1>&2
+  fi
+  exit 1
 fi
 
 # Prefer user defined CHROME_USER_FLAGS (fron env) over system
@@ -112,7 +131,14 @@ if [ $want_debug -eq 1 ] ; then
   exit $?
 else
   if [ $want_temp_profile -eq 0 ] ; then
-    exec -a "$0" $LIBDIR/$APPNAME $CHROME_FLAGS "$@"
+    # Sanitize std{in,out,err} because they'll be shared with untrusted child
+    # processes (http://crbug.com/376567).
+    exec < /dev/null
+    exec > >(exec cat)
+    exec 2> >(exec cat >&2)
+
+    # Note: exec -a below is a bashism.
+    exec -a "$0" "$LIBDIR/$APPNAME" $CHROME_FLAGS "$@"
   else
     # we can't exec here as we need to clean-up the temporary profile
     $LIBDIR/$APPNAME $CHROME_FLAGS "$@"

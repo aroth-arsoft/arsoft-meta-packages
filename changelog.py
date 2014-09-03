@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.119', 'urgency':'low',
+        'items':['chromium and chrome start up scripts'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 03 Sep 2014 10:30:17 +0200'
+    },
+    {
         'version':'2.118', 'urgency':'low',
         'items':['add arsoft-check-mk package group'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 16 Jul 2014 07:30:01 +0200'
