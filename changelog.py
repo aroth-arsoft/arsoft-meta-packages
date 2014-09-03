@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.120', 'urgency':'low',
+        'items':['re-add missing pinch for chromium'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 03 Sep 2014 10:58:27 +0200'
+    },
+    {
         'version':'2.119', 'urgency':'low',
         'items':['chromium and chrome start up scripts'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 03 Sep 2014 10:30:17 +0200'

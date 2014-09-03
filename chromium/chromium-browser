@@ -155,9 +155,9 @@ if [ $want_temp_profile -eq 1 ] ; then
   CHROMIUM_FLAGS="$CHROMIUM_FLAGS --user-data-dir=$TEMP_PROFILE"
 fi
 
-# if [ $want_touch_pinch -eq 1 ] ; then
-#   CHROMIUM_FLAGS="$CHROMIUM_FLAGS --enable-pinch"
-# fi
+if [ $want_touch_pinch -eq 1 ] ; then
+  CHROMIUM_FLAGS="$CHROMIUM_FLAGS --enable-pinch"
+fi
 
 if [ $want_debug -eq 1 ] ; then
   if [ ! -x $GDB ] ; then
