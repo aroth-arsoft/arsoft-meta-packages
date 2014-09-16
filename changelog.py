@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.121', 'urgency':'low',
+        'items':['drop kdev-python and kdev-php for now'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 16 Sep 2014 10:01:53 +0200'
+    },
+    {
         'version':'2.120', 'urgency':'low',
         'items':['re-add missing pinch for chromium'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 03 Sep 2014 10:58:27 +0200'
