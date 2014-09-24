@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.122', 'urgency':'low',
+        'items':['add icinga version 1.x and 2.x packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 24 Sep 2014 08:11:51 +0200'
+    },
+    {
         'version':'2.121', 'urgency':'low',
         'items':['drop kdev-python and kdev-php for now'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 16 Sep 2014 10:01:53 +0200'
