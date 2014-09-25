@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.123', 'urgency':'low',
+        'items':['add arsoft-check-mk-server package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 25 Sep 2014 10:49:08 +0200'
+    },
+    {
         'version':'2.122', 'urgency':'low',
         'items':['add icinga version 1.x and 2.x packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 24 Sep 2014 08:11:51 +0200'

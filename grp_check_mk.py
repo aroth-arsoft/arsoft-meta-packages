@@ -16,11 +16,17 @@ check_mk = [
     'depends':['common'],
     'packages':['check-mk-agent', 'arsoft-check-mk-plugins']
     },
+    {'name':'server',
+    'shortdesc':'Installs the check_mk for Icinga',
+    'description':'',
+    'depends':['agent'],
+    'packages':['check-mk-server', 'arsoft-check-mk-checks']
+    },
     {'name':'icinga',
     'shortdesc':'Installs the check_mk for Icinga',
     'description':'', 
-    'depends':['agent'],
-    'packages':['check-mk-server', 'check-mk-config-icinga', 'check-mk-livestatus', 'arsoft-check-mk-checks']
+    'depends':['server'],
+    'packages':['check-mk-config-icinga', 'check-mk-livestatus']
     },
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of check_mk',
