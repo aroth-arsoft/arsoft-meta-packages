@@ -17,7 +17,7 @@ check_mk = [
     'packages':['check-mk-agent', 'arsoft-check-mk-plugins']
     },
     {'name':'server',
-    'shortdesc':'Installs the check_mk for Icinga',
+    'shortdesc':'Installs the check_mk server component',
     'description':'',
     'depends':['agent'],
     'packages':['check-mk-server', 'arsoft-check-mk-checks']
