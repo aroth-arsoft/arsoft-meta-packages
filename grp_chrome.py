@@ -6,7 +6,7 @@ chrome = [
     {'name':'common', 
     'mainpackage':True,
     'shortdesc':'Installs the latest version of Google Chrome', 
-    'packages':['google-chrome-stable', 'icedtea-7-plugin'],
+    'packages':['google-chrome-stable', 'icedtea-plugin'],
     'conflicts':['google-chrome-unstable', 'google-chrome-beta'],
     'files': [
         ('chrome/google-chrome', 'google-chrome', 0755),
@@ -20,7 +20,7 @@ chrome = [
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of Google Chrome', 
     'packages':[], 
-    'noconflicts':['icedtea-7-plugin']
+    'noconflicts':['icedtea-plugin']
     },
 ]
  

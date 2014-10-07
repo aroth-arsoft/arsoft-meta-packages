@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.124', 'urgency':'low',
+        'items':['install java 8 along java 7 on trusty and utopic'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 07 Oct 2014 07:46:52 +0200'
+    },
+    {
         'version':'2.123', 'urgency':'low',
         'items':['add arsoft-check-mk-server package'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 25 Sep 2014 10:49:08 +0200'

@@ -7,7 +7,7 @@ chromium = [
     'mainpackage':True,
     'shortdesc':'Installs the latest version of Chromium', 
     'description':'', 
-    'packages':['chromium-browser', 'chromium-codecs-ffmpeg-extra', 'icedtea-7-plugin'],
+    'packages':['chromium-browser', 'chromium-codecs-ffmpeg-extra', 'icedtea-plugin'],
     'files': [
         ('chromium/chromium-browser', 'chromium-browser', 0755),
         ],
@@ -19,7 +19,7 @@ chromium = [
     'shortdesc':'Uninstalls all versions of Chromium', 
     'description':'', 
     'packages':[], 
-    'noconflicts':['icedtea-7-plugin']
+    'noconflicts':['icedtea-plugin']
     },
 ]
  
