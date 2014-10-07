@@ -743,8 +743,40 @@ class application(object):
         shutil.rmtree(package_dir)
         ret = True
         return ret
-            
-            
+
+    def clean_directory(self, dirname):
+        delete_list = []
+        for f in os.listdir(dirname):
+            (fbase, fext) = os.path.splitext(f)
+            last_dot = fbase.rfind('.')
+            last_underscore = fbase.rfind('_')
+            if last_dot != -1 and last_dot > last_underscore:
+                (fbase2, fext2) = os.path.splitext(fbase)
+                fext2_num = None
+                try:
+                    fext2_num = int(fext2[1:])
+                except ValueError:
+                    pass
+
+                if fext2_num is None:
+                    fext = fext2 + fext
+                    fbase = fbase2
+            #print(fbase, fext)
+            add = True if fext in ['.deb', '.dsc', '.pyc', '.changes', '.build', '.tar.gz'] else False
+            if not add and fbase.endswith('_source'):
+                add = True
+
+            if add:
+                delete_list.append(os.path.join(dirname, f))
+        ret = True
+        for f in delete_list:
+            try:
+                os.remove(f)
+            except OSError:
+                ret = False
+        #print(delete_list)
+        return ret
+
     def debug(self, *args):
         if self.verbose:
             print(string.join(args))
@@ -770,6 +802,7 @@ class application(object):
         parser = argparse.ArgumentParser(description='generate the arsoft meta packages for Ubuntu/Kubuntu.')
         parser.add_argument('-v', '--verbose', dest='verbose', action='store_true', help='enable verbose output.')
         parser.add_argument('--version', dest='version', action='store_true', help='shows the version and exits.')
+        parser.add_argument('-c', '--clean', dest='clean', action='store_true', help='clean the source directory')
         parser.add_argument('-b', '--build', dest='build', action='store_true', help='build the package after preparation')
         parser.add_argument('--binary', dest='build_binary', action='store_true', help='build the binary packages after preparation')
         parser.add_argument('-p', '--put', dest='put', action='store_true', help='upload the package to launchpad')
@@ -786,46 +819,51 @@ class application(object):
         self.selected_groups = args.groups
         self.distributions = args.distribution
         self.clean = True if args.keep == False else False
+        self.clean_source_dir = args.clean
 
-        if self.put and not self.build:
+        if self.put and not self.build and not self.clean_source_dir:
             self.build = True
 
         ret = 0
-        if len(self.distributions) == 0:
-            #dist = self.get_distribution_codename()
-            #if self.verbose:
-                #print "Distributions: " + str(dist)
-            self.distributions = default_distributions
+        if self.clean_source_dir:
+            if not self.clean_directory(os.path.dirname(os.path.abspath(__file__))):
+                ret = 1
         else:
-            for d in self.distributions:
-                if d not in all_distributions:
-                    print "Unknown distribution " + d + ". Abort"
-                    return 1
-                
-        for distribution in self.distributions:
-            if self.verbose:
-                print "Prepare package for distribution " + str(distribution)
-            (package_name, package_latest_full_version, package_latest_short_version) = self.get_latest_version_from_changelog(package_changelog, distribution)
-            
-            if self.verbose:
-                print "Package name: " + str(package_name)
-                print "Package version: " + str(package_latest_short_version) + " (" + package_latest_short_version + ")"
-
-            (package_dir, package_debian_dir) = self.make_package_dir(None, package_name, package_latest_short_version, distribution)
-            package_debian_control = os.path.join(package_debian_dir, 'control')
-            package_debian_changelog = os.path.join(package_debian_dir, 'changelog')
-
-            self.generate_debian_control(package_debian_control, package_latest_short_version, distribution)
-            self.generate_debian_changelog(package_debian_changelog, distribution, package_changelog)
-            self.generate_debian_postinst(package_debian_dir, distribution)
-            
-            if self.build:
-                if self.do_build(package_dir, binary=self.build_binary) and self.put:
-                    self.do_put(package_dir, package_latest_full_version, distribution)
+            if len(self.distributions) == 0:
+                #dist = self.get_distribution_codename()
+                #if self.verbose:
+                    #print "Distributions: " + str(dist)
+                self.distributions = default_distributions
             else:
-                print "Done generating packages for " + str(distribution)
-            if self.clean:
-                self.do_clean(package_dir, package_latest_full_version, distribution)
+                for d in self.distributions:
+                    if d not in all_distributions:
+                        print "Unknown distribution " + d + ". Abort"
+                        return 1
+
+            for distribution in self.distributions:
+                if self.verbose:
+                    print "Prepare package for distribution " + str(distribution)
+                (package_name, package_latest_full_version, package_latest_short_version) = self.get_latest_version_from_changelog(package_changelog, distribution)
+
+                if self.verbose:
+                    print "Package name: " + str(package_name)
+                    print "Package version: " + str(package_latest_short_version) + " (" + package_latest_short_version + ")"
+
+                (package_dir, package_debian_dir) = self.make_package_dir(None, package_name, package_latest_short_version, distribution)
+                package_debian_control = os.path.join(package_debian_dir, 'control')
+                package_debian_changelog = os.path.join(package_debian_dir, 'changelog')
+
+                self.generate_debian_control(package_debian_control, package_latest_short_version, distribution)
+                self.generate_debian_changelog(package_debian_changelog, distribution, package_changelog)
+                self.generate_debian_postinst(package_debian_dir, distribution)
+
+                if self.build:
+                    if self.do_build(package_dir, binary=self.build_binary) and self.put:
+                        self.do_put(package_dir, package_latest_full_version, distribution)
+                else:
+                    print "Done generating packages for " + str(distribution)
+                if self.clean:
+                    self.do_clean(package_dir, package_latest_full_version, distribution)
         return ret
 
 if __name__ == '__main__':
