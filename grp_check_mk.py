@@ -28,6 +28,12 @@ check_mk = [
     'depends':['server'],
     'packages':['check-mk-config-icinga', 'check-mk-livestatus']
     },
+    {'name':'nagios',
+    'shortdesc':'Installs the check_mk for Nagios',
+    'description':'',
+    'depends':['server'],
+    'packages':['check-mk-config-nagios3', 'check-mk-livestatus']
+    },
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of check_mk',
     'description':'', 
