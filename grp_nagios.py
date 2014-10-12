@@ -7,27 +7,33 @@ nagios = [
     'mainpackage':True,
     'shortdesc':'maintains the latest version of the common nagios files', 
     'description':'This package installs the latest version of Nagios.', 
-    'packages':['arsoft-base', 'nagios-nrpe-plugin']
+    'packages':['arsoft-base']
+    },
+    {'name':'plugins',
+    'shortdesc':'Installs Nagios plugins',
+    'description':'Installs the basic, standard, extra and contrib plugins.',
+    'depends':[],
+    'packages':['nagios-plugins-basic', 'nagios-plugins-extra', 'nagios-plugins-standard', 'nagios-plugins-contrib'],
     },
     {'name':'agent', 
     'shortdesc':'Installs Nagios agent', 
     'description':'', 
-    'depends':['common'],
-    'packages':['arsoft-nagios-plugins', 'nagios-nrpe-server', 'nagios-plugins-basic', 'nagios-plugins-extra', 'nagios-plugins-standard', 'nagios-plugins-contrib'],
+    'depends':['common', 'plugins'],
+    'packages':['arsoft-nagios-plugins', 'nagios-nrpe-server'],
     'noconflicts': ['nagios-images']
     },
     {'name':'server', 
     'shortdesc':'Installs Nagios server', 
     'description':'', 
-    'depends':['common'],
-    'packages':['arsoft-nagios-plugins', 'nagios-nrpe-server', 'nagios-plugins-basic', 'nagios-plugins-extra', 'nagios-plugins-standard', 'nagios-plugins-contrib', 
+    'depends':['common', 'plugins'],
+    'packages':['arsoft-nagios-plugins', 'nagios-nrpe-plugin', 'nagios-nrpe-server',
                 'nagios3', 'nagios3-cgi', 'nagios3-core', 'nagios-images']
     },
     {'name':'none', 
     'shortdesc':'removes all versions of the Nagios monitoring solution', 
     'description':'This package removes all versions of Nagios monitoring solution.', 
     'packages':[],
-    'noconflicts':['arsoft-base']
+    'noconflicts':['arsoft-base', 'nagios-images']
     },
 ]
  
