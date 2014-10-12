@@ -747,31 +747,42 @@ class application(object):
     def clean_directory(self, dirname):
         delete_list = []
         for f in os.listdir(dirname):
-            (fbase, fext) = os.path.splitext(f)
-            last_dot = fbase.rfind('.')
-            last_underscore = fbase.rfind('_')
-            if last_dot != -1 and last_dot > last_underscore:
-                (fbase2, fext2) = os.path.splitext(fbase)
-                fext2_num = None
-                try:
-                    fext2_num = int(fext2[1:])
-                except ValueError:
-                    pass
+            add = False
+            fullname = os.path.join(dirname, f)
+            if os.path.isdir(fullname):
+                if f == '.' or f == '..':
+                    continue
+                elif f.startswith(source_package_name):
+                    add = True
+            else:
+                (fbase, fext) = os.path.splitext(f)
+                last_dot = fbase.rfind('.')
+                last_underscore = fbase.rfind('_')
+                if last_dot != -1 and last_dot > last_underscore:
+                    (fbase2, fext2) = os.path.splitext(fbase)
+                    fext2_num = None
+                    try:
+                        fext2_num = int(fext2[1:])
+                    except ValueError:
+                        pass
 
-                if fext2_num is None:
-                    fext = fext2 + fext
-                    fbase = fbase2
-            #print(fbase, fext)
-            add = True if fext in ['.deb', '.dsc', '.pyc', '.changes', '.build', '.tar.gz'] else False
-            if not add and fbase.endswith('_source'):
-                add = True
+                    if fext2_num is None:
+                        fext = fext2 + fext
+                        fbase = fbase2
+                #print(fbase, fext)
+                add = True if fext in ['.deb', '.dsc', '.pyc', '.changes', '.build', '.tar.gz'] else False
+                if not add and fbase.endswith('_source'):
+                    add = True
 
             if add:
                 delete_list.append(os.path.join(dirname, f))
         ret = True
         for f in delete_list:
             try:
-                os.remove(f)
+                if os.path.isdir(f):
+                    shutil.rmtree(f)
+                else:
+                    os.remove(f)
             except OSError:
                 ret = False
         #print(delete_list)
