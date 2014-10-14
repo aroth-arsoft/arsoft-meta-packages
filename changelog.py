@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.126', 'urgency':'low',
+        'items':['use new nagios-plugins-arsoft package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 14 Oct 2014 07:11:03 +0200'
+    },
+    {
         'version':'2.125', 'urgency':'low',
         'items':['fixed depends for using icinga without nagios'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 12 Oct 2014 15:51:51 +0200'

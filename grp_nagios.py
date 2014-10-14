@@ -19,7 +19,7 @@ nagios = [
     'shortdesc':'Installs Nagios agent', 
     'description':'', 
     'depends':['common', 'plugins'],
-    'packages':['arsoft-nagios-plugins', 'nagios-nrpe-server'],
+    'packages':['nagios-plugins-arsoft', 'nagios-nrpe-server'],
     'noconflicts': ['nagios-images']
     },
     {'name':'server', 
