@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.127', 'urgency':'low',
+        'items':['use new nagios-notifications package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 15 Oct 2014 13:59:34 +0200'
+    },
+    {
         'version':'2.126', 'urgency':'low',
         'items':['use new nagios-plugins-arsoft package'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 14 Oct 2014 07:11:03 +0200'

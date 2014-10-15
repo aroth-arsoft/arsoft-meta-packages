@@ -26,14 +26,14 @@ nagios = [
     'shortdesc':'Installs Nagios server', 
     'description':'', 
     'depends':['common', 'plugins'],
-    'packages':['arsoft-nagios-plugins', 'nagios-nrpe-plugin', 'nagios-nrpe-server',
+    'packages':['arsoft-nagios-plugins', 'nagios-notifications', 'nagios-nrpe-plugin', 'nagios-nrpe-server',
                 'nagios3', 'nagios3-cgi', 'nagios3-core', 'nagios-images']
     },
     {'name':'none', 
     'shortdesc':'removes all versions of the Nagios monitoring solution', 
     'description':'This package removes all versions of Nagios monitoring solution.', 
     'packages':[],
-    'noconflicts':['arsoft-base', 'nagios-images']
+    'noconflicts':['arsoft-base', 'nagios-notifications', 'nagios-images']
     },
 ]
  
