@@ -24,7 +24,9 @@ kde = [
                 'update-manager-kde', 'kmix', 'bluedevil',
                 'apturl-kde', 'ksshaskpass', 'kwalletmanager', 'kwalletcli',
                 'kde-style-qtcurve', 
-                'ark', 'okular', 'okular-extra-backends', 'ksnapshot', 'ksystemlog', 'krusader', 'krename', 'krdc', 'krfb',
+                'ark', 'okular', 'okular-extra-backends', 'ksnapshot', 'ksystemlog', 'krusader', 'krename', 'krdc',
+                # temporary remove of krfb because of libkpeople3/libkpeople4 trouble
+                # 'krfb',
                 'dragonplayer', 'filelight',
                 'phonon-backend-vlc',
                 'rekonq',
@@ -33,7 +35,6 @@ kde = [
                 'virtuoso-minimal'
                 ],
     'packages-precise': ['kde-config-gtk'],
-    'packages-saucy': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro'],
     'packages-trusty': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro'],
     'packages-utopic': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro'],
     'conflicts':['phonon-backend-xine', 'kpackagekit']

@@ -4,6 +4,12 @@
 
 package_changelog = [
 
+
+    {
+        'version':'2.128', 'urgency':'low',
+        'items':['fixed trouble with telepathy and krfb'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 06 Nov 2014 11:20:32 +0100'
+    },
     {
         'version':'2.127', 'urgency':'low',
         'items':['use new nagios-notifications package'],
