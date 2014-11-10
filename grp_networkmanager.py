@@ -13,17 +13,10 @@ networkmanager = [
     'shortdesc':'Installs console interface for network manager', 
     'description':'Installs console interface for network manager.', 
     'depends':['common'],
-    'side-by-side':['gnome', 'kde', 'plasma'],
+    'side-by-side':['gnome', 'kde'],
     'packages':[],
     },
-    {'name':'kde', 
-    'shortdesc':'Installs KDE interface (traditional) for network manager', 
-    'description':'Installs KDE interface (traditional) for network manager.', 
-    'depends':['common'],
-    'side-by-side':['gnome', 'console', 'plasma'],
-    'packages':['network-manager-kde', 'network-manager-pptp-kde', 'network-manager-openvpn-kde', 'network-manager-vpnc-kde']
-    },
-    {'name':'plasma', 
+    {'name':'kde',
     'shortdesc':'Installs KDE plasma interface for network manager', 
     'description':'Installs KDE plasma interface for network manager.', 
     'depends':['common'],
@@ -34,7 +27,7 @@ networkmanager = [
     'shortdesc':'Installs GNOME interface for network manager', 
     'description':'Installs GNOME interface for network manager.', 
     'depends':['common'],
-    'side-by-side':['plasma', 'console', 'kde'],
+    'side-by-side':['console', 'kde'],
     'packages':['network-manager-gnome', 'network-manager-pptp-gnome', 'network-manager-openvpn-gnome', 'network-manager-vpnc-gnome']
     },
     {'name':'none', 
@@ -44,4 +37,3 @@ networkmanager = [
     'noconflicts':[]
     },
 ]
- 

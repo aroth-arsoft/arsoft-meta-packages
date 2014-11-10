@@ -4,7 +4,11 @@
 
 package_changelog = [
 
-
+    {
+        'version':'2.129', 'urgency':'low',
+        'items':['fixed trouble with KDE and network-manager'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 10 Nov 2014 13:56:15 +0100'
+    },
     {
         'version':'2.128', 'urgency':'low',
         'items':['fixed trouble with telepathy and krfb'],

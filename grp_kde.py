@@ -58,7 +58,7 @@ kde = [
                 'klines', 'kmahjongg', 'kmines', 'knetwalk', 'kolf',
                 'kollision', 'konquest', 'kpat', 'kreversi',
                 'kshisen', 'ksirk', 'kspaceduel', 'ksquares',
-                'ksudoku', 'ktron', 'ktuberling', 'kubrick', 'lskat',
+                'ksudoku', 'ktuberling', 'kubrick', 'lskat',
                 # problematic game
                 #'granatier', 
                 # kdepim packages
