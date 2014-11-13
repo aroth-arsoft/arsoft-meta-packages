@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.130', 'urgency':'low',
+        'items':['avoid pulling KDE 5 desktop'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 13 Nov 2014 07:11:31 +0100'
+    },
+    {
         'version':'2.129', 'urgency':'low',
         'items':['fixed trouble with KDE and network-manager'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 10 Nov 2014 13:56:15 +0100'

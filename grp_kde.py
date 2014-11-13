@@ -11,10 +11,12 @@ kde = [
     'shortdesc':'Installs the latest version of KDE', 
     'description':'', 
     'packages':['arsoft-desktop',
+                'kde-workspace',
+                'kde-baseapps',
                 'polkit-kde-1',
                 'gtk2-engines-qtcurve',
                 'konsole', 'konqueror', 'kdesudo', 'kate', 'gdebi-kde', 'kdelibs5-data',
-                'dolphin', 'kdebase-workspace', 'kscreen',
+                'dolphin', 'kscreen',
                 'khelpcenter4', 'systemsettings',
                 'kubuntu-notification-helper',
                 'oxygen-icon-theme', 'kde-zeroconf', 'kdepim-runtime', 'akonadi-server',
@@ -37,7 +39,8 @@ kde = [
     'packages-precise': ['kde-config-gtk'],
     'packages-trusty': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro'],
     'packages-utopic': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro'],
-    'conflicts':['phonon-backend-xine', 'kpackagekit']
+    'conflicts':['phonon-backend-xine', 'kpackagekit'],
+    'conflicts-utopic':['kde-plasma-desktop', 'plasma-desktop'],
     },
     {'name':'desktop', 
     'shortdesc':'Installs KDE for regular desktop PCs', 
@@ -46,7 +49,7 @@ kde = [
     'side-by-side':['english', 'german'],
     'packages':[
                 # plasma desktop edition
-                'kde-plasma-desktop', 'plasma-netbook', 'kdeplasma-addons',
+                'plasma-widgets-workspace', 'kdeplasma-addons',
                 # multimedia packages
                 'amarok', 'gwenview', 'kdegraphics-strigi-plugins', 'soundkonverter',
                 'kipi-plugins', 'digikam',
