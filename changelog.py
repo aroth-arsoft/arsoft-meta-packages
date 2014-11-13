@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.131', 'urgency':'low',
+        'items':['revert KDE5/plasma changes'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 13 Nov 2014 18:19:31 +0100'
+    },
+    {
         'version':'2.130', 'urgency':'low',
         'items':['avoid pulling KDE 5 desktop'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 13 Nov 2014 07:11:31 +0100'
