@@ -42,4 +42,5 @@ nosetests.xml
 /*.deb
 /*.dsc
 /*.tar.gz
+/*.tar.xz
 /arsoft-meta-packages-*
