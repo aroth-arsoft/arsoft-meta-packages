@@ -8,7 +8,9 @@ icinga = [
     'shortdesc':'maintains the latest version of the Icinga monitoring solution', 
     'description':'This package installs the latest version of Icinga monitoring solution.', 
     'packages':['arsoft-base', 'arsoft-nagios-plugins', 'nagios-notifications',
-                'arsoft-pnp4nagios', 'pnp4nagios', 'nagios-images'],
+                'arsoft-pnp4nagios', 'pnp4nagios', 'nagios-images',
+                'arsoft-python-nagios',
+                ],
     'conflicts':['arsoft-nagios-server', 'nagios3', 'nagios3-cgi', 'nagios3-core']
     },
     {'name':'v1',
