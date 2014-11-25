@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.133', 'urgency':'low',
+        'items':['allow latest nvidia driver versions'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 25 Nov 2014 07:10:42 +0100'
+    },
+    {
         'version':'2.132', 'urgency':'low',
         'items':['icinga required arsoft-python-nagios'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 23 Nov 2014 11:08:51 +0100'
