@@ -31,6 +31,7 @@ from grp_grub import grub
 from grp_unity import unity
 from grp_vim import vim
 from grp_check_mk import check_mk
+from grp_dovecot import dovecot
 
 all_package_groups = [
     ('arsoft-gfx', graphicsdrivers, {} ),
@@ -50,7 +51,7 @@ all_package_groups = [
     ('arsoft-networkmanager', networkmanager, {} ),
     ('arsoft-cyrusimapd', cyrusimapd, {} ),
     ('arsoft-mono', mono, {} ),
-    ('arsoft-java', java, {'distribution':['!lucid']} ),
+    ('arsoft-java', java, {} ),
     ('arsoft-latex', latex, {} ),
     ('arsoft-googleearth', googleearth, {} ),
     ('arsoft-googlemusicmanager', googlemusicmanager, {} ),
@@ -62,4 +63,5 @@ all_package_groups = [
     ('arsoft-unity', unity, {} ),
     ('arsoft-vim', vim, {} ),
     ('arsoft-check-mk', check_mk, {} ),
+    ('arsoft-dovecot', dovecot, {} ),
 ]

@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.134', 'urgency':'low',
+        'items':['add dovecot packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 21 Dec 2014 14:43:10 +0100'
+    },
+    {
         'version':'2.133', 'urgency':'low',
         'items':['allow latest nvidia driver versions'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 25 Nov 2014 07:10:42 +0100'
