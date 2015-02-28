@@ -24,6 +24,7 @@ from grp_latex import latex
 from grp_googleearth import googleearth
 from grp_googlemusicmanager import googlemusicmanager
 from grp_lightdm import lightdm
+from grp_sddm import sddm
 from grp_nagios import nagios
 from grp_icinga import icinga
 from grp_microcode import microcode
@@ -56,6 +57,7 @@ all_package_groups = [
     ('arsoft-googleearth', googleearth, {} ),
     ('arsoft-googlemusicmanager', googlemusicmanager, {} ),
     ('arsoft-lightdm', lightdm, {} ),
+    ('arsoft-sddm', sddm, {} ),
     ('arsoft-nagios', nagios, {} ),
     ('arsoft-icinga', icinga, {} ),
     ('arsoft-microcode', microcode, {} ),
