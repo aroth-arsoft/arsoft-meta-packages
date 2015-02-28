@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.135', 'urgency':'low',
+        'items':['fixed KDE installation on vivid'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 28 Feb 2015 14:00:26 +0100'
+    },
+    {
         'version':'2.134', 'urgency':'low',
         'items':['add dovecot packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 21 Dec 2014 14:43:10 +0100'
