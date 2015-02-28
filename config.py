@@ -20,7 +20,7 @@ all_distributions = {
     'vivid':'15.04'
 }
 
-default_distributions = ['precise', 'trusty', 'utopic']
+default_distributions = ['precise', 'trusty', 'utopic', 'vivid']
 source_package_name = 'arsoft-meta-packages'
 package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
 package_homepage = 'https://github.com/aroth-arsoft/arsoft-meta-packages'
