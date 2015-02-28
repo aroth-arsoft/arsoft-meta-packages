@@ -689,7 +689,7 @@ class application(object):
         return (source_package_name, full_version, short_version)
 
     def get_distribution_codename(self):
-        (sts, stdout, stderr) = runcmdAndGetData('/usr/bin/lsb_release', ['-cs'])
+        (sts, stdout, stderr) = runcmdAndGetData(['/usr/bin/lsb_release', '-cs'])
         if sts != 0:
             self.error("Errors %i: %s" %(sts, stderr))
         else:
@@ -697,10 +697,10 @@ class application(object):
         return ret
         
     def do_build(self, package_dir, binary=False):
-        args = []
+        args = ['debuild']
         if not binary:
             args.append('-S')
-        (sts, stdout, stderr) = runcmdAndGetData('debuild', args, cwd=package_dir)
+        (sts, stdout, stderr) = runcmdAndGetData(args, cwd=package_dir)
         if sts == 0:
             self.info("Build of " + package_dir + " successful.")
             ret = True
