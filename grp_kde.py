@@ -11,35 +11,45 @@ kde = [
     'shortdesc':'Installs the latest version of KDE', 
     'description':'', 
     'packages':['arsoft-desktop',
-                'kde-workspace',
-                'kde-baseapps',
-                'kde-plasma-desktop', 'plasma-desktop',
-                'polkit-kde-1',
-                'gtk2-engines-qtcurve',
-                'konsole', 'konqueror', 'kdesudo', 'kate', 'gdebi-kde', 'kdelibs5-data',
+                'plasma-desktop',
+                'konsole', 'konqueror', 'kdesudo', 'kate',
                 'dolphin', 'kscreen',
-                'khelpcenter4', 'systemsettings',
+                'systemsettings',
                 'kubuntu-notification-helper',
                 'oxygen-icon-theme', 'kde-zeroconf', 'kdepim-runtime', 'akonadi-server',
                 'muon',
                 'soprano-daemon',
-                'strigi-client', 'strigi-daemon',
                 'update-manager-kde', 'kmix', 'bluedevil',
-                'apturl-kde', 'ksshaskpass', 'kwalletmanager', 'kwalletcli',
-                'kde-style-qtcurve', 
+                'apturl-kde', 'ksshaskpass', 'kwalletmanager',
                 'ark', 'okular', 'okular-extra-backends', 'ksnapshot', 'ksystemlog', 'krusader', 'krename', 'krdc',
                 # temporary remove of krfb because of libkpeople3/libkpeople4 trouble
                 # 'krfb',
                 'dragonplayer', 'filelight',
                 'phonon-backend-vlc',
                 'rekonq',
-                'kde-config-cron',
                 'print-manager',
-                'virtuoso-minimal'
                 ],
     'packages-precise': ['kde-config-gtk'],
-    'packages-trusty': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro'],
-    'packages-utopic': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro'],
+    'packages-trusty': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro',
+                        'kde-workspace', 'kde-baseapps', 'kde-plasma-desktop',
+                        'strigi-client', 'strigi-daemon', 'polkit-kde-1', 'khelpcenter4',
+                        'gtk2-engines-qtcurve',
+                        'kde-style-qtcurve',
+                        'virtuoso-minimal',
+                        'kde-config-cron',
+                        ],
+    'packages-utopic': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro',
+                        'kde-workspace', 'kde-baseapps', 'kde-plasma-desktop',
+                        'strigi-client', 'strigi-daemon', 'baloo4', 'polkit-kde-1', 'khelpcenter4',
+                        'gtk2-engines-qtcurve',
+                        'kde-style-qtcurve',
+                        'virtuoso-minimal',
+                        'kde-config-cron',
+
+                    ],
+    'packages-vivid': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro',
+                       'baloo-kf5', 'polkit-kde-agent-1',
+                    ],
     'conflicts':['phonon-backend-xine', 'kpackagekit'],
     },
     {'name':'desktop', 
@@ -48,10 +58,8 @@ kde = [
     'depends':['common'],
     'side-by-side':['english', 'german'],
     'packages':[
-                # plasma desktop edition
-                'plasma-widgets-workspace', 'kdeplasma-addons',
                 # multimedia packages
-                'amarok', 'gwenview', 'kdegraphics-strigi-plugins', 'soundkonverter',
+                'amarok', 'gwenview', 'soundkonverter',
                 'kipi-plugins', 'digikam',
                 # list some kdegames packages explicit because we want to remove them when arsoft-kde-none is installed
                 'bomber', 'bovo', 'kajongg', 'palapeli',
@@ -71,14 +79,24 @@ kde = [
                 'kleopatra', 'kget', 'kgpg',
                 'akonadiconsole', 'akonadi-kde-resource-googledata',
                 # chat packages
-                'kopete', 'kopete-message-indicator', 'konversation', 'konversation-data',
+                'kopete', 'kopete-message-indicator', 'konversation',
                 # burning packages
-                'k3b', 'k3b-data', 'libk3b6-extracodecs',
+                'k3b',
                 # Hex editor
                 'okteta',
                 # education packages
                 'marble', 'speedcrunch',
                 ], 
+    'packages-trusty': [
+                # plasma desktop edition
+                'plasma-widgets-workspace', 'kdeplasma-addons',
+                ],
+    'packages-utopic': [
+                # plasma desktop edition
+                'plasma-widgets-workspace', 'kdeplasma-addons',
+                ],
+    'packages-vivid': [
+                ],
     },
     {'name':'english', 
     'shortdesc':'Installs the english languages files for KDE', 
