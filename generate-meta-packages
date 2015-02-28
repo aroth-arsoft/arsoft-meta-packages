@@ -730,14 +730,18 @@ class application(object):
         filebasename = package_dir + '/../' + source_package_name + '_' +  version + '~' + distribution + str(distribution_release)
         changesfile = filebasename + '_source.changes'
         buildfile = filebasename + '_source.build'
-        tarfile = filebasename + '.tar.gz'
+        targzfile = filebasename + '.tar.gz'
+        tarxzfile = filebasename + '.tar.xz'
         dscfile = filebasename + '.dsc'
         if os.path.exists(changesfile):
             os.remove(changesfile)
         if os.path.exists(buildfile):
             os.remove(buildfile)
-        if os.path.exists(tarfile):
-			os.remove(tarfile)
+        if os.path.exists(targzfile):
+			os.remove(targzfile)
+        print(tarxzfile)
+        if os.path.exists(tarxzfile):
+            os.remove(tarxzfile)
         if os.path.exists(dscfile):
             os.remove(dscfile)
         shutil.rmtree(package_dir)
@@ -770,7 +774,7 @@ class application(object):
                         fext = fext2 + fext
                         fbase = fbase2
                 #print(fbase, fext)
-                add = True if fext in ['.deb', '.dsc', '.pyc', '.changes', '.build', '.tar.gz'] else False
+                add = True if fext in ['.deb', '.dsc', '.pyc', '.changes', '.build', '.tar.gz', '.tar.xz'] else False
                 if not add and fbase.endswith('_source'):
                     add = True
 
