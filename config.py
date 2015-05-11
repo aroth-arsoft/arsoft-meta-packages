@@ -17,7 +17,8 @@ all_distributions = {
     'saucy':'13.10',
     'trusty':'14.04',
     'utopic':'14.10',
-    'vivid':'15.04'
+    'vivid':'15.04',
+    'wily':'15.10',
 }
 
 default_distributions = ['precise', 'trusty', 'utopic', 'vivid']
