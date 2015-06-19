@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.136', 'urgency':'low',
+        'items':['allow to use nvidia-352'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 19 Jun 2015 14:53:55 +0200'
+    },
+    {
         'version':'2.135', 'urgency':'low',
         'items':['fixed KDE installation on vivid'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 28 Feb 2015 14:00:26 +0100'
