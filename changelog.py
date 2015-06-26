@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.137', 'urgency':'low',
+        'items':['drop openoffice packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 26 Jun 2015 15:49:48 +0200'
+    },
+    {
         'version':'2.136', 'urgency':'low',
         'items':['allow to use nvidia-352'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 19 Jun 2015 14:53:55 +0200'
