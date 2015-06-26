@@ -4,7 +4,6 @@
 
 from grp_graphicsdrivers import graphicsdrivers
 from grp_desktop import desktop
-from grp_openoffice import openoffice
 from grp_libreoffice import libreoffice
 from grp_firefox import firefox
 from grp_thunderbird import thunderbird
@@ -37,7 +36,6 @@ from grp_dovecot import dovecot
 all_package_groups = [
     ('arsoft-gfx', graphicsdrivers, {} ),
     ('arsoft-desktop', desktop, {} ),
-    ('arsoft-openoffice', openoffice, {} ),
     ('arsoft-libreoffice', libreoffice, {} ),
     ('arsoft-firefox', firefox, {} ),
     ('arsoft-thunderbird', thunderbird, {} ),
