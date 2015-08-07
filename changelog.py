@@ -4,6 +4,12 @@
 
 package_changelog = [
 
+
+    {
+        'version':'2.138', 'urgency':'low',
+        'items':['required changes for libreoffice 5.x'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 07 Aug 2015 06:23:33 +0200'
+    },
     {
         'version':'2.137', 'urgency':'low',
         'items':['drop openoffice packages'],

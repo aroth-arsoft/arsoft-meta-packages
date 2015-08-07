@@ -14,7 +14,7 @@ libreoffice = [
         'libreoffice-core', 
         'libreoffice-officebean',
         'libreoffice-style-hicontrast', 'libreoffice-style-tango',
-        'libreoffice-style-crystal', 'libreoffice-style-oxygen',
+        'libreoffice-style-breeze', 'libreoffice-style-oxygen',
         'hunspell-dictionary', 'myspell-dictionary', 
         'pstoedit'] 
     },
@@ -24,7 +24,6 @@ libreoffice = [
     'depends':['common'],
     'side-by-side':['german', 'gnome', 'kde'],
     'packages':['aspell-en', 'wamerican-large', 'wbritish-large',
-                'libreoffice-grammarcheck-en-us',
                 'libreoffice-l10n-en-gb',
         ] 
     },
