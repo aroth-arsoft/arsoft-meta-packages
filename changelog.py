@@ -4,7 +4,11 @@
 
 package_changelog = [
 
-
+    {
+        'version':'2.139', 'urgency':'low',
+        'items':['add nvidia-355'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 09 Aug 2015 10:24:30 +0200'
+    },
     {
         'version':'2.138', 'urgency':'low',
         'items':['required changes for libreoffice 5.x'],
