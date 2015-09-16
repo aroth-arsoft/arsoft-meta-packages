@@ -50,6 +50,9 @@ kde = [
     'packages-vivid': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro',
                        'baloo-kf5', 'polkit-kde-agent-1',
                     ],
+    'packages-wily': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro',
+                       'baloo-kf5', 'polkit-kde-agent-1',
+                    ],
     'conflicts':['phonon-backend-xine', 'kpackagekit'],
     },
     {'name':'desktop', 
@@ -73,11 +76,11 @@ kde = [
                 # problematic game
                 #'granatier', 
                 # kdepim packages
-                'kdepim', 'kdepim-kresources',
+                'kdepim',
                 # list some kdepim packages explicit because we want to remove them when arsoft-kde-none is installed
-                'akregator', 'kaddressbook', 'kalarm', 'kmail', 'knode', 'knotes', 'konsolekalendar', 'kontact', 'korganizer', 'ktimetracker', 'kjots', 'blogilo',
+                'akregator', 'kaddressbook', 'kalarm', 'kmail', 'knotes', 'konsolekalendar', 'kontact', 'korganizer', 'blogilo',
                 'kleopatra', 'kget', 'kgpg',
-                'akonadiconsole', 'akonadi-kde-resource-googledata',
+                'akonadiconsole',
                 # chat packages
                 'kopete', 'kopete-message-indicator', 'konversation',
                 # burning packages
@@ -96,6 +99,8 @@ kde = [
                 'plasma-widgets-workspace', 'kdeplasma-addons',
                 ],
     'packages-vivid': [
+                ],
+    'packages-wily': [
                 ],
     },
     {'name':'english', 
