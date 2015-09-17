@@ -37,21 +37,15 @@ kde = [
                         'kde-style-qtcurve',
                         'virtuoso-minimal',
                         'kde-config-cron',
+                        'phonon4qt5-backend-vlc',
                         ],
-    'packages-utopic': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro',
-                        'kde-workspace', 'kde-baseapps', 'kde-plasma-desktop',
-                        'strigi-client', 'strigi-daemon', 'baloo4', 'polkit-kde-1', 'khelpcenter4',
-                        'gtk2-engines-qtcurve',
-                        'kde-style-qtcurve',
-                        'virtuoso-minimal',
-                        'kde-config-cron',
-
-                    ],
     'packages-vivid': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro',
                        'baloo-kf5', 'polkit-kde-agent-1',
+                       'phonon4qt5-backend-vlc',
                     ],
     'packages-wily': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'about-distro',
                        'baloo-kf5', 'polkit-kde-agent-1',
+                       'phonon4qt5-backend-vlc',
                     ],
     'conflicts':['phonon-backend-xine', 'kpackagekit'],
     },
@@ -91,10 +85,6 @@ kde = [
                 'marble', 'speedcrunch',
                 ], 
     'packages-trusty': [
-                # plasma desktop edition
-                'plasma-widgets-workspace', 'kdeplasma-addons',
-                ],
-    'packages-utopic': [
                 # plasma desktop edition
                 'plasma-widgets-workspace', 'kdeplasma-addons',
                 ],
