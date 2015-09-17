@@ -20,7 +20,9 @@ developer = [
     'depends':['common'],
     'side-by-side':['gnome', 'kde', 'kdevelop'],
     'packages':[
-                'cmake-qt-gui', 'valkyrie', 'qt4-dev-tools', 'qt4-doc', 'qt4-doc-html', 'qt4-designer', 'qt4-linguist-tools'
+                'cmake-qt-gui', 'valkyrie', 
+                'qt4-dev-tools', 'qt4-doc', 'qt4-doc-html', 'qt4-designer', 'qt4-linguist-tools',
+                'qttools5-dev-tools',
                 ]
     },
     {'name':'kde',
@@ -29,7 +31,7 @@ developer = [
     'depends':['qt'],
     'side-by-side':['gnome', 'qt', 'kdevelop'],
     'packages':[
-                'kdelibs5-dev', 'kdesdk', 'kcachegrind-converters',
+                'kcachegrind-converters',
                 ]
     },
     {'name':'kdevelop',
@@ -53,6 +55,6 @@ developer = [
     'shortdesc':'removes all development tools.', 
     'description':'This package removes all development tools.', 
     'packages':[], 
-    'noconflicts':['gcc', 'make','libc6-dev','subversion', 'git', 'git-svn']
+    'noconflicts':['gcc', 'make','libc6-dev','subversion', 'git', 'git-svn', 'debhelper', 'quilt', 'ack-grep']
     },
 ]

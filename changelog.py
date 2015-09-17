@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.141', 'urgency':'low',
+        'items':['fixed depends of KDE developer packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 17 Sep 2015 07:38:11 +0200'
+    },
+    {
         'version':'2.140', 'urgency':'low',
         'items':['fixed for KDE packages on wily'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 16 Sep 2015 23:00:20 +0200'
