@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.144', 'urgency':'low',
+        'items':['add nvidia-358'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 12 Oct 2015 18:28:35 +0200'
+    },
+    {
         'version':'2.143', 'urgency':'low',
         'items':['conflict phonon-backend-vlc on wily'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 17 Sep 2015 18:54:06 +0200'
