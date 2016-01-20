@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.146', 'urgency':'low',
+        'items':['fixed depends for Plasma 5.5'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 20 Jan 2016 18:44:01 +0100'
+    },
+    {
         'version':'2.145', 'urgency':'low',
         'items':['add nvidia-361'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 06 Jan 2016 08:23:34 +0100'
