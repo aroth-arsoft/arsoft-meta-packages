@@ -5,6 +5,16 @@
 package_changelog = [
 
     {
+        'version':'2.148', 'urgency':'low',
+        'items':['drop firefox variants', 'cleanup'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 13 Mar 2016 18:14:47 +0100'
+    },
+    {
+        'version':'2.147', 'urgency':'low',
+        'items':['some mythbuntu cleanup', 'add roundcube metapackage'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 14 Feb 2016 09:56:40 +0100'
+    },
+    {
         'version':'2.146', 'urgency':'low',
         'items':['fixed depends for Plasma 5.5'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 20 Jan 2016 18:44:01 +0100'

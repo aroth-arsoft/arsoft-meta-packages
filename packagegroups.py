@@ -32,6 +32,7 @@ from grp_unity import unity
 from grp_vim import vim
 from grp_check_mk import check_mk
 from grp_dovecot import dovecot
+from grp_roundcube import roundcube
 
 all_package_groups = [
     ('arsoft-gfx', graphicsdrivers, {} ),
@@ -64,4 +65,5 @@ all_package_groups = [
     ('arsoft-vim', vim, {} ),
     ('arsoft-check-mk', check_mk, {} ),
     ('arsoft-dovecot', dovecot, {} ),
+    ('arsoft-roundcube', roundcube, {} ),
 ]

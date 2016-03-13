@@ -7,20 +7,9 @@ thunderbird = [
     'mainpackage':True,
     'shortdesc':'Installs the latest version of Mozilla Thunderbird', 
     'description':'', 
-    'packages':['thunderbird', 'thunderbird-locale-en', 'thunderbird-locale-de', 'browser-plugin-packagekit']
-    },
-    {'name':'gnome', 
-    'shortdesc':'Installs GNOME support files for Mozilla Thunderbird', 
-    'description':'This package installs Mozilla Thunderbird GNome support.', 
-    'depends':['common'],
-    'packages':['thunderbird-gnome-support'], 
-    'side-by-side':['gnome', 'kde']
-    },
-    {'name':'kde', 
-    'shortdesc':'Installs KDE support files for Mozilla Thunderbird', 
-    'description':'This package installs Mozilla Thunderbird KDE support.', 
-    'depends':['common'],
-    'side-by-side':['gnome', 'kde']
+    'packages':['thunderbird', 'thunderbird-locale-en', 'thunderbird-locale-de',
+                'browser-plugin-packagekit',
+                'xul-ext-lightning', 'xul-ext-gdata-provider']
     },
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of Mozilla Thunderbird', 

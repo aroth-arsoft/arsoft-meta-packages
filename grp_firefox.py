@@ -10,22 +10,7 @@ firefox = [
     'packages':['firefox', 'firefox-launchpad-plugin', 'xul-ext-ubufox',
                 'firefox-locale-en', 'firefox-locale-de',
                 'browser-plugin-packagekit', 'browser-plugin-vlc', 'icedtea-plugin'],
-    'conflicts': ['gnash', 'gnash-common', 'browser-plugin-gnash', 'browser-plugin-lightspark', 'swfdec-mozilla', 'adblock-plus', 'xul-ext-adblock-plus', 'kubuntu-firefox-installer' ],
-    'replaces': ['firefox-3.5', 'firefox-3.1', 'firefox-3.0']
-    # 'xul-ext-ubufox' pulls in 'apturl'
-    },
-    {'name':'gnome', 
-    'shortdesc':'Installs GNOME support files for Mozilla Firefox', 
-    'description':'This package installs Mozilla Firefox GNome support.', 
-    'depends':['common'],
-    'packages':['firefox-gnome-support', 'xul-ext-gnome-pm'], 
-    'side-by-side':['gnome', 'kde']
-    },
-    {'name':'kde', 
-    'shortdesc':'Installs KDE support files for Mozilla Firefox', 
-    'description':'This package installs Mozilla Firefox KDE support.', 
-    'depends':['common'],
-    'side-by-side':['gnome', 'kde']
+    'conflicts': ['gnash', 'gnash-common', 'browser-plugin-gnash'],
     },
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of Mozilla Firefox', 

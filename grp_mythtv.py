@@ -51,6 +51,7 @@ mythtv = [
     'shortdesc':'removes all MythTV packages', 
     'description':'removes all MythTV packages.', 
     'packages':[], 
+    'conflicts':['mythbuntu-control-centre', 'mythbuntu-repos'],
     'noconflicts':['arsoft-desktop', 'ttf-mscorefonts-installer']
     },
 ]

@@ -37,10 +37,6 @@ kde = [
                         'kde-config-cron',
                         'phonon4qt5-backend-vlc',
                         ],
-    'packages-vivid': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'muon-notifier', 'about-distro',
-                       'baloo-kf5', 'polkit-kde-agent-1',
-                       'phonon4qt5-backend-vlc',
-                    ],
     'packages-wily': ['kde-config-gtk-style', 'user-manager', 'plasma-discover-updater', 'plasma-discover', 'about-distro',
                        'baloo-kf5', 'polkit-kde-agent-1',
                        'phonon4qt5-backend-vlc',
@@ -91,9 +87,9 @@ kde = [
                 # plasma desktop edition
                 'plasma-widgets-workspace', 'kdeplasma-addons',
                 ],
-    'packages-vivid': [
-                ],
     'packages-wily': [
+                ],
+    'packages-xenial': [
                 ],
     },
     {'name':'english', 
