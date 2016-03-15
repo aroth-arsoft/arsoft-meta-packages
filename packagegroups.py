@@ -33,6 +33,7 @@ from grp_vim import vim
 from grp_check_mk import check_mk
 from grp_dovecot import dovecot
 from grp_roundcube import roundcube
+from grp_trac import trac
 
 all_package_groups = [
     ('arsoft-gfx', graphicsdrivers, {} ),
@@ -66,4 +67,5 @@ all_package_groups = [
     ('arsoft-check-mk', check_mk, {} ),
     ('arsoft-dovecot', dovecot, {} ),
     ('arsoft-roundcube', roundcube, {} ),
+    ('arsoft-trac', trac, {} ),
 ]

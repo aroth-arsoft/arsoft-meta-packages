@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.149', 'urgency':'low',
+        'items':['add trac packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 15 Mar 2016 07:30:23 +0100'
+    },
+    {
         'version':'2.148', 'urgency':'low',
         'items':['drop firefox variants', 'cleanup'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 13 Mar 2016 18:14:47 +0100'
