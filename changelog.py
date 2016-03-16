@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.150', 'urgency':'low',
+        'items':['drop trac-workfloweditor'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 16 Mar 2016 07:18:54 +0100'
+    },
+    {
         'version':'2.149', 'urgency':'low',
         'items':['add trac packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 15 Mar 2016 07:30:23 +0100'
