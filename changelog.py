@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.151', 'urgency':'low',
+        'items':['add nvidia-364'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 22 Mar 2016 06:50:25 +0100'
+    },
+    {
         'version':'2.150', 'urgency':'low',
         'items':['drop trac-workfloweditor'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 16 Mar 2016 07:18:54 +0100'
