@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.152', 'urgency':'low',
+        'items':['fixed issue with evolution-data-server-common'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 26 Mar 2016 09:03:24 +0100'
+    },
+    {
         'version':'2.151', 'urgency':'low',
         'items':['add nvidia-364'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 22 Mar 2016 06:50:25 +0100'

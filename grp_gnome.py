@@ -64,7 +64,8 @@ gnome = [
     'packages':[], 
     'noconflicts':['arsoft-desktop', 
                 'apturl', 'gnome-icon-theme', 'policykit-1-gnome',
-                'language-pack-gnome-en', 'language-pack-gnome-de'
+                'language-pack-gnome-en', 'language-pack-gnome-de',
+                "evolution-data-server-common",
                 ]
     },
 ]
