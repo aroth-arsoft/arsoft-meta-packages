@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.153', 'urgency':'low',
+        'items':['drop Java 7 from xenial packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 31 Mar 2016 19:27:54 +0200'
+    },
+    {
         'version':'2.152', 'urgency':'low',
         'items':['fixed issue with evolution-data-server-common'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 26 Mar 2016 09:03:24 +0100'
