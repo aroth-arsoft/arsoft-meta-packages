@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.154', 'urgency':'low',
+        'items':['add cups packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 10 Apr 2016 12:45:56 +0200'
+    },
+    {
         'version':'2.153', 'urgency':'low',
         'items':['drop Java 7 from xenial packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 31 Mar 2016 19:27:54 +0200'
