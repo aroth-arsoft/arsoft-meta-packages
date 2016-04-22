@@ -13,7 +13,7 @@ cups = [
     'shortdesc':'Installs the server part of cups',
     'description':'', 
     'depends':['common'],
-    'packages':['cups', 'printer-driver-postscript-hp', 'printer-driver-hpijs']
+    'packages':['cups', 'printer-driver-postscript-hp', 'printer-driver-hpijs'],
     'packages-wily':['printer-driver-cups-pdf'],
     'packages-xenial':['printer-driver-cups-pdf'],
     },

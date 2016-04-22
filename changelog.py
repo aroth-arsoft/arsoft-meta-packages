@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.155', 'urgency':'low',
+        'items':['fixed icinga packages for xenial'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 22 Apr 2016 15:31:53 +0200'
+    },
+    {
         'version':'2.154', 'urgency':'low',
         'items':['add cups packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 10 Apr 2016 12:45:56 +0200'
