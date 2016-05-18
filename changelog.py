@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.157', 'urgency':'low',
+        'items':['add JDK headless package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 18 May 2016 13:03:42 +0200'
+    },
+    {
         'version':'2.156', 'urgency':'low',
         'items':['remove unclutter'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 18 May 2016 10:34:44 +0200'
