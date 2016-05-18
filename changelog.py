@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.156', 'urgency':'low',
+        'items':['remove unclutter'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 18 May 2016 10:34:44 +0200'
+    },
+    {
         'version':'2.155', 'urgency':'low',
         'items':['fixed icinga packages for xenial'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 22 Apr 2016 15:31:53 +0200'
