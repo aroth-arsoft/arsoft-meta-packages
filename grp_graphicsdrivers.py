@@ -9,7 +9,7 @@ graphicsdrivers = [
     },
     {'name':'nvidia', 'shortdesc':'Installs the NVIDIA graphics driver', 'description':'', 
         'packages':[ 
-            ('nvidia-361', 'nvidia-364',
+            ('nvidia-361', 'nvidia-364', 'nvidia-367',
              'nvidia-358', 'nvidia-355', 'nvidia-352',
              'nvidia-349', 'nvidia-346', 'nvidia-343', 'nvidia-340',
              'nvidia-337', 'nvidia-334', 'nvidia-331',

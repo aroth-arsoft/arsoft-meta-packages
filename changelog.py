@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.158', 'urgency':'low',
+        'items':['add nvidia-367 to graphicsdrivers'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 21 May 2016 08:11:47 +0200'
+    },
+    {
         'version':'2.157', 'urgency':'low',
         'items':['add JDK headless package'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 18 May 2016 13:03:42 +0200'
