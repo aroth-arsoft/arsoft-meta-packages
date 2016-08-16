@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.159', 'urgency':'low',
+        'items':['add nvidia-370 to graphicsdrivers'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 16 Aug 2016 19:17:02 +0200'
+    },
+    {
         'version':'2.158', 'urgency':'low',
         'items':['add nvidia-367 to graphicsdrivers'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 21 May 2016 08:11:47 +0200'
