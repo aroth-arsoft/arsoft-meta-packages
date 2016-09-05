@@ -5,6 +5,16 @@
 package_changelog = [
 
     {
+        'version':'2.161', 'urgency':'low',
+        'items':['do not require kget package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 05 Sep 2016 09:30:30 +0200'
+    },
+    {
+        'version':'2.160', 'urgency':'low',
+        'items':['do not require kdevelop-dbg package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 17 Aug 2016 18:39:31 +0200'
+    },
+    {
         'version':'2.159', 'urgency':'low',
         'items':['add nvidia-370 to graphicsdrivers'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 16 Aug 2016 19:17:02 +0200'

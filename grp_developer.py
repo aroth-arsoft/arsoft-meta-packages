@@ -39,7 +39,7 @@ developer = [
     'description':'include KDevelop and the following plugins: python, php',
     'depends':['kde'],
     'side-by-side':['gnome', 'kde', 'qt'],
-    'packages':[ 'kdevelop', 'kdevelop-dbg', 'kdevelop-l10n',
+    'packages':[ 'kdevelop', 'kdevelop-l10n',
 #                'kdev-python',
  #               'kdevelop-php', 'kdevelop-php-l10n',
                 'c-cpp-reference'],

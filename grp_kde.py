@@ -37,16 +37,11 @@ kde = [
                         'kde-config-cron',
                         'phonon4qt5-backend-vlc',
                         ],
-    'packages-wily': ['kde-config-gtk-style', 'user-manager', 'plasma-discover-updater', 'plasma-discover', 'about-distro',
-                       'baloo-kf5', 'polkit-kde-agent-1',
-                       'phonon4qt5-backend-vlc',
-                    ],
     'packages-xenial': ['kde-config-gtk-style', 'user-manager', 'plasma-discover-updater', 'plasma-discover', 'about-distro',
                        'baloo-kf5', 'polkit-kde-agent-1',
                        'phonon4qt5-backend-vlc',
                     ],
     'conflicts':['phonon-backend-xine', 'kpackagekit'],
-    'conflicts-wily':['phonon-backend-vlc'],
     },
     {'name':'desktop', 
     'shortdesc':'Installs KDE for regular desktop PCs', 
@@ -72,7 +67,7 @@ kde = [
                 'kdepim',
                 # list some kdepim packages explicit because we want to remove them when arsoft-kde-none is installed
                 'akregator', 'kaddressbook', 'kalarm', 'kmail', 'knotes', 'konsolekalendar', 'kontact', 'korganizer', 'blogilo',
-                'kleopatra', 'kget', 'kgpg',
+                'kleopatra', 'kgpg',
                 'akonadiconsole',
                 # chat packages
                 'kopete', 'kopete-message-indicator', 'konversation',
@@ -86,8 +81,6 @@ kde = [
     'packages-trusty': [
                 # plasma desktop edition
                 'plasma-widgets-workspace', 'kdeplasma-addons',
-                ],
-    'packages-wily': [
                 ],
     'packages-xenial': [
                 ],
