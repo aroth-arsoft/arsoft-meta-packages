@@ -41,6 +41,10 @@ kde = [
                        'baloo-kf5', 'polkit-kde-agent-1',
                        'phonon4qt5-backend-vlc',
                     ],
+    'packages-yakkety': ['kde-config-gtk-style', 'user-manager', 'plasma-discover-updater', 'plasma-discover', 'about-distro',
+                       'baloo-kf5', 'polkit-kde-agent-1',
+                       'phonon4qt5-backend-vlc',
+                    ],
     'conflicts':['phonon-backend-xine', 'kpackagekit'],
     },
     {'name':'desktop', 
@@ -83,6 +87,8 @@ kde = [
                 'plasma-widgets-workspace', 'kdeplasma-addons',
                 ],
     'packages-xenial': [
+                ],
+    'packages-yakkety': [
                 ],
     },
     {'name':'english', 

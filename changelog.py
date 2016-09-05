@@ -6,7 +6,7 @@ package_changelog = [
 
     {
         'version':'2.161', 'urgency':'low',
-        'items':['do not require kget package'],
+        'items':['do not require kget package', 'drop wily depends', 'start on yakkety packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 05 Sep 2016 09:30:30 +0200'
     },
     {
