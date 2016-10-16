@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.164', 'urgency':'low',
+        'items':['fixed KDE packages on yakkety'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 16 Oct 2016 12:26:09 +0200'
+    },
+    {
         'version':'2.163', 'urgency':'low',
         'items':['add clamav package'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 16 Oct 2016 11:55:58 +0200'
