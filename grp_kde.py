@@ -41,7 +41,7 @@ kde = [
                        'baloo-kf5', 'polkit-kde-agent-1',
                        'phonon4qt5-backend-vlc',
                     ],
-    'packages-yakkety': ['kde-config-gtk-style', 'user-manager', 'plasma-discover-updater', 'plasma-discover', 'about-distro',
+    'packages-yakkety': ['kde-config-gtk-style', 'user-manager', 'plasma-discover', 'about-distro',
                        'baloo-kf5', 'polkit-kde-agent-1',
                        'phonon4qt5-backend-vlc',
                     ],
