@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.163', 'urgency':'low',
+        'items':['add clamav package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 16 Oct 2016 11:55:58 +0200'
+    },
+    {
         'version':'2.162', 'urgency':'low',
         'items':['drop plasma-discover-updater on yakkety'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 16 Oct 2016 09:11:34 +0200'
