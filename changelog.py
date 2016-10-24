@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.165', 'urgency':'low',
+        'items':['add nvidia-375 drivers'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 24 Oct 2016 19:14:28 +0200'
+    },
+    {
         'version':'2.164', 'urgency':'low',
         'items':['fixed KDE packages on yakkety'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 16 Oct 2016 12:26:09 +0200'
