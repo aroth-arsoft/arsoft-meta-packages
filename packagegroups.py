@@ -36,6 +36,7 @@ from grp_roundcube import roundcube
 from grp_trac import trac
 from grp_cups import cups
 from grp_clamav import clamav
+from grp_sssd import sssd
 
 all_package_groups = [
     ('arsoft-gfx', graphicsdrivers, {} ),
@@ -72,4 +73,5 @@ all_package_groups = [
     ('arsoft-trac', trac, {} ),
     ('arsoft-cups', cups, {} ),
     ('arsoft-clamav', clamav, {} ),
+    ('arsoft-sssd', sssd, {} ),
 ]

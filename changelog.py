@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.166', 'urgency':'low',
+        'items':['add lucene to dovecot', 'add sssd package group'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 06 Jan 2017 10:45:40 +0100'
+    },
+    {
         'version':'2.165', 'urgency':'low',
         'items':['add nvidia-375 drivers'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 24 Oct 2016 19:14:28 +0200'
