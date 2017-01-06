@@ -21,11 +21,12 @@ all_distributions = {
     'wily':'15.10',
     'xenial':'16.04',
     'yakkety':'16.10',
+    'zesty':'17.04',
 }
 
-default_distributions = ['precise', 'trusty', 'xenial', 'yakkety']
+default_distributions = ['precise', 'trusty', 'xenial', 'yakkety', 'zesty']
 source_package_name = 'arsoft-meta-packages'
 package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
 package_homepage = 'https://github.com/aroth-arsoft/arsoft-meta-packages'
-package_debhelper = 5
-package_standardsversions = '3.9.6'
+package_debhelper = 9
+package_standardsversions = '3.9.8'
