@@ -8,7 +8,7 @@ dovecot = [
     'shortdesc':'Installs the latest version of the Dovecot mail server',
     'description':'', 
     'packages':['dovecot-core', 'dovecot-antispam', 'dovecot-imapd', 'dovecot-pop3d',
-                'dovecot-gssapi', 'dovecot-lmtpd', 'dovecot-managesieved', 'dovecot-solr' ]
+                'dovecot-gssapi', 'dovecot-lmtpd', 'dovecot-managesieved', 'dovecot-solr', 'dovecot-lucene' ]
     },
     {'name':'mysql',
     'shortdesc':'Installs the latest version of the Dovecot mail server with MySQL support',
