@@ -37,7 +37,7 @@ kde = [
                         'kde-config-cron',
                         'phonon4qt5-backend-vlc',
                         ],
-    'packages-xenial': ['kde-config-gtk-style', 'user-manager', 'plasma-discover-updater', 'plasma-discover', 'about-distro',
+    'packages-xenial': ['kde-config-gtk-style', 'user-manager', 'plasma-discover', 'about-distro',
                        'baloo-kf5', 'polkit-kde-agent-1',
                        'phonon-backend-gstreamer',
                        'phonon4qt5-backend-gstreamer',

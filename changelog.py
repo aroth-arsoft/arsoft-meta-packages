@@ -5,6 +5,16 @@
 package_changelog = [
 
     {
+        'version':'2.168', 'urgency':'low',
+        'items':['add nvidia-378 drivers'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 19 Jan 2017 06:22:20 +0100'
+    },
+    {
+        'version':'2.167', 'urgency':'low',
+        'items':['fixed depends for latest kubuntu packages on xenial'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 08 Jan 2017 14:23:41 +0100'
+    },
+    {
         'version':'2.166', 'urgency':'low',
         'items':['add lucene to dovecot', 'add sssd package group'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 06 Jan 2017 10:45:40 +0100'
