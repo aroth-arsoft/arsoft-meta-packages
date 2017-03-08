@@ -4,6 +4,12 @@
 
 package_changelog = [
 
+
+    {
+        'version':'2.169', 'urgency':'low',
+        'items':['fixed firefox package depends'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 08 Mar 2017 16:16:48 +0100'
+    },
     {
         'version':'2.168', 'urgency':'low',
         'items':['add nvidia-378 drivers'],
