@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.171', 'urgency':'low',
+        'items':['drop dovecot-lucene because not included in Ubuntu'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 12 Apr 2017 09:36:18 +0200'
+    },
+    {
         'version':'2.170', 'urgency':'low',
         'items':['add nvidia-381 drivers'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 06 Apr 2017 18:24:38 +0200'
