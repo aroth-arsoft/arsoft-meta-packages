@@ -57,7 +57,7 @@ kde = [
     'side-by-side':['english', 'german'],
     'packages':[
                 # multimedia packages
-                'amarok', 'gwenview', 'soundkonverter',
+                'gwenview', 'soundkonverter',
                 'kipi-plugins', 'digikam',
                 # list some kdegames packages explicit because we want to remove them when arsoft-kde-none is installed
                 'bomber', 'bovo', 'kajongg', 'palapeli',

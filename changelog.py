@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.172', 'urgency':'low',
+        'items':['drop amarok from KDE packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 13 Apr 2017 07:49:02 +0200'
+    },
+    {
         'version':'2.171', 'urgency':'low',
         'items':['drop dovecot-lucene because not included in Ubuntu'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 12 Apr 2017 09:36:18 +0200'
