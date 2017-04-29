@@ -8,7 +8,6 @@ thunderbird = [
     'shortdesc':'Installs the latest version of Mozilla Thunderbird', 
     'description':'', 
     'packages':['thunderbird', 'thunderbird-locale-en', 'thunderbird-locale-de',
-                'browser-plugin-packagekit',
                 'xul-ext-lightning', 'xul-ext-gdata-provider']
     },
     {'name':'none', 

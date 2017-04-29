@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.173', 'urgency':'low',
+        'items':['remove browser-plugin-packagekit from thunderbird', 'remove soundkonverter'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 29 Apr 2017 08:41:58 +0200'
+    },
+    {
         'version':'2.172', 'urgency':'low',
         'items':['drop amarok from KDE packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 13 Apr 2017 07:49:02 +0200'
