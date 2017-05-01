@@ -27,7 +27,6 @@ kde = [
                 'rekonq',
                 'print-manager',
                 ],
-    'packages-precise': ['kde-config-gtk', 'phonon-backend-vlc'],
     'packages-trusty': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'muon-notifier', 'about-distro',
                         'kde-workspace', 'kde-baseapps', 'kde-plasma-desktop',
                         'strigi-client', 'strigi-daemon', 'polkit-kde-1', 'khelpcenter4',
@@ -44,6 +43,16 @@ kde = [
                        'ksnapshot'
                     ],
     'packages-yakkety': ['kde-config-gtk-style', 'user-manager', 'plasma-discover', 'about-distro',
+                       'baloo-kf5', 'polkit-kde-agent-1',
+                       'phonon-backend-gstreamer',
+                       'phonon4qt5-backend-gstreamer',
+                    ],
+    'packages-zesty': ['kde-config-gtk-style', 'user-manager', 'plasma-discover', 'about-distro',
+                       'baloo-kf5', 'polkit-kde-agent-1',
+                       'phonon-backend-gstreamer',
+                       'phonon4qt5-backend-gstreamer',
+                    ],
+    'packages-artful': ['kde-config-gtk-style', 'user-manager', 'plasma-discover', 'about-distro',
                        'baloo-kf5', 'polkit-kde-agent-1',
                        'phonon-backend-gstreamer',
                        'phonon4qt5-backend-gstreamer',
@@ -92,6 +101,10 @@ kde = [
     'packages-xenial': [
                 ],
     'packages-yakkety': [
+                ],
+    'packages-zesty': [
+                ],
+    'packages-artful': [
                 ],
     },
     {'name':'english', 

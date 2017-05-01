@@ -7,8 +7,7 @@ googleearth = [
     'mainpackage':True,
     'shortdesc':'Installs the latest version of Google Earth', 
     'description':'', 
-    'packages-trusty':[('google-earth-stable:i386', 'google-earth-stable:amd64', 'google-earth-stable', 'googleearth', 'googleearth-package')],
-    'packages-precise':[('google-earth-stable', 'googleearth', 'googleearth-package')],
+    'packages':[('google-earth-stable:i386', 'google-earth-stable:amd64', 'google-earth-stable', 'googleearth', 'googleearth-package')],
     'conflicts':[]
     },
     {'name':'none', 

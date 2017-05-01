@@ -8,11 +8,15 @@ developer = [
     'shortdesc':'maintains the the basic set of development tools', 
     'description':'basic development tools', 
     'packages':[ 'libc6-dev', 'manpages-dev',
-                'gcc', 'g++', 'make', 'ack-grep',
+                'gcc', 'g++', 'make',
                 'cmake', 'cmake-curses-gui', 
                 'dpkg-dev', 'devscripts', 'cdbs', 'debhelper', 'quilt',
                 'git', 'git-svn', 'subversion',
                 ],
+    'packages-xenial':['ack-grep'],
+    'packages-yakkety':['ack-grep'],
+    'packages-zesty':['ack'],
+    'packages-artful':['ack'],
     },
     {'name':'qt',
     'shortdesc':'Installs Qt development tools',
@@ -21,7 +25,6 @@ developer = [
     'side-by-side':['gnome', 'kde', 'kdevelop'],
     'packages':[
                 'cmake-qt-gui', 'valkyrie', 
-                'qt4-dev-tools', 'qt4-doc', 'qt4-doc-html', 'qt4-designer', 'qt4-linguist-tools',
                 'qttools5-dev-tools',
                 ]
     },
@@ -40,9 +43,9 @@ developer = [
     'depends':['kde'],
     'side-by-side':['gnome', 'kde', 'qt'],
     'packages':[ 'kdevelop', 'kdevelop-l10n',
-#                'kdev-python',
- #               'kdevelop-php', 'kdevelop-php-l10n',
-                'c-cpp-reference'],
+                 'kdevelop-python', 'kdevelop-python-l10n',
+                 'kdevelop-php', 'kdevelop-php-l10n',
+                 'c-cpp-reference'],
     },
     {'name':'gnome', 
     'shortdesc':'Installs GNOME development tools', 
@@ -54,7 +57,7 @@ developer = [
     {'name':'none', 
     'shortdesc':'removes all development tools.', 
     'description':'This package removes all development tools.', 
-    'packages':[], 
-    'noconflicts':['gcc', 'make','libc6-dev','subversion', 'git', 'git-svn', 'debhelper', 'quilt', 'ack-grep']
+    'packages':[],
+    'noconflicts':['gcc', 'make','libc6-dev', 'subversion', 'git', 'git-svn', 'debhelper', 'quilt', 'ack-grep', 'ack']
     },
 ]

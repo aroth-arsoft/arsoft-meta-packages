@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.174', 'urgency':'low',
+        'items':['clean up package list', 'add missing zesty package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 01 May 2017 08:44:05 +0200'
+    },
+    {
         'version':'2.173', 'urgency':'low',
         'items':['remove browser-plugin-packagekit from thunderbird', 'remove soundkonverter'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 29 Apr 2017 08:41:58 +0200'

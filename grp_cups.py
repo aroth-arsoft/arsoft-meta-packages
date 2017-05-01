@@ -16,6 +16,8 @@ cups = [
     'packages':['cups', 'printer-driver-postscript-hp', 'printer-driver-hpijs'],
     'packages-xenial':['printer-driver-cups-pdf'],
     'packages-yakkety':['printer-driver-cups-pdf'],
+    'packages-zesty':['printer-driver-cups-pdf'],
+    'packages-artful':['printer-driver-cups-pdf'],
     },
     {'name':'none',
     'shortdesc':'Uninstalls cups',
