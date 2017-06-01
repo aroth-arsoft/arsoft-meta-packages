@@ -23,7 +23,7 @@ libreoffice = [
     'description':'', 
     'depends':['common'],
     'side-by-side':['german', 'gnome', 'kde'],
-    'packages':['aspell-en', 'wamerican-large', 'wbritish-large',
+    'packages':['aspell-en', 'wamerican-large', 'wbritish-large', 'mythes-en-us', 'mythes-en-au',
                 'libreoffice-l10n-en-gb',
         ] 
     },
@@ -32,7 +32,7 @@ libreoffice = [
     'description':'', 
     'depends':['common'],
     'side-by-side':['english', 'gnome', 'kde'],
-    'packages':['wngerman', 'aspell-de', 
+    'packages':['wngerman', 'aspell-de', 'mythes-de',
         'libreoffice-l10n-de'
         ] 
     },
@@ -57,6 +57,7 @@ libreoffice = [
     'noconflicts':['pstoedit', 
                     'hunspell-dictionary', 'myspell-dictionary', 
                     'aspell-en', 'wamerican-large', 'wbritish-large', 
+                    'mythes-en-us', 'mythes-en-au', 'mythes-de',
                     'wngerman', 'aspell-de']
     },
 ]

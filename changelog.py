@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.175', 'urgency':'low',
+        'items':['more language packages for libreoffice'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 01 Jun 2017 18:41:12 +0200'
+    },
+    {
         'version':'2.174', 'urgency':'low',
         'items':['clean up package list', 'add missing zesty package'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 01 May 2017 08:44:05 +0200'
