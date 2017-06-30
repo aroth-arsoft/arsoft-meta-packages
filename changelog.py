@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.176', 'urgency':'low',
+        'items':['add nvidia-384 drivers'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 30 Jun 2017 06:34:15 +0200'
+    },
+    {
         'version':'2.175', 'urgency':'low',
         'items':['more language packages for libreoffice'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 01 Jun 2017 18:41:12 +0200'
