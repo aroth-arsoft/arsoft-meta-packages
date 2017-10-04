@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.177', 'urgency':'low',
+        'items':['add nvidia-387 drivers'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 04 Oct 2017 18:57:24 +0200'
+    },
+    {
         'version':'2.176', 'urgency':'low',
         'items':['add nvidia-384 drivers'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 30 Jun 2017 06:34:15 +0200'
