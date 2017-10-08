@@ -44,3 +44,4 @@ nosetests.xml
 /*.tar.gz
 /*.tar.xz
 /arsoft-meta-packages-*
+*.buildinfo

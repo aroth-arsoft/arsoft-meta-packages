@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.178', 'urgency':'low',
+        'items':['remove kdepim package'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 08 Oct 2017 12:44:35 +0200'
+    },
+    {
         'version':'2.177', 'urgency':'low',
         'items':['add nvidia-387 drivers'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 04 Oct 2017 18:57:24 +0200'

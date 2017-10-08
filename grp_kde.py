@@ -79,8 +79,6 @@ kde = [
                 'ksudoku', 'ktuberling', 'kubrick', 'lskat',
                 # problematic game
                 #'granatier', 
-                # kdepim packages
-                'kdepim',
                 # list some kdepim packages explicit because we want to remove them when arsoft-kde-none is installed
                 'akregator', 'kaddressbook', 'kalarm', 'kmail', 'knotes', 'konsolekalendar', 'kontact', 'korganizer', 'blogilo',
                 'kleopatra', 'kgpg',
