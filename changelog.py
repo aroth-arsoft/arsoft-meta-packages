@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.179', 'urgency':'low',
+        'items':['add nvidia-390 drivers'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 01 Dec 2017 06:47:34 +0100'
+    },
+    {
         'version':'2.178', 'urgency':'low',
         'items':['remove kdepim package'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 08 Oct 2017 12:44:35 +0200'
