@@ -23,9 +23,10 @@ all_distributions = {
     'yakkety':'16.10',
     'zesty':'17.04',
     'artful':'17.10',
+    'bionic':'18.04',
 }
 
-default_distributions = ['trusty', 'xenial', 'zesty', 'artful']
+default_distributions = ['trusty', 'xenial', 'artful', 'bionic']
 source_package_name = 'arsoft-meta-packages'
 package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
 package_homepage = 'https://github.com/aroth-arsoft/arsoft-meta-packages'

@@ -42,16 +42,6 @@ kde = [
                        'phonon4qt5-backend-gstreamer',
                        'ksnapshot'
                     ],
-    'packages-yakkety': ['kde-config-gtk-style', 'user-manager', 'plasma-discover', 'about-distro',
-                       'baloo-kf5', 'polkit-kde-agent-1',
-                       'phonon-backend-gstreamer',
-                       'phonon4qt5-backend-gstreamer',
-                    ],
-    'packages-zesty': ['kde-config-gtk-style', 'user-manager', 'plasma-discover', 'about-distro',
-                       'baloo-kf5', 'polkit-kde-agent-1',
-                       'phonon-backend-gstreamer',
-                       'phonon4qt5-backend-gstreamer',
-                    ],
     'packages-artful': ['kde-config-gtk-style', 'user-manager', 'plasma-discover', 'about-distro',
                        'baloo-kf5', 'polkit-kde-agent-1',
                        'phonon-backend-gstreamer',
@@ -97,10 +87,6 @@ kde = [
                 'plasma-widgets-workspace', 'kdeplasma-addons',
                 ],
     'packages-xenial': [
-                ],
-    'packages-yakkety': [
-                ],
-    'packages-zesty': [
                 ],
     'packages-artful': [
                 ],

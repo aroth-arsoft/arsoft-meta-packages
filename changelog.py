@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.180', 'urgency':'low',
+        'items':['remove yakkety and zesty'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 25 Feb 2018 08:16:34 +0100'
+    },
+    {
         'version':'2.179', 'urgency':'low',
         'items':['add nvidia-390 drivers'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 01 Dec 2017 06:47:34 +0100'
