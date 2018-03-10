@@ -7,7 +7,7 @@ sddm = [
     'mainpackage':True,
     'shortdesc':'Installs the latest version of Simple Desktop Display Manager (SDDM)',
     'description':'', 
-    'packages':['sddm', 'sddm-theme-elarun', 'sddm-theme-maldives', 'sddm-theme-maui', 'sddm-theme-breeze']
+    'packages':['sddm', 'sddm-theme-elarun', 'sddm-theme-maldives', 'sddm-theme-maui', 'sddm-theme-breeze'],
     'packages-xenial': ['sddm-theme-circles' ],
     'packages-bionic': ['sddm-theme-debian-elarun', 'sddm-theme-debian-maui', 'sddm-theme-maya'],
     },
