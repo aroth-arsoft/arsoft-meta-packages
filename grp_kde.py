@@ -47,6 +47,11 @@ kde = [
                        'phonon-backend-gstreamer',
                        'phonon4qt5-backend-gstreamer',
                     ],
+    'packages-bionic': ['kde-config-gtk-style', 'user-manager', 'plasma-discover', 'about-distro',
+                       'baloo-kf5', 'polkit-kde-agent-1',
+                       'phonon-backend-gstreamer',
+                       'phonon4qt5-backend-gstreamer',
+                    ],
     'conflicts':['phonon-backend-xine', 'kpackagekit'],
     },
     {'name':'desktop', 
@@ -89,6 +94,8 @@ kde = [
     'packages-xenial': [
                 ],
     'packages-artful': [
+                ],
+    'packages-bionic': [
                 ],
     },
     {'name':'english', 

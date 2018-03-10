@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.181', 'urgency':'low',
+        'items':['prepare for bionic'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 10 Mar 2018 08:49:55 +0100'
+    },
+    {
         'version':'2.180', 'urgency':'low',
         'items':['remove yakkety and zesty'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 25 Feb 2018 08:16:34 +0100'
