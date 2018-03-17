@@ -12,19 +12,17 @@ kde = [
     'description':'', 
     'packages':['arsoft-desktop',
                 'plasma-desktop',
-                'konsole', 'konqueror', 'kdesudo', 'kate',
+                'konsole', 'kdesudo', 'kate',
                 'dolphin', 'kscreen',
                 'systemsettings',
                 'kubuntu-notification-helper',
-                'oxygen-icon-theme', 'kde-zeroconf', 'kdepim-runtime', 'akonadi-server',
-                'soprano-daemon',
-                'update-manager-kde', 'kmix', 'bluedevil',
+                'oxygen-icon-theme', 'kdepim-runtime', 'akonadi-server',
+                'bluedevil',
                 'apturl-kde', 'ksshaskpass', 'kwalletmanager',
                 'ark', 'okular', 'okular-extra-backends', 'ksystemlog', 'krusader', 'krename', 'krdc',
                 # temporary remove of krfb because of libkpeople3/libkpeople4 trouble
                 # 'krfb',
-                'dragonplayer', 'filelight',
-                'rekonq',
+                'filelight',
                 'print-manager',
                 ],
     'packages-trusty': ['kde-config-gtk-style', 'user-manager', 'muon-discover', 'muon-notifier', 'about-distro',
@@ -75,7 +73,7 @@ kde = [
                 # problematic game
                 #'granatier', 
                 # list some kdepim packages explicit because we want to remove them when arsoft-kde-none is installed
-                'akregator', 'kaddressbook', 'kalarm', 'kmail', 'knotes', 'konsolekalendar', 'kontact', 'korganizer', 'blogilo',
+                'akregator', 'kaddressbook', 'kalarm', 'kmail', 'knotes', 'konsolekalendar', 'kontact', 'korganizer',
                 'kleopatra', 'kgpg',
                 'akonadiconsole',
                 # chat packages
