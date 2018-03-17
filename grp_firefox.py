@@ -9,13 +9,13 @@ firefox = [
     'description':'', 
     'packages':['firefox', 'firefox-launchpad-plugin', 'xul-ext-ubufox',
                 'firefox-locale-en', 'firefox-locale-de',
-                'browser-plugin-vlc', 'icedtea-plugin'],
+                'browser-plugin-vlc'],
     'conflicts': ['gnash', 'gnash-common', 'browser-plugin-gnash'],
     },
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of Mozilla Firefox', 
     'description':'', 
     'packages':[], 
-    'noconflicts':['browser-plugin-vlc', 'icedtea-plugin']
+    'noconflicts':['browser-plugin-vlc']
     },
 ]

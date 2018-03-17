@@ -16,8 +16,8 @@ graphicsdrivers = [
              'nvidia-349', 'nvidia-346', 'nvidia-343', 'nvidia-340',
              'nvidia-337', 'nvidia-334', 'nvidia-331',
              'nvidia-325', 'nvidia-319', 'nvidia-313', 'nvidia-304'),
-            ('nvidia-settings'),
-            'v86d', 'vdpau-va-driver'],
+            ('nvidia-settings')
+            ],
         'conflicts': ['nvidia-settings-331','nvidia-settings-325','nvidia-settings-319','nvidia-settings-313','nvidia-settings-304'],
         'noconflicts':['fglrx']
     },

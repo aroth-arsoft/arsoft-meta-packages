@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.182', 'urgency':'low',
+        'items':['remove obsolete packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 17 Mar 2018 10:58:12 +0100'
+    },
+    {
         'version':'2.181', 'urgency':'low',
         'items':['prepare for bionic'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 10 Mar 2018 08:49:55 +0100'
