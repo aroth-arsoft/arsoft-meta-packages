@@ -18,7 +18,7 @@ kde = [
                 'kubuntu-notification-helper',
                 'oxygen-icon-theme', 'kdepim-runtime', 'akonadi-server',
                 'bluedevil',
-                'apturl-kde', 'ksshaskpass', 'kwalletmanager',
+                'ksshaskpass', 'kwalletmanager',
                 'ark', 'okular', 'okular-extra-backends', 'ksystemlog', 'krusader', 'krename', 'krdc',
                 # temporary remove of krfb because of libkpeople3/libkpeople4 trouble
                 # 'krfb',
@@ -77,7 +77,7 @@ kde = [
                 'kleopatra', 'kgpg',
                 'akonadiconsole',
                 # chat packages
-                'kopete', 'kopete-message-indicator', 'konversation',
+                'kopete', 'konversation',
                 # burning packages
                 'k3b',
                 # Hex editor

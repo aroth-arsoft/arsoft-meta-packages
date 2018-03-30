@@ -5,6 +5,16 @@
 package_changelog = [
 
     {
+        'version':'2.184', 'urgency':'low',
+        'items':['fix missing KDE packages on bionic'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 30 Mar 2018 08:42:01 +0200'
+    },
+    {
+        'version':'2.183', 'urgency':'low',
+        'items':['fix missing packages on bionic'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sun, 18 Mar 2018 09:17:50 +0100'
+    },
+    {
         'version':'2.182', 'urgency':'low',
         'items':['remove obsolete packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 17 Mar 2018 10:58:12 +0100'
