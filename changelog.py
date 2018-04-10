@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.185', 'urgency':'low',
+        'items':['add nvidia-396'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 10 Apr 2018 19:10:22 +0200'
+    },
+    {
         'version':'2.184', 'urgency':'low',
         'items':['fix missing KDE packages on bionic'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 30 Mar 2018 08:42:01 +0200'
