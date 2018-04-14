@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.186', 'urgency':'low',
+        'items':['use new nvidia-driver-version packages on bionic'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 14 Apr 2018 08:02:30 +0200'
+    },
+    {
         'version':'2.185', 'urgency':'low',
         'items':['add nvidia-396'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 10 Apr 2018 19:10:22 +0200'
