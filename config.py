@@ -24,6 +24,7 @@ all_distributions = {
     'zesty':'17.04',
     'artful':'17.10',
     'bionic':'18.04',
+    'cosmic':'18.10',
 }
 
 default_distributions = ['trusty', 'xenial', 'artful', 'bionic']
