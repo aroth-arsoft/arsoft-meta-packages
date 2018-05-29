@@ -32,4 +32,4 @@ source_package_name = 'arsoft-meta-packages'
 package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
 package_homepage = 'https://github.com/aroth-arsoft/arsoft-meta-packages'
 package_debhelper = 9
-package_standardsversions = '3.9.8'
+package_standardsversions = '4.1.4'

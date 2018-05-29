@@ -11,6 +11,7 @@ trac = [
                 'trac-mastertickets', 'trac-workflowadmin', 'trac-xmlrpc', 'trac-advancedworkflow', 'trac-announcer',
                 'trac-navadd', 'trac-customfieldadmin', 'trac-iniadmin',
                 'trac-hudson', 'trac-timingandestimation', 'trac-crashdump',
+                'trac-clients',
                 'arsoft-trac-commitupdater'
                 ]
     },

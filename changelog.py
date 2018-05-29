@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.187', 'urgency':'low',
+        'items':['add trac clients plugin'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 29 May 2018 06:34:39 +0200'
+    },
+    {
         'version':'2.186', 'urgency':'low',
         'items':['use new nvidia-driver-version packages on bionic'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 14 Apr 2018 08:02:30 +0200'
