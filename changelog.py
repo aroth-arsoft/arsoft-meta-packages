@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.188', 'urgency':'low',
+        'items':['only one generic microcode package for Intel and AMD'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 11 Jun 2018 18:41:43 +0200'
+    },
+    {
         'version':'2.187', 'urgency':'low',
         'items':['add trac clients plugin'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 29 May 2018 06:34:39 +0200'
