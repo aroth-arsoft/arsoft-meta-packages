@@ -27,7 +27,7 @@ all_distributions = {
     'cosmic':'18.10',
 }
 
-default_distributions = ['trusty', 'xenial', 'artful', 'bionic']
+default_distributions = ['trusty', 'xenial', 'bionic', 'cosmic']
 source_package_name = 'arsoft-meta-packages'
 package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
 package_homepage = 'https://github.com/aroth-arsoft/arsoft-meta-packages'
