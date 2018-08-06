@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.189', 'urgency':'low',
+        'items':['remove kdesudo from KDE packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 06 Aug 2018 06:53:15 +0200'
+    },
+    {
         'version':'2.188', 'urgency':'low',
         'items':['only one generic microcode package for Intel and AMD'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 11 Jun 2018 18:41:43 +0200'

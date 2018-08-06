@@ -12,7 +12,7 @@ kde = [
     'description':'', 
     'packages':['arsoft-desktop',
                 'plasma-desktop',
-                'konsole', 'kdesudo', 'kate',
+                'konsole', 'kate',
                 'dolphin', 'kscreen',
                 'systemsettings',
                 'kubuntu-notification-helper',
