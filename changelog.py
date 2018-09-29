@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.190', 'urgency':'low',
+        'items':['rebuild for cosmic'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 29 Sep 2018 08:40:31 +0200'
+    },
+    {
         'version':'2.189', 'urgency':'low',
         'items':['remove kdesudo from KDE packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 06 Aug 2018 06:53:15 +0200'
