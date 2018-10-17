@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.191', 'urgency':'low',
+        'items':['add nvidia-410'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 17 Oct 2018 07:21:57 +0200'
+    },
+    {
         'version':'2.190', 'urgency':'low',
         'items':['rebuild for cosmic'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 29 Sep 2018 08:40:31 +0200'
