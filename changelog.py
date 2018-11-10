@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.192', 'urgency':'low',
+        'items':['add nvidia-415'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 10 Nov 2018 11:38:36 +0100'
+    },
+    {
         'version':'2.191', 'urgency':'low',
         'items':['add nvidia-410'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 17 Oct 2018 07:21:57 +0200'
