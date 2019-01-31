@@ -36,10 +36,16 @@ graphicsdrivers = [
             ('nvidia-settings')
             ],
         'packages-cosmic':[
-            ('nvidia-driver-415',
+            ('nvidia-driver-418', 'nvidia-driver-415',
              'nvidia-driver-410',
              'nvidia-driver-396',
              'nvidia-driver-390', 'nvidia-driver-387', 'nvidia-driver-384'),
+            ('nvidia-settings')
+            ],
+        'packages-disco':[
+            ('nvidia-driver-418', 'nvidia-driver-415',
+             'nvidia-driver-410',
+             'nvidia-driver-390'),
             ('nvidia-settings')
             ],
         'noconflicts':['fglrx']
