@@ -26,9 +26,10 @@ all_distributions = {
     'bionic':'18.04',
     'cosmic':'18.10',
     'disco':'19.04',
+    'eoan':'19.10',
 }
 
-default_distributions = ['trusty', 'xenial', 'bionic', 'cosmic', 'disco']
+default_distributions = ['trusty', 'xenial', 'bionic', 'cosmic', 'disco', 'eoan']
 source_package_name = 'arsoft-meta-packages'
 package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
 package_homepage = 'https://github.com/aroth-arsoft/arsoft-meta-packages'
