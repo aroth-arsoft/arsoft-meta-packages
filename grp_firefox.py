@@ -8,14 +8,13 @@ firefox = [
     'shortdesc':'Installs the latest version of Mozilla Firefox', 
     'description':'', 
     'packages':['firefox', 'firefox-launchpad-plugin', 'xul-ext-ubufox',
-                'firefox-locale-en', 'firefox-locale-de',
-                'browser-plugin-vlc'],
+                'firefox-locale-en', 'firefox-locale-de'],
     'conflicts': ['gnash', 'gnash-common', 'browser-plugin-gnash'],
     },
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of Mozilla Firefox', 
     'description':'', 
     'packages':[], 
-    'noconflicts':['browser-plugin-vlc']
+    'noconflicts':[]
     },
 ]

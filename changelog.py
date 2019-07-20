@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.196', 'urgency':'low',
+        'items':['fixed broken firefox packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 20 Jul 2019 19:01:07 +0200'
+    },
+    {
         'version':'2.195', 'urgency':'low',
         'items':['fixed broken KDE packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 20 Jul 2019 18:55:09 +0200'
