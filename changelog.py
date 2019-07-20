@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.195', 'urgency':'low',
+        'items':['fixed broken KDE packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 20 Jul 2019 18:55:09 +0200'
+    },
+    {
         'version':'2.194', 'urgency':'low',
         'items':['add nvidia-430'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 23 May 2019 06:53:01 +0200'

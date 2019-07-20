@@ -65,7 +65,7 @@ kde = [
                 'kipi-plugins', 'digikam',
                 # list some kdegames packages explicit because we want to remove them when arsoft-kde-none is installed
                 'bomber', 'bovo', 'kajongg', 'palapeli',
-                'kapman', 'katomic', 'kbattleship', 'kblackbox',
+                'kapman', 'katomic', 'kblackbox',
                 'kblocks', 'kbounce', 'kbreakout', 'kdiamond', 'kfourinline',
                 'kgoldrunner', 'kigo', 'killbots', 'kiriki', 'kjumpingcube',
                 'klines', 'kmahjongg', 'kmines', 'knetwalk', 'kolf',
@@ -79,7 +79,9 @@ kde = [
                 'kleopatra', 'kgpg',
                 'akonadiconsole',
                 # chat packages
-                'kopete', 'konversation',
+                'konversation',
+                # remove kopete because it brakes the language packages
+                # 'kopete',
                 # burning packages
                 'k3b',
                 # Hex editor
@@ -92,8 +94,6 @@ kde = [
                 'plasma-widgets-workspace', 'kdeplasma-addons',
                 ],
     'packages-xenial': [
-                ],
-    'packages-artful': [
                 ],
     'packages-bionic': [
                 ],
