@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.197', 'urgency':'low',
+        'items':['add nvidia-435'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 15 Aug 2019 06:42:39 +0200'
+    },
+    {
         'version':'2.196', 'urgency':'low',
         'items':['fixed broken firefox packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 20 Jul 2019 19:01:07 +0200'
