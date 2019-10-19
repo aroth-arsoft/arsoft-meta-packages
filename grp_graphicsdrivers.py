@@ -36,13 +36,15 @@ graphicsdrivers = [
             ('nvidia-settings')
             ],
         'packages-disco':[
-            ('nvidia-driver-435', 'nvidia-driver-430', 'nvidia-driver-418', 'nvidia-driver-415',
+            ('nvidia-driver-440',
+             'nvidia-driver-435', 'nvidia-driver-430', 'nvidia-driver-418', 'nvidia-driver-415',
              'nvidia-driver-410',
              'nvidia-driver-390'),
             ('nvidia-settings')
             ],
         'packages-eoan':[
-            ('nvidia-driver-435', 'nvidia-driver-430', 'nvidia-driver-418', 'nvidia-driver-415',
+            ('nvidia-driver-440',
+             'nvidia-driver-435', 'nvidia-driver-430', 'nvidia-driver-418', 'nvidia-driver-415',
              'nvidia-driver-410',
              'nvidia-driver-390'),
             ('nvidia-settings')
