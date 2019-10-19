@@ -27,6 +27,7 @@ all_distributions = {
     'cosmic':'18.10',
     'disco':'19.04',
     'eoan':'19.10',
+    'focal':'20.04',
 }
 
 default_distributions = ['trusty', 'xenial', 'bionic', 'disco', 'eoan']
