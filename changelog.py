@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.199', 'urgency':'low',
+        'items':['build focal packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 13 Apr 2020 10:36:13 +0200'
+    },
+    {
         'version':'2.198', 'urgency':'low',
         'items':['add nvidia-440'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 19 Oct 2019 08:26:32 +0200'
