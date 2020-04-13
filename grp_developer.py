@@ -11,11 +11,8 @@ developer = [
                 'gcc', 'g++', 'make',
                 'cmake', 'cmake-curses-gui', 
                 'dpkg-dev', 'devscripts', 'cdbs', 'debhelper', 'quilt',
-                'git', 'git-svn', 'subversion',
+                'git', 'ack',
                 ],
-    'packages-xenial':['ack-grep'],
-    'packages-artful':['ack'],
-    'packages-bionic':['ack'],
     },
     {'name':'qt',
     'shortdesc':'Installs Qt development tools',
@@ -23,7 +20,7 @@ developer = [
     'depends':['common'],
     'side-by-side':['gnome', 'kde', 'kdevelop'],
     'packages':[
-                'cmake-qt-gui', 'valkyrie', 
+                'cmake-qt-gui',
                 'qttools5-dev-tools',
                 ]
     },
@@ -56,6 +53,6 @@ developer = [
     'shortdesc':'removes all development tools.', 
     'description':'This package removes all development tools.', 
     'packages':[],
-    'noconflicts':['gcc', 'make','libc6-dev', 'subversion', 'git', 'git-svn', 'debhelper', 'quilt', 'ack-grep', 'ack']
+    'noconflicts':['gcc', 'make','libc6-dev', 'subversion', 'git', 'git-svn', 'debhelper', 'quilt', 'ack']
     },
 ]
