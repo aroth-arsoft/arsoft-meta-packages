@@ -30,7 +30,7 @@ all_distributions = {
     'focal':'20.04',
 }
 
-default_distributions = ['trusty', 'xenial', 'bionic', 'disco', 'eoan']
+default_distributions = ['xenial', 'bionic', 'disco', 'eoan', 'focal']
 source_package_name = 'arsoft-meta-packages'
 package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
 package_homepage = 'https://github.com/aroth-arsoft/arsoft-meta-packages'
