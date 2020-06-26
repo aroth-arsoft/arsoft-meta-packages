@@ -28,6 +28,7 @@ all_distributions = {
     'disco':'19.04',
     'eoan':'19.10',
     'focal':'20.04',
+    'groovy':'20.10',
 }
 
 default_distributions = ['xenial', 'bionic', 'disco', 'eoan', 'focal']

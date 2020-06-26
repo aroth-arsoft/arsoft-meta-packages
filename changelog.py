@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.201', 'urgency':'low',
+        'items':['add nvidia-450 drivers', 'update Java packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 26 Jun 2020 06:39:39 +0200'
+    },
+    {
         'version':'2.200', 'urgency':'low',
         'items':['fix package issues on focal'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 13 Apr 2020 14:43:10 +0200'

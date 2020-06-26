@@ -49,6 +49,20 @@ graphicsdrivers = [
              'nvidia-driver-390'),
             ('nvidia-settings')
             ],
+        'packages-focal':[
+            ('nvidia-driver-450', 'nvidia-driver-440',
+             'nvidia-driver-435', 'nvidia-driver-430', 'nvidia-driver-418', 'nvidia-driver-415',
+             'nvidia-driver-410',
+             'nvidia-driver-390'),
+            ('nvidia-settings')
+            ],
+        'packages-groovy':[
+            ('nvidia-driver-450', 'nvidia-driver-440',
+             'nvidia-driver-435', 'nvidia-driver-430', 'nvidia-driver-418', 'nvidia-driver-415',
+             'nvidia-driver-410',
+             'nvidia-driver-390'),
+            ('nvidia-settings')
+            ],
         'noconflicts':['fglrx']
     },
     {'name':'nv', 'shortdesc':'Installs the free NVIDIA graphics driver', 'description':'', 'packages':['xserver-xorg-video-nv'] },
