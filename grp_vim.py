@@ -8,7 +8,7 @@ vim = [
     'shortdesc':'Installs common package for the enhanced vi editor',
     'packages':['vim', 'vim-doc', 'vim-scripts', 'vim-runtime'],
     'files': [
-        ('vim/vimrc', 'vimrc', 0644),
+        ('vim/vimrc', 'vimrc', 0o0644),
         ],
     'divert': [
         ('/etc/vim/vimrc', 'vimrc'),

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 # kate: space-indent on; indent-width 4; mixedindent off; indent-mode python;
 
@@ -124,11 +124,11 @@ class application(object):
         mydepends = set()
         for element in choices:
             if element['name'] == name:
-                if element.has_key('depends'):
+                if 'depends' in element:
                     mydepends |= set(element['depends'])
-                if element.has_key('packages'):
+                if 'packages' in element:
                     ret_packages |= set(element['packages'])
-                if element.has_key('packages-' + distribution):
+                if 'packages-' + distribution in element:
                     ret_packages |= set(element['packages-' + distribution])
                 break;
         self.debug('_calc_full_depends: ' + name + ' mydepends=' + str(mydepends))
@@ -139,7 +139,7 @@ class application(object):
                     mydep_item_real = mydep_item
                     for element in choices:
                         if mydep_item == element['name']:
-                            if element.has_key('mainpackage'):
+                            if 'mainpackage' in element:
                                 mainpackage = bool(element['mainpackage'])
                             else:
                                 mainpackage = False
@@ -160,7 +160,7 @@ class application(object):
             else:
                 for element in choices:
                     if mydep == element['name']:
-                        if element.has_key('mainpackage'):
+                        if 'mainpackage' in element:
                             mainpackage = bool(element['mainpackage'])
                         else:
                             mainpackage = False
@@ -184,7 +184,7 @@ class application(object):
         myrealname = name
         for element in choices:
             if element['name'] == name:
-                if element.has_key('mainpackage'):
+                if 'mainpackage' in element:
                     mainpackage = bool(element['mainpackage'])
                 else:
                     mainpackage = False
@@ -197,7 +197,7 @@ class application(object):
             if name != element['name']:
                 (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices, distribution)
                 if myrealname in element_depends:
-                    if element.has_key('mainpackage'):
+                    if 'mainpackage' in element:
                         mainpackage = bool(element['mainpackage'])
                     else:
                         mainpackage = False
@@ -216,7 +216,7 @@ class application(object):
         all_package_names = set()
         package_depends = {}
         for element in choices:
-            if element.has_key('mainpackage'):
+            if 'mainpackage' in element:
                 mainpackage = bool(element['mainpackage'])
             else:
                 mainpackage = False
@@ -225,14 +225,14 @@ class application(object):
             else:
                 package_name = prefix + '-' + element['name']
 
-            if element.has_key('packages'):
+            if 'packages' in element:
                 for pkg in element['packages']:
                     if isinstance(pkg, tuple):
                         for tup_elem in pkg:
                             all_packages.add(tup_elem)
                     else:
                         all_packages.add(pkg)
-            if element.has_key('packages-' + distribution):
+            if 'packages-' + distribution in element:
                 for pkg in element['packages-' + distribution]:
                     if isinstance(pkg, tuple):
                         for tup_elem in pkg:
@@ -246,7 +246,7 @@ class application(object):
         ret = ''
         for element in choices:
             internal_name = prefix + '-' + element['name']
-            if element.has_key('mainpackage'):
+            if 'mainpackage' in element:
                 mainpackage = bool(element['mainpackage'])
             else:
                 mainpackage = False
@@ -255,36 +255,36 @@ class application(object):
             else:
                 name = prefix + '-' + element['name']
 
-            if element.has_key('packages'):
+            if 'packages' in element:
                 depend_packages = set(element['packages'])
             else:
                 depend_packages = set()
-            if element.has_key('packages-' + distribution):
+            if 'packages-' + distribution in element:
                 depend_packages = depend_packages | set(element['packages-' + distribution])
 
-            if element.has_key('depends'):
+            if 'depends' in element:
                 depend_groups = set(element['depends'])
             else:
                 depend_groups = set()
-            if element.has_key('side-by-side'):
+            if 'side-by-side' in element:
                 sidebyside_packages = set(element['side-by-side'])
             else:
                 sidebyside_packages = set()
-            if element.has_key('conflicts'):
+            if 'conflicts' in element:
                 element_conflicts = set(element['conflicts'])
             else:
                 element_conflicts = set()
-            if element.has_key('conflicts-' + distribution):
+            if 'conflicts-' + distribution in element:
                 element_conflicts = element_conflicts | set(element['conflicts-' + distribution])
-            if element.has_key('replaces'):
+            if 'replaces' in element:
                 element_replaces = set(element['replaces'])
             else:
                 element_replaces = set()
-            if element.has_key('noconflicts'):
+            if 'noconflicts' in element:
                 element_noconflicts = set(element['noconflicts'])
             else:
                 element_noconflicts = set()
-            if element.has_key('noconflicts-' + distribution):
+            if 'noconflicts-' + distribution in element:
                 element_noconflicts = element_noconflicts | set(element['noconflicts-' + distribution])
 
             (element_depends, element_packages) = self._calc_full_depends(element['name'], prefix, choices, distribution)
@@ -315,7 +315,7 @@ class application(object):
             conflict_other_packages -= element_descendants_depends
             
             for dep_element in choices:
-                if dep_element.has_key('mainpackage'):
+                if 'mainpackage' in dep_element:
                     mainpackage = bool(dep_element['mainpackage'])
                 else:
                     mainpackage = False
@@ -323,15 +323,15 @@ class application(object):
                     dep_package_name = prefix
                 else:
                     dep_package_name = prefix + '-' + dep_element['name']
-                if dep_element.has_key('depends'):
+                if 'depends' in dep_element:
                     dep_depends = set(dep_element['depends'])
                 else:
                     dep_depends = set()
-                if dep_element.has_key('packages'):
+                if 'packages' in dep_element:
                     dep_element_packages = set(dep_element['packages'])
                 else:
                     dep_element_packages = set()
-                if dep_element.has_key('packages-' + distribution):
+                if 'packages-' + distribution in dep_element:
                     dep_element_packages = dep_element_packages | set(dep_element['packages-' + distribution])
 
                 if element['name'] in dep_depends:
@@ -364,7 +364,7 @@ class application(object):
                                 for dep_element in choices:
                                     if dep_element['name'] != dep_grp_elem:
                                         continue
-                                    if dep_element.has_key('mainpackage'):
+                                    if 'mainpackage' in dep_element:
                                         mainpackage = bool(dep_element['mainpackage'])
                                     else:
                                         mainpackage = False
@@ -404,11 +404,11 @@ class application(object):
             else:
                 depends = None
             if conflict_packages is not None:
-                conflicts = string.join(conflict_packages, ', ')
+                conflicts = ', '.join(conflict_packages)
             else:
                 conflicts = None
             if replace_packages is not None:
-                replaces = string.join(replace_packages, ', ')
+                replaces = ', '.join(replace_packages)
             else:
                 replaces = None
             
@@ -438,7 +438,7 @@ class application(object):
 
     def package_group_postinst(self, package_debian_dir, distribution, prefix, choices):
         for element in choices:
-            if element.has_key('mainpackage'):
+            if 'mainpackage' in element:
                 mainpackage = bool(element['mainpackage'])
             else:
                 mainpackage = False
@@ -447,7 +447,7 @@ class application(object):
             else:
                 package_name = prefix + '-' + element['name']
 
-            diverts = element['divert'] if element.has_key('divert') else []
+            diverts = element['divert'] if 'divert' in element else []
             if diverts:
                 postinst_content = "#!/bin/sh -e\nPKG=%s\nif [ \"$1\" = configure ] ; then\n" % (package_name)
                 for (div_target, div_file) in diverts:
@@ -462,7 +462,7 @@ class application(object):
                 f = open(package_postinst_file, 'w')
                 f.write(postinst_content)
                 f.close()
-                os.chmod(package_postinst_file, 0755)
+                os.chmod(package_postinst_file, 0o755)
 
                 prerm_content = "#!/bin/sh -e\nPKG=%s\nif [ \"$1\" = remove ] ; then\n" % (package_name)
                 for (div_target, div_file) in diverts:
@@ -476,12 +476,12 @@ class application(object):
                 f = open(package_prerm_file, 'w')
                 f.write(prerm_content)
                 f.close()
-                os.chmod(package_prerm_file, 0755)
+                os.chmod(package_prerm_file, 0o755)
 
     def package_group_install_files(self, package_dir, package_debian_dir, distribution, prefix, choices):
         ret = ''
         for element in choices:
-            if element.has_key('mainpackage'):
+            if 'mainpackage' in element:
                 mainpackage = bool(element['mainpackage'])
             else:
                 mainpackage = False
@@ -490,7 +490,7 @@ class application(object):
             else:
                 package_name = prefix + '-' + element['name']
 
-            files = element['files'] if element.has_key('files') else []
+            files = element['files'] if 'files' in element else []
             if files:
                 dest_dir = '/usr/share/' + package_name
                 for (src, dest, mode) in files:
@@ -519,11 +519,11 @@ class application(object):
         package_debian_changelog = package_debian_dir + '/changelog'
         package_debian_source_dir = package_debian_dir + '/source'
         if not os.path.exists(package_dir):
-            os.mkdir(package_dir, 0755)
+            os.mkdir(package_dir, 0o755)
         if not os.path.exists(package_debian_dir):
-            os.mkdir(package_debian_dir, 0755)
+            os.mkdir(package_debian_dir, 0o755)
         if not os.path.exists(package_debian_source_dir):
-            os.mkdir(package_debian_source_dir, 0755)
+            os.mkdir(package_debian_source_dir, 0o755)
 
         f = open(package_debian_source_dir + '/format', 'w')
         f.write('3.0 (native)') 
@@ -535,7 +535,7 @@ class application(object):
         
         rules_file = rules_file_header
         for (groupname, grouprules, groupopts) in all_package_groups:
-            if groupopts.has_key('distribution'):
+            if 'distribution' in groupopts:
                 groupdistribution = groupopts['distribution']
                 build_group_for_distribution = True
                 if distribution in groupdistribution:
@@ -567,7 +567,7 @@ class application(object):
         f = open(package_debian_dir + '/rules', 'w')
         f.write(rules_file) 
         f.close()
-        os.chmod(package_debian_dir + '/rules', 0755)
+        os.chmod(package_debian_dir + '/rules', 0o755)
         
         f = open(package_debian_dir + '/copyright', 'w')
         f.write(copyright_file) 
@@ -592,7 +592,7 @@ class application(object):
         distribution_verno = all_distributions[distribution]
         full_version = package_version + '~%s.%i' % (distribution_verno, distribution_release)
         for (groupname, grouprules, groupopts) in all_package_groups:
-            if groupopts.has_key('distribution'):
+            if 'distribution' in groupopts:
                 groupdistribution = groupopts['distribution']
                 build_group_for_distribution = True
                 if distribution in groupdistribution:
@@ -629,7 +629,7 @@ class application(object):
     def generate_debian_postinst(self, package_debian_dir, distribution):
 
         for (groupname, grouprules, groupopts) in all_package_groups:
-            if groupopts.has_key('distribution'):
+            if 'distribution' in groupopts:
                 groupdistribution = groupopts['distribution']
                 build_group_for_distribution = True
                 if distribution in groupdistribution:
@@ -738,7 +738,7 @@ class application(object):
         if os.path.exists(buildfile):
             os.remove(buildfile)
         if os.path.exists(targzfile):
-			os.remove(targzfile)
+            os.remove(targzfile)
         print(tarxzfile)
         if os.path.exists(tarxzfile):
             os.remove(tarxzfile)
@@ -794,20 +794,20 @@ class application(object):
 
     def debug(self, *args):
         if self.verbose:
-            print(string.join(args))
+            print(' '.join(args))
 
     def message(self, *args):
         if self.verbose:
-            print(string.join(args))
+            print(' '.join(args))
 
     def info(self, *args):
-        print(string.join(args))
+        print(' '.join(args))
 
     def warning(self, *args):
-        print(string.join(args))
+        print(' '.join(args))
             
     def error(self, *args):
-        print(string.join(args))
+        print(' '.join(args))
 
     def main(self):
 
@@ -852,17 +852,17 @@ class application(object):
             else:
                 for d in self.distributions:
                     if d not in all_distributions:
-                        print "Unknown distribution " + d + ". Abort"
+                        print("Unknown distribution " + d + ". Abort")
                         return 1
 
             for distribution in self.distributions:
                 if self.verbose:
-                    print "Prepare package for distribution " + str(distribution)
+                    print("Prepare package for distribution " + str(distribution))
                 (package_name, package_latest_full_version, package_latest_short_version) = self.get_latest_version_from_changelog(package_changelog, distribution)
 
                 if self.verbose:
-                    print "Package name: " + str(package_name)
-                    print "Package version: " + str(package_latest_short_version) + " (" + package_latest_short_version + ")"
+                    print("Package name: " + str(package_name))
+                    print("Package version: " + str(package_latest_short_version) + " (" + package_latest_short_version + ")")
 
                 (package_dir, package_debian_dir) = self.make_package_dir(None, package_name, package_latest_short_version, distribution)
                 package_debian_control = os.path.join(package_debian_dir, 'control')
@@ -876,7 +876,7 @@ class application(object):
                     if self.do_build(package_dir, binary=self.build_binary) and self.put:
                         self.do_put(package_dir, package_latest_full_version, distribution)
                 else:
-                    print "Done generating packages for " + str(distribution)
+                    print("Done generating packages for " + str(distribution))
                 if self.clean:
                     self.do_clean(package_dir, package_latest_full_version, distribution)
         return ret

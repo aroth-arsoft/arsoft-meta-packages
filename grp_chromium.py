@@ -9,7 +9,7 @@ chromium = [
     'description':'', 
     'packages':['chromium-browser', 'chromium-codecs-ffmpeg-extra'],
     'files': [
-        ('chromium/chromium-browser', 'chromium-browser', 0755),
+        ('chromium/chromium-browser', 'chromium-browser', 0o0755),
         ],
     'divert': [
         ('/usr/bin/chromium-browser', 'chromium-browser'),
