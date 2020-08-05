@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.202', 'urgency':'low',
+        'items':['add libreoffice hypenation packages'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 05 Aug 2020 19:18:22 +0200'
+    },
+    {
         'version':'2.201', 'urgency':'low',
         'items':['add nvidia-450 drivers', 'update Java packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 26 Jun 2020 06:39:39 +0200'
