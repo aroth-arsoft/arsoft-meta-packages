@@ -24,6 +24,7 @@ libreoffice = [
     'depends':['common'],
     'side-by-side':['german', 'gnome', 'kde'],
     'packages':['aspell-en', 'wamerican-large', 'wbritish-large', 'mythes-en-us', 'mythes-en-au',
+                'hyphen-en-gb', 'hyphen-en-us',
                 'libreoffice-l10n-en-gb',
         ] 
     },
@@ -32,7 +33,7 @@ libreoffice = [
     'description':'', 
     'depends':['common'],
     'side-by-side':['english', 'gnome', 'kde'],
-    'packages':['wngerman', 'aspell-de', 'mythes-de',
+    'packages':['wngerman', 'aspell-de', 'mythes-de', 'hyphen-de',
         'libreoffice-l10n-de'
         ] 
     },
@@ -58,6 +59,7 @@ libreoffice = [
                     'hunspell-dictionary', 'myspell-dictionary', 
                     'aspell-en', 'wamerican-large', 'wbritish-large', 
                     'mythes-en-us', 'mythes-en-au', 'mythes-de',
+                    'hyphen-en-gb', 'hyphen-en-us', 'hyphen-de',
                     'wngerman', 'aspell-de']
     },
 ]
