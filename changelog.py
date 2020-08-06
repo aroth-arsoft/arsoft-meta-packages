@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.203', 'urgency':'low',
+        'items':['drop custom chrome/chromium start scripts'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 06 Aug 2020 07:02:58 +0200'
+    },
+    {
         'version':'2.202', 'urgency':'low',
         'items':['add libreoffice hypenation packages'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Wed, 05 Aug 2020 19:18:22 +0200'

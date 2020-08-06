@@ -8,12 +8,6 @@ chromium = [
     'shortdesc':'Installs the latest version of Chromium', 
     'description':'', 
     'packages':['chromium-browser', 'chromium-codecs-ffmpeg-extra'],
-    'files': [
-        ('chromium/chromium-browser', 'chromium-browser', 0o0755),
-        ],
-    'divert': [
-        ('/usr/bin/chromium-browser', 'chromium-browser'),
-        ]
     },
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of Chromium', 

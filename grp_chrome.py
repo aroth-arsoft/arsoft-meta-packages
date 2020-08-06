@@ -8,14 +8,6 @@ chrome = [
     'shortdesc':'Installs the latest version of Google Chrome', 
     'packages':['google-chrome-stable'],
     'conflicts':['google-chrome-unstable', 'google-chrome-beta'],
-    'files': [
-        ('chrome/google-chrome', 'google-chrome', 0o0755),
-        ('chrome/google-chrome-stable', 'google-chrome-stable', 0o0755),
-        ],
-    'divert': [
-        ('/usr/bin/google-chrome', 'google-chrome'),
-        ('/usr/bin/google-chrome-stable', 'google-chrome-stable'),
-        ]
     },
     {'name':'none', 
     'shortdesc':'Uninstalls all versions of Google Chrome', 
