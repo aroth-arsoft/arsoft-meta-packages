@@ -13,7 +13,7 @@ libreoffice = [
         'libreoffice-base', 'libreoffice-pdfimport', 'libreoffice-base-core', 
         'libreoffice-core', 
         'libreoffice-officebean',
-        'libreoffice-style-hicontrast', 'libreoffice-style-tango',
+        'libreoffice-style-hicontrast',
         'libreoffice-style-breeze', 'libreoffice-style-oxygen',
         'hunspell-dictionary', 'myspell-dictionary', 
         'pstoedit'] 

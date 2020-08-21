@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.204', 'urgency':'low',
+        'items':['drop tango libreoffice style'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 21 Aug 2020 08:27:05 +0200'
+    },
+    {
         'version':'2.203', 'urgency':'low',
         'items':['drop custom chrome/chromium start scripts'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 06 Aug 2020 07:02:58 +0200'
