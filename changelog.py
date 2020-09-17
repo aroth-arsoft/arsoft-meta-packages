@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.205', 'urgency':'low',
+        'items':['add nvidia-455 drivers'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 17 Sep 2020 19:03:47 +0200'
+    },
+    {
         'version':'2.204', 'urgency':'low',
         'items':['drop tango libreoffice style'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 21 Aug 2020 08:27:05 +0200'
