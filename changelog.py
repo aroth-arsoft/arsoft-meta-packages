@@ -5,9 +5,14 @@
 package_changelog = [
 
     {
-        'version':'2.206', 'urgency':'low',
+        'version':'2.207', 'urgency':'low',
         'items':['add nvidia-465 and nvidia-470 drivers'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 20 Jul 2021 12:56:18 +0200'
+    },
+    {
+        'version':'2.206', 'urgency':'low',
+        'items':['drop chromium-codecs-ffmpeg-extra'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Mon, 14 Dec 2020 12:18:59 +0100'
     },
     {
         'version':'2.205', 'urgency':'low',
