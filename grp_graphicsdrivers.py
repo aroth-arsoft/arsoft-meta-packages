@@ -35,30 +35,8 @@ graphicsdrivers = [
              'nvidia-driver-390', 'nvidia-driver-387', 'nvidia-driver-384'),
             ('nvidia-settings')
             ],
-        'packages-disco':[
-            ('nvidia-driver-440',
-             'nvidia-driver-435', 'nvidia-driver-430', 'nvidia-driver-418', 'nvidia-driver-415',
-             'nvidia-driver-410',
-             'nvidia-driver-390'),
-            ('nvidia-settings')
-            ],
-        'packages-eoan':[
-            ('nvidia-driver-440',
-             'nvidia-driver-435', 'nvidia-driver-430', 'nvidia-driver-418', 'nvidia-driver-415',
-             'nvidia-driver-410',
-             'nvidia-driver-390'),
-            ('nvidia-settings')
-            ],
         'packages-focal':[
-            ('nvidia-driver-470', 'nvidia-driver-465',
-             'nvidia-driver-455', 'nvidia-driver-450', 'nvidia-driver-440',
-             'nvidia-driver-435', 'nvidia-driver-430', 'nvidia-driver-418', 'nvidia-driver-415',
-             'nvidia-driver-410',
-             'nvidia-driver-390'),
-            ('nvidia-settings')
-            ],
-        'packages-groovy':[
-            ('nvidia-driver-470', 'nvidia-driver-465',
+            ('nvidia-driver-495', 'nvidia-driver-470', 'nvidia-driver-465',
              'nvidia-driver-455', 'nvidia-driver-450', 'nvidia-driver-440',
              'nvidia-driver-435', 'nvidia-driver-430', 'nvidia-driver-418', 'nvidia-driver-415',
              'nvidia-driver-410',
@@ -66,7 +44,7 @@ graphicsdrivers = [
             ('nvidia-settings')
             ],
         'packages-hirsute':[
-            ('nvidia-driver-470', 'nvidia-driver-465',
+            ('nvidia-driver-495', 'nvidia-driver-470', 'nvidia-driver-465',
              'nvidia-driver-455', 'nvidia-driver-450', 'nvidia-driver-440',
              'nvidia-driver-435', 'nvidia-driver-430', 'nvidia-driver-418', 'nvidia-driver-415',
              'nvidia-driver-410',

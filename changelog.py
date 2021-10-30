@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.208', 'urgency':'low',
+        'items':['add nvidia-495'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Sat, 30 Oct 2021 10:18:33 +0200'
+    },
+    {
         'version':'2.207', 'urgency':'low',
         'items':['add nvidia-465 and nvidia-470 drivers'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Tue, 20 Jul 2021 12:56:18 +0200'
