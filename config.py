@@ -29,9 +29,13 @@ all_distributions = {
     'eoan':'19.10',
     'focal':'20.04',
     'groovy':'20.10',
+    'hirsute':'21.04',
+    'impish':'21.10',
+    'jammy':'22.04',
+    'kinetic':'22.10',
 }
 
-default_distributions = ['xenial', 'bionic', 'focal', 'groovy']
+default_distributions = ['bionic', 'focal', 'jammy']
 source_package_name = 'arsoft-meta-packages'
 package_maintainer = 'Andreas Roth <aroth@arsoft-online.com>'
 package_homepage = 'https://github.com/aroth-arsoft/arsoft-meta-packages'
