@@ -5,6 +5,11 @@
 package_changelog = [
 
     {
+        'version':'2.211', 'urgency':'low',
+        'items':['add nvidia-525, nvidia-535 and nvidia-545'],
+        'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Fri, 09 Jun 2023 12:54:33 +0200'
+    },
+    {
         'version':'2.210', 'urgency':'low',
         'items':['fix firefox on jammy'],
         'author':'Andreas Roth <aroth@arsoft-online.com>', 'date':'Thu, 27 Oct 2022 08:27:54 +0200'
