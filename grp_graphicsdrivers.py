@@ -36,7 +36,7 @@ graphicsdrivers = [
             ('nvidia-settings')
             ],
         'packages-focal':[
-            ('nvidia-driver-545', 'nvidia-driver-535',
+            ('nvidia-driver-550', 'nvidia-driver-545', 'nvidia-driver-535',
              'nvidia-driver-525', 'nvidia-driver-515', 'nvidia-driver-510',
              'nvidia-driver-495', 'nvidia-driver-470', 'nvidia-driver-465',
              'nvidia-driver-455', 'nvidia-driver-450', 'nvidia-driver-440',
@@ -46,7 +46,7 @@ graphicsdrivers = [
             ('nvidia-settings')
             ],
         'packages-jammy':[
-            ('nvidia-driver-545', 'nvidia-driver-535',
+            ('nvidia-driver-550', 'nvidia-driver-545', 'nvidia-driver-535',
              'nvidia-driver-525', 'nvidia-driver-515', 'nvidia-driver-510',
              'nvidia-driver-495', 'nvidia-driver-470', 'nvidia-driver-465',
              'nvidia-driver-455', 'nvidia-driver-450', 'nvidia-driver-440',
@@ -56,7 +56,7 @@ graphicsdrivers = [
             ('nvidia-settings')
             ],
         'packages-kinetic':[
-            ('nvidia-driver-545', 'nvidia-driver-535',
+            ('nvidia-driver-550', 'nvidia-driver-545', 'nvidia-driver-535',
              'nvidia-driver-525', 'nvidia-driver-515', 'nvidia-driver-510',
              'nvidia-driver-495', 'nvidia-driver-470', 'nvidia-driver-465',
              'nvidia-driver-455', 'nvidia-driver-450', 'nvidia-driver-440',
