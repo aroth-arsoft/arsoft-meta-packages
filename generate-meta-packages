@@ -11,7 +11,7 @@ import subprocess
 import re
 import shutil
 import glob
-from arsoft.utils import runcmdAndGetData
+#from arsoft.utils import runcmdAndGetData
 
 from config import *
 from changelog import package_changelog
@@ -89,6 +89,97 @@ or with the Debian GNU/Linux bash source package as the file COPYING.\n\
 If not, write to the Free Software Foundation, Inc., 51 Franklin St,\n\
 Fifth Floor, Boston, MA 02110-1301, USA.\n\
 "
+
+def runcmdAndGetData(args=[], script=None, verbose=False, outputStdErr=False, outputStdOut=False,
+                     executable=None, shell='/bin/sh',
+                     stdin=None, stdout=None, stderr=None, stderr_to_stdout=False, input=None, cwd=None, env=None,
+                     runAsUser=None, su='/bin/su'):
+
+    script_tmpfile = None
+    if script is None:
+        if args:
+            if runAsUser is None:
+                all_args = args
+            else:
+                all_args = [su, '-s', shell, '-', str(runAsUser), '-c', ' '.join(args)]
+        else:
+            raise ValueError('neither commandline nor script specified.')
+    else:
+        try:
+            script_tmpfile = tempfile.NamedTemporaryFile()
+            script_tmpfile.write(script.encode())
+        except IOError:
+            script_tmpfile = None
+
+        all_args = [str(shell)]
+        all_args.append(script_tmpfile.name)
+
+    if input is not None:
+        stdin_param = subprocess.PIPE
+    else:
+        stdin_param = stdin if stdin is not None else subprocess.PIPE
+    if stdout is not None and hasattr(stdout, '__call__'):
+        stdout_param = subprocess.PIPE
+    else:
+        stdout_param = stdout if stdout is not None else subprocess.PIPE
+    if stderr_to_stdout:
+        stderr_param = subprocess.STDOUT
+    else:
+        if stdout is not None and hasattr(stdout, '__call__'):
+            stderr_param = subprocess.PIPE
+        else:
+            stderr_param = stdout if stdout is not None else subprocess.PIPE
+    if verbose:
+        print("runcmd " + ' '.join(all_args) +
+                ' 0<%s 1>%s 2>%s' % (stdin_param, stdout_param, stderr_param)
+                    )
+
+    p = subprocess.Popen(all_args, executable=executable, stdout=stdout_param, stderr=stderr_param, stdin=stdin_param, shell=False, cwd=cwd, env=env)
+    if p:
+        if stdout is not None and hasattr(stdout, '__call__'):
+            encoding = 'CP1252' if platform.system() == 'Windows' else 'utf-8'
+            while True:
+                line = ""
+                try:
+                    line = p.stdout.readline()
+                except Exception:
+                    pass
+                try:
+                    line = line.decode(encoding)
+                except:
+                    continue
+                if not line:
+                    break
+                line = line.rstrip('\n\r')
+                stdout(line)
+            sts = p.wait()
+            stdoutdata = None
+            stderrdata = None
+        else:
+            if input:
+                (stdoutdata, stderrdata) = p.communicate(input.encode())
+            else:
+                (stdoutdata, stderrdata) = p.communicate()
+            if stdoutdata is not None and outputStdOut:
+                if int(python_major) < 3: # check for version < 3
+                    sys.stdout.write(stdoutdata)
+                    sys.stdout.flush()
+                else:
+                    sys.stdout.buffer.write(stdoutdata)
+                    sys.stdout.buffer.flush()
+            if stderrdata is not None and outputStdErr:
+                if int(python_major) < 3: # check for version < 3
+                    sys.stderr.write(stderrdata)
+                    sys.stderr.flush()
+                else:
+                    sys.stderr.buffer.write(stderrdata)
+                    sys.stderr.buffer.flush()
+            sts = p.returncode
+    else:
+        sts = -1
+        stdoutdata = None
+        stderrdata = None
+    return (sts, stdoutdata, stderrdata)
 
 class application(object):
         
