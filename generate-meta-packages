@@ -791,6 +791,7 @@ class application(object):
         args = ['debuild']
         if not binary:
             args.append('-S')
+        args.append('-d')
         (sts, stdout, stderr) = runcmdAndGetData(args, cwd=package_dir)
         if sts == 0:
             self.info("Build of " + package_dir + " successful.")
